@@ -12,6 +12,7 @@ import { SnackbarUtilsConfigurator } from './utilities';
 
 // Routes
 const Dashboard = lazy(() => import('@/pages/Dashboard/Dashboard'));
+const Register = lazy(() => import('@/pages/Register/Register'));
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
                     {/*  <Route element={<RouteGuard />}>
                     </Route> */}
                     <Route path={`dashboard/*`} element={<Dashboard />} />
+                    <Route path={`register`} element={<Register />} />
                   </Routes>
                 </BrowserRouter>
               </Provider>
