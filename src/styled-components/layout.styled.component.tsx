@@ -1,5 +1,15 @@
 import styled from 'styled-components';
 
+export const Navbar = styled.nav`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #181818;
+  color: white;
+`;
+
 export const LayoutContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -36,4 +46,18 @@ export const AppContainer = styled.div`
   justify-content: center;
   background-color: #f4f5ff;
   display: flex;
+  flex-direction: column;
+`;
+
+export const PreloaderStyle = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #181818;
+`;
+
+export const ImagePreloader = styled.img`
+  width: 30vw;
 `;
