@@ -1,9 +1,10 @@
-import { EndpointUser, User } from '@/models';
+import { FirebaseUser } from '@/models';
 
-export const createAddaptedUser = (user: EndpointUser) => {
-  const formattedUser: User = {
-    name: user.name,
-    lastName: user.last_name
+export const createAdaptedUser = (user: FirebaseUser) => {
+  const formattedUser = {
+    uid: user.uid,
+    token: user.accessToken,
+    email: user.email
   };
 
   return formattedUser;

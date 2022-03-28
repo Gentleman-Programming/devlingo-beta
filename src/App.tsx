@@ -12,6 +12,7 @@ import { SnackbarUtilsConfigurator } from './utilities';
 
 // Routes
 const Dashboard = lazy(() => import('@/pages/Dashboard/Dashboard'));
+const Login = lazy(() => import('@/pages/Login/Login'));
 
 const App = () => {
   return (
@@ -26,8 +27,9 @@ const App = () => {
                   <Routes>
                     <Route path="/" element={<Navigate to={`dashboard`} />} />
                     {/*  <Route element={<RouteGuard />}>
-                    </Route> */}
+                   </Route> */}
                     <Route path={`dashboard/*`} element={<Dashboard />} />
+                    <Route path="/login" element={<Login />} />
                   </Routes>
                 </BrowserRouter>
               </Provider>
