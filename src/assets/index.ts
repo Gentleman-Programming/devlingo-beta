@@ -1,0 +1,9 @@
+export { default as MustachiLogo } from './mustachi-pc.svg';
+export { default as MustachiFlag } from './mustache-flag.svg';
+export { default as BubbleHero1 } from './bubble-hero1.svg';
+export { default as BubbleHero2 } from './bubble-hero2.svg';
+export { default as BubbleHero3 } from './bubble-hero3.svg';
+export { default as BubbleHero4 } from './bubble-hero4.svg';
+export { default as BubbleHero5 } from './bubble-hero5.svg';
+export { default as BubbleHero6 } from './bubble-hero6.svg';
+export { default as BubbleMiddle1 } from './bubble-middle1.svg';
