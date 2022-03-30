@@ -4,7 +4,7 @@ export const MenuLayout = styled.div`
   height: calc(100vh - 5.25rem);
   width: 200px;
   padding: 1.5rem 0.75rem 0 0.75rem;
-  background-color: white;
+  background-color: #fff;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
