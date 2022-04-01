@@ -51,8 +51,8 @@ export function Mustachy() {
 			const centerX = eyeArea.left + R;
 
 			const handleMouseMove = (e: MouseEvent) => {
-				const x = (e.clientX - centerX) / 35;
-				const y = (e.clientY - centerY) / 35;
+				const x = Math.round((e.clientX - centerX) / 35);
+				const y = Math.round((e.clientY - centerY) / 35);
 
 				mustachy.current?.style.setProperty('--x', `${Math.min(30, x)}px`);
 				mustachy.current?.style.setProperty('--y', `${y}px`);
