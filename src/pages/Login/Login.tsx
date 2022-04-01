@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
+
 import { LoginPasswordAndEmail } from '@/services/firebase/firebase.service';
 import mustachi from '@/assets/mustachi.svg';
-import { PasswordRegex, EmailRegex, FirebaseUser } from '@/models';
+import { AccountCircle } from '@mui/icons-material';
 import { Input, InputType } from '@/components/Input';
 import { Form, Circle, Button, StyledLink, Mustachi } from '@/styled-components';
 import { Layout, TextCircle } from './styled-components';
@@ -16,32 +16,22 @@ import { createUser } from '@/redux/states/user';
   password: Testapp$
 */
 
-const schema = yup.object({
-  email: yup.string().matches(EmailRegex, 'ingrese un email valido').required('el email es requerido'),
-  password: yup.string().matches(PasswordRegex, 'ingrese una contraseña valida').required('debe ingresar una contraseña')
-});
-
 export const Login = () => {
   const dispatch = useDispatch();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm();
+  const { register, handleSubmit } = useForm();
   const inputProps = [
     {
       type: InputType.TEXT,
       register,
       name: 'email',
       label: 'correo electronico',
-      errors
+      Component: AccountCircle
     },
     {
       type: InputType.PASSWORD,
       register,
       name: 'password',
-      label: 'contraseña',
-      errors
+      label: 'contraseña'
     }
   ];
 
@@ -66,7 +56,7 @@ export const Login = () => {
           <Input {...props} key={props.name} />
         ))}
         <StyledLink to="/">olvide mi contraseña</StyledLink>
-        <Button type="submit">iniciar sesion</Button>
+        <Button type="submit">iniciar sesión</Button>
       </Form>
     </Layout>
   );

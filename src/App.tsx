@@ -9,8 +9,10 @@ import { RouteGuard } from './components';
 import { AppContainer } from './styled-components';
 import theme from './theme';
 import { SnackbarUtilsConfigurator } from './utilities';
+import { Preloader } from './components';
 
 // Routes
+const Home = lazy(() => import('@/pages/Home/Home'));
 const Dashboard = lazy(() => import('@/pages/Dashboard/Dashboard'));
 const Login = lazy(() => import('@/pages/Login/Login'));
 
@@ -21,13 +23,11 @@ const App = () => {
         <AppContainer className="App">
           <SnackbarProvider>
             <SnackbarUtilsConfigurator />
-            <Suspense fallback={<div>Loading ...</div>}>
+            <Suspense fallback={<Preloader />}>
               <Provider store={store}>
                 <BrowserRouter>
-                  <Routes>
-                    <Route path="/" element={<Navigate to={`dashboard`} />} />
-                    {/*  <Route element={<RouteGuard />}>
-                   </Route> */}
+                  <Routes>                    
+                    <Route path={`/`} element={<Home />} />
                     <Route path={`dashboard/*`} element={<Dashboard />} />
                     <Route path="/login" element={<Login />} />
                   </Routes>
