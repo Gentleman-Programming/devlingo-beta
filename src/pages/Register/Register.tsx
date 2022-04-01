@@ -27,7 +27,6 @@ const Register = () => {
     try {
       const newUser = await signup(newUserFormData);
       const appUser = await createAddaptedUser(newUser);
-      console.log(appUser);
     } catch (error) {}
   };
 
