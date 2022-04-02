@@ -1,7 +1,7 @@
 import { createAddaptedUser } from '@/adapters';
 import { Input } from '@/components';
 import { InputType } from '@/components/Input';
-import SignInWithProviderButton, { AuthProvider } from '@/components/register/SignInWithProviderButton';
+import SignInWithProviderButton, { AuthProvider } from '@/components/SignInWithProviderButton';
 import { useYupValidationResolver } from '@/hooks';
 import { User } from '@/models';
 import { signup } from '@/services/firebase';
