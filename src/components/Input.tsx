@@ -1,13 +1,29 @@
 import { InputError } from '@/styled-components';
 import { InputBaseProps, TextField } from '@mui/material';
-import { FieldErrors, UseFormRegister, UseFormTrigger } from 'react-hook-form';
+import {
+  FieldErrors,
+  UseFormRegister,
+  UseFormTrigger
+} from 'react-hook-form';
 import { InputAdornment, IconButton } from '@mui/material';
-import { AccountCircle, Visibility, VisibilityOff } from '@mui/icons-material';
+import {
+  Visibility,
+  VisibilityOff
+} from '@mui/icons-material';
 import { useState } from 'react';
 import { Lock } from '@mui/icons-material';
 
-const formValidation = (errors: FieldErrors, errorKey: string) => {
-  return errors[errorKey] ? <InputError className="error-message">{errors[errorKey].message}</InputError> : '';
+const formValidation = (
+  errors: FieldErrors,
+  errorKey: string
+) => {
+  return errors[errorKey] ? (
+    <InputError className="error-message">
+      {errors[errorKey].message}
+    </InputError>
+  ) : (
+    ''
+  );
 };
 
 interface InputProps {
@@ -19,7 +35,8 @@ interface InputProps {
   inputProps?: InputBaseProps['inputProps'];
   disabled?: boolean;
   trigger?: UseFormTrigger<any>;
-  Component?: JSXElement;
+  Component?: SVGElement;
+  className?: string;
 }
 
 export enum InputType {
@@ -31,13 +48,24 @@ export enum InputType {
   CHECKBOX = 'checkbox'
 }
 
-export const Input = ({ register, name, errors, label = '', type, inputProps, disabled = false, trigger, Component }: InputProps) => {
+export const Input = ({
+  register,
+  name,
+  errors,
+  label = '',
+  type,
+  inputProps,
+  disabled = false,
+  trigger,
+  Component
+}: InputProps) => {
   const [showPassword, setShowPassword] = useState(false);
   return (
     <>
       {type === 'password' ? (
         <div>
           <TextField
+            key={name}
             disabled={disabled}
             type={showPassword ? 'text' : 'password'}
             error={errors && !!errors[name]}
@@ -57,8 +85,16 @@ export const Input = ({ register, name, errors, label = '', type, inputProps, di
               ),
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton onClick={() => setShowPassword(!showPassword)}>
-                    {!showPassword ? <VisibilityOff /> : <Visibility />}
+                  <IconButton
+                    onClick={() =>
+                      setShowPassword(!showPassword)
+                    }
+                  >
+                    {!showPassword ? (
+                      <VisibilityOff />
+                    ) : (
+                      <Visibility />
+                    )}
                   </IconButton>
                 </InputAdornment>
               )
@@ -86,6 +122,7 @@ export const Input = ({ register, name, errors, label = '', type, inputProps, di
                 </InputAdornment>
               )
             }}
+            className="hola"
           />
           {errors && formValidation(errors, name)}
         </div>

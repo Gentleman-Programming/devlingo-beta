@@ -1,14 +1,16 @@
 import { useForm } from 'react-hook-form';
-
+import * as yup from 'yup';
 import { LoginPasswordAndEmail } from '@/services/firebase/firebase.service';
 import mustachi from '@/assets/mustachi.svg';
 import { AccountCircle } from '@mui/icons-material';
 import { Input, InputType } from '@/components/Input';
 import { Form, Circle, Button, StyledLink, Mustachi } from '@/styled-components';
-import { Layout, TextCircle } from './styled-components';
+import { Layout } from './styled-components';
 import { createAdaptedUser } from '@/adapters';
 import { useDispatch } from 'react-redux';
 import { createUser } from '@/redux/states/user';
+import { EmailRegex, PasswordRegex } from '@/models';
+import { useYupValidationResolver } from '@/hooks';
 
 /*
   datos de prueba en mi local (Dante)
@@ -16,22 +18,35 @@ import { createUser } from '@/redux/states/user';
   password: Testapp$
 */
 
+const schema = yup.object({
+  email: yup.string().matches(EmailRegex, 'ingrese un email valido').required('el email es requerido'),
+  password: yup.string().matches(PasswordRegex, 'ingrese una contraseña valida').required('debe ingresar una contraseña')
+});
+
 export const Login = () => {
   const dispatch = useDispatch();
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    resolver: useYupValidationResolver(schema)
+  });
   const inputProps = [
     {
       type: InputType.TEXT,
       register,
       name: 'email',
       label: 'correo electronico',
-      Component: AccountCircle
+      Component: AccountCircle,
+      errors
     },
     {
       type: InputType.PASSWORD,
       register,
       name: 'password',
-      label: 'contraseña'
+      label: 'contraseña',
+      errors
     }
   ];
 
@@ -43,17 +58,16 @@ export const Login = () => {
 
   return (
     <Layout>
-      <Circle width="1100px" heigth="1100px" left="-235px" top="-64px">
-        <TextCircle>
-          Inicia sesión para <br /> seguir mejorando tus <br /> habilidades
-        </TextCircle>
+      <Circle width="85%" heigth="140%" left="-12%" top="-5%" paddingLeft="8%">
+        Inicia sesión para <br /> seguir mejorando tus
+        <br /> habilidades
       </Circle>
-      <Circle position width="60px" heigth="60px" top="535px" left="615px" />
-      <Circle position width="163px" heigth="163px" top="-45px" left="660px" />
+      <Circle width="8%" heigth="8%" top="15%" left="-12%" />
+      <Circle width="20%" heigth="20%" top="-45%" left="-4%" />
       <Form onSubmit={handleSubmit(handleLogin)}>
         <Mustachi src={mustachi} alt="mustachi" />
         {inputProps.map((props) => (
-          <Input {...props} key={props.name} />
+          <Input {...props} />
         ))}
         <StyledLink to="/">olvide mi contraseña</StyledLink>
         <Button type="submit">iniciar sesión</Button>

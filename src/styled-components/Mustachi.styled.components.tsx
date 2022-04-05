@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const Mustachi = styled.img`
-  width: 219px;
-  height: 138.85px;
+  width: 70%;
+  height: 25%;
   position: relative;
   left: 40px;
 `;

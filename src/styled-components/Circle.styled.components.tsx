@@ -1,18 +1,30 @@
-import styled from 'styled-components';
+import styled, { CSSProperties } from 'styled-components';
+
+const size = '1029px';
+const device = `(max-width: ${size})`;
 
 export const Circle = styled.div`
-  width: ${({ width }: any) => width};
+  width: ${({ width }: CSSProperties) => width};
   height: ${({ heigth }: any) => heigth};
-  border-radius: 50%;
-  position: ${({ position }: any) => (!position ? 'relative' : 'absolute')};
-  z-index: 10;
+  left: ${({ left }: CSSProperties) => left};
+  top: ${({ top }: CSSProperties) => top};
+  padding-left: ${({ paddingLeft }: CSSProperties) => paddingLeft};
+  position: relative;
   display: flex;
+  border-radius: 50%;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 2.8em;
+  line-height: 58px;
+  z-index: 0;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   background-color: #ea1889;
-  left: ${({ left }: any) => left};
-  top: ${({ top }: any) => top};
   color: #ffffff;
+  @media ${device} {
+    display: none;
+  }
 `;
 
 export default Circle;
