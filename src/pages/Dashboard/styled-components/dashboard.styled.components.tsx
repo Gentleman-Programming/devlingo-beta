@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Background } from '../../../assets'
+import { Background } from '../../../assets';
 
 export const Main = styled.main`
   display: flex;
@@ -18,7 +18,7 @@ export const GloboCointainer = styled.div`
   position: relative;
   width: 35%;
   margin-top: -20vh;
-`
+`;
 
 export const Globo = styled.div`
   padding: 6vw 5vw;
@@ -28,18 +28,18 @@ export const Globo = styled.div`
   font-size: 2vw;
 
   &:before {
-  content:"";
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-top: 2vw solid transparent;
-  border-right: 3vw solid #fff;
-  border-bottom: 2vw solid transparent;
-  left: 20%;
-  bottom: 0;
-  transform: rotate(70deg);
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: 2vw solid transparent;
+    border-right: 3vw solid #fff;
+    border-bottom: 2vw solid transparent;
+    left: 20%;
+    bottom: 0;
+    transform: rotate(70deg);
   }
-`
+`;
 
 export const HeroButtons = styled(Link)<{ primary?: string }>`
   font-weight: bold;
