@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Background } from '../../../assets'
+import { Background } from '../../../assets';
 
 export const Main = styled.main`
   display: flex;
@@ -9,61 +9,79 @@ export const Main = styled.main`
   background-size: 120% 120%;
   background-repeat: no-repeat;
   background-position: center center;
-  width: 100%;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
 `;
 
 export const GloboCointainer = styled.div`
   position: relative;
   width: 35%;
-  margin-top: -20vh;
-`
+`;
 
 export const Globo = styled.div`
-  padding: 6vw 5vw;
-  width: 100%;
-  border-radius: 50%;
+  font-family: 'Ubuntu Mono';
+  display: inline-flex;
+  align-items: center;
+  text-align: center;
+  padding-inline: 1em;
+  border-radius: 75%;
+  aspect-ratio: 310 / 170;
+  position: relative;
   background-color: #fff;
-  font-size: 2vw;
 
   &:before {
-  content:"";
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-top: 2vw solid transparent;
-  border-right: 3vw solid #fff;
-  border-bottom: 2vw solid transparent;
-  left: 20%;
-  bottom: 0;
-  transform: rotate(70deg);
+    content: '';
+    position: absolute;
+    border-top: 2vw solid transparent;
+    border-right: 3vw solid #fff;
+    border-bottom: 2vw solid transparent;
+    left: 20%;
+    bottom: 0;
+    transform: rotate(70deg);
+    z-index: -1;
   }
-`
+`;
 
 export const HeroButtons = styled(Link)<{ primary?: string }>`
   font-weight: bold;
-  position: absolute;
-  bottom: 5%;
-  right: 2%;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 30%;
-  padding: 1.5vw 0;
-  border-radius: 1vw;
-  transition: all 0.5s ease 0s;
-  box-shadow: 0 1vw #a11360;
+  text-decoration-line: none;
+  padding: 0.5ch 1ch;
+  border-radius: 0.5ch;
+  box-shadow: 0 1ch #a11360;
   text-transform: uppercase;
-  font-size: 1.5vw;
-  border: 0.3vw solid #ea1889;
-
+  border: 0.3ch solid #ea1889;
   background-color: ${(props) => (props.primary ? '#EA1889' : '#181818;')};
   color: ${(props) => (props.primary ? '#fff' : '#EA1889')};
-
   &:active {
     box-shadow: 0 5px #a11360;
     transform: translateY(5px);
+  }
+`;
+
+export const Button = styled.button<{ primary?: string }>`
+  font-size: inherit;
+  font-weight: bold;
+  text-decoration-line: none;
+  padding: 0.5ch 1ch;
+  border-radius: 0.5ch;
+  box-shadow: 0 1ch #a11360;
+  text-transform: uppercase;
+  border: 0.3ch solid #ea1889;
+  background-color: ${(props) => (!props.primary ? '#EA1889' : '#181818;')};
+  color: ${(props) => (!props.primary ? '#fff' : '#EA1889')};
+  &:active {
+    box-shadow: 0 5px #a11360;
+    transform: translateY(5px);
+  }
+`;
+
+export const OptionsContainer = styled.div`
+  display: flex;
+  grid-area: options;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1em;
+  & > * {
+    flex-basis: 40%;
   }
 `;
