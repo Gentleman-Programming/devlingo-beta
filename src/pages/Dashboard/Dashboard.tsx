@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react';
 import { Main, HeroButtons, Button, OptionsContainer } from './styled-components/dashboard.styled.components';
 import { MustachyWithDialog } from './';
 import { nanoid } from 'nanoid';
-
-import questionImage from '@/assets/question1.png';
+import { Code } from '@/components/';
 
 const messages = ['Hola!! Soy Mustachi y seré tu guía durante esta travesía', 'Te voy a hacer unas preguntas para conocer tu nivel'];
 
 const question = '¿Cuál es el resultado?';
+
+const code =
+  'function suma() {\n\tconst b = 2;\n\treturn suma2();\n}\n\nconst b = 33;\nconst c = 13;\n\nfunction suma2(){\n\tconst c = 33\n\treturn a+b+c;\n}';
 
 const options = [
   {
@@ -53,15 +55,14 @@ export const Dashboard = () => {
       Continuar
     </HeroButtons>
   );
-
   return (
     <Main style={quest ? { display: 'grid', gridTemplateAreas: '"mustachy quest" "options quest"' } : {}}>
       <MustachyWithDialog style={{ gridArea: 'mustachy' }} width={width} dialogWidth={dialogWidth}>
         {text}
       </MustachyWithDialog>
       {quest && (
-        <div style={{ gridArea: 'quest' }}>
-          <img src={questionImage} alt="Javascript code" decoding="async" />
+        <div style={{ gridArea: 'quest', fontSize: '1rem', overflow: 'hidden', border: '1em' }}>
+          <Code text={code} />
         </div>
       )}
       {quest && (
