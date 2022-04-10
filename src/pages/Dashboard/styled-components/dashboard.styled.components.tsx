@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Background } from '../../../assets';
+import { Background } from '@/assets/';
 
 export const Main = styled.main`
   display: flex;
@@ -12,6 +12,8 @@ export const Main = styled.main`
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+  display: grid;
+  grid-template-areas: 'mustachy quest' 'options quest';
 `;
 
 export const Globo = styled.div`
@@ -80,4 +82,17 @@ export const OptionsContainer = styled.div`
   & > * {
     flex-basis: 40%;
   }
+`;
+
+export const FloatingButton = styled(Button)`
+  position: fixed;
+  bottom: 2em;
+  right: 2em;
+`;
+
+export const CodeContainer = styled.div`
+  grid-area: quest;
+  font-size: 1rem;
+  overflow: hidden;
+  border: 1em;
 `;
