@@ -7,4 +7,4 @@ export { default as BubbleHero4 } from './bubble-hero4.svg';
 export { default as BubbleHero5 } from './bubble-hero5.svg';
 export { default as BubbleHero6 } from './bubble-hero6.svg';
 export { default as BubbleMiddle1 } from './bubble-middle1.svg';
-export { default as Background } from './background.png';
+export { default as Background } from './background.svg';
