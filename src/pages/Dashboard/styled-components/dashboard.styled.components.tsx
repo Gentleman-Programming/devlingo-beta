@@ -4,13 +4,14 @@ import { Background } from '../../../assets';
 
 export const Main = styled.main`
   display: flex;
-  background-image: url(${Background}), linear-gradient(90deg, #181818 9%, #181818 100%);
-  justify-content: center;
-  background-size: 120% 120%;
-  background-repeat: no-repeat;
-  background-position: center center;
   align-items: center;
+  justify-content: center;
   min-height: 100vh;
+  background-image: url(${Background}), linear-gradient(90deg, #181818 9%, #181818 100%);
+  background-size: 120% 120%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 export const GloboCointainer = styled.div`
