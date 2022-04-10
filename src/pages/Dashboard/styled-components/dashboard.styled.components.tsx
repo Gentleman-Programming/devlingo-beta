@@ -1,17 +1,16 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Background } from '../../../assets';
+import { Background } from '@/assets';
 
 export const Main = styled.main`
   display: flex;
-  background-image: url(${Background}), linear-gradient(90deg, #181818 9%, #181818 100%);
+  align-items: center;
   justify-content: center;
+  min-height: 100vh;
   background-size: 120% 120%;
   background-repeat: no-repeat;
   background-position: center center;
-  width: 100%;
-  align-items: center;
-  height: 100vh;
+  background-image: url(${Background}), linear-gradient(90deg, #181818 9%, #181818 100%);
 `;
 
 export const GloboCointainer = styled.div`
