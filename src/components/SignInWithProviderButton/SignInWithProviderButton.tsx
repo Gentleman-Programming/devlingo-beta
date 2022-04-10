@@ -13,15 +13,12 @@ interface ButtonProps {
 
 const SignInWithProviderButton = ({ children, provider }: ButtonProps) => {
   const handleSubmit = async () => {
-    let appUser;
     switch (provider) {
       case AuthProvider.GOOGLE:
-        appUser = await createAddaptedUser(await signinWithGoogle());
-        console.log(appUser);
+        await createAddaptedUser(await signinWithGoogle());
         break;
       case AuthProvider.GITHUB:
-        appUser = await createAddaptedUser(await signinWithGithub());
-        console.log(appUser);
+        await createAddaptedUser(await signinWithGithub());
         break;
     }
   };
