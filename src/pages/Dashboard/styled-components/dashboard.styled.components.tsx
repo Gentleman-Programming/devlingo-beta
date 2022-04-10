@@ -14,20 +14,15 @@ export const Main = styled.main`
   background-size: cover;
 `;
 
-export const GloboCointainer = styled.div`
-  position: relative;
-  width: 35%;
-`;
-
 export const Globo = styled.div`
-  font-family: 'Ubuntu Mono';
   display: inline-flex;
   align-items: center;
-  text-align: center;
   padding-inline: 1em;
   border-radius: 75%;
   aspect-ratio: 310 / 170;
   position: relative;
+  text-align: center;
+  font-family: 'Ubuntu Mono';
   background-color: #fff;
 
   &:before {
@@ -44,13 +39,13 @@ export const Globo = styled.div`
 `;
 
 export const HeroButtons = styled(Link)<{ primary?: string }>`
-  font-weight: bold;
-  text-decoration-line: none;
   padding: 0.5ch 1ch;
-  border-radius: 0.5ch;
-  box-shadow: 0 1ch #a11360;
-  text-transform: uppercase;
   border: 0.3ch solid #ea1889;
+  border-radius: 0.5ch;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration-line: none;
+  box-shadow: 0 1ch #a11360;
   background-color: ${(props) => (props.primary ? '#EA1889' : '#181818;')};
   color: ${(props) => (props.primary ? '#fff' : '#EA1889')};
   &:active {
