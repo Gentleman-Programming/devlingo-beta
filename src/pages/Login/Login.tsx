@@ -58,12 +58,12 @@ export const Login = () => {
 
   return (
     <Layout>
-      <Circle width="85%" heigth="140%" left="-12%" top="-5%" paddingLeft="8%">
-        Inicia sesión para <br /> seguir mejorando tus
-        <br /> habilidades
+      <Circle width="85%" height="140%" left="-12%" top="-5%" paddingLeft="8%">
+        <h2>Inicia sesión para</h2> <h2>seguir mejorando tus</h2>
+        <h2>habilidades</h2>
       </Circle>
-      <Circle width="8%" heigth="8%" top="15%" left="-12%" />
-      <Circle width="20%" heigth="20%" top="-45%" left="-4%" />
+      <Circle width="8%" height="8%" top="15%" left="-12%" />
+      <Circle width="20%" height="20%" top="-45%" left="-4%" />
       <Form onSubmit={handleSubmit(handleLogin)}>
         <Mustachi src={mustachi} alt="mustachi" />
         {inputProps.map((props) => (
