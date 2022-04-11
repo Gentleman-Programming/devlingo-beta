@@ -5,19 +5,19 @@ const device = `(max-width: ${size})`;
 
 export const Circle = styled.div`
   width: ${({ width }: CSSProperties) => width};
-  height: ${({ heigth }: any) => heigth};
+  height: ${({ height }: CSSProperties) => height};
   left: ${({ left }: CSSProperties) => left};
   top: ${({ top }: CSSProperties) => top};
   padding-left: ${({ paddingLeft }: CSSProperties) => paddingLeft};
   position: relative;
   display: flex;
+  flex-direction: column;
   border-radius: 50%;
   font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 700;
-  font-size: 2.8em;
-  line-height: 58px;
-  z-index: 0;
+  font-size: 1.8em;
+  line-height: 2em;
   align-items: center;
   justify-content: center;
   background-color: #ea1889;
