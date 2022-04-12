@@ -1,42 +1,20 @@
 import { InputError } from '@/styled-components';
 import { InputBaseProps, TextField } from '@mui/material';
-import {
-  FieldErrors,
-  UseFormRegister,
-  UseFormTrigger
-} from 'react-hook-form';
-import { InputAdornment, IconButton } from '@mui/material';
-import {
-  Visibility,
-  VisibilityOff
-} from '@mui/icons-material';
-import { useState } from 'react';
-import { Lock } from '@mui/icons-material';
+import { FieldErrors, UseFormRegister, UseFormTrigger } from 'react-hook-form';
 
-const formValidation = (
-  errors: FieldErrors,
-  errorKey: string
-) => {
-  return errors[errorKey] ? (
-    <InputError className="error-message">
-      {errors[errorKey].message}
-    </InputError>
-  ) : (
-    ''
-  );
+const formValidation = (errors: FieldErrors, errorKey: string) => {
+  return errors[errorKey] ? <InputError className="error-message">{errors[errorKey].message}</InputError> : '';
 };
 
 interface InputProps {
   register: UseFormRegister<any>;
   name: string;
   errors?: FieldErrors;
-  label?: string;
   type: InputType;
-  inputProps?: InputBaseProps['inputProps'];
+  inputProps?: any;
   disabled?: boolean;
   trigger?: UseFormTrigger<any>;
-  Component?: SVGElement;
-  className?: string;
+  placeholder?: string;
 }
 
 export enum InputType {
@@ -48,86 +26,29 @@ export enum InputType {
   CHECKBOX = 'checkbox'
 }
 
-export const Input = ({
-  register,
-  name,
-  errors,
-  label = '',
-  type,
-  inputProps,
-  disabled = false,
-  trigger,
-  Component
-}: InputProps) => {
-  const [showPassword, setShowPassword] = useState(false);
+/*
+
+*/
+
+export const Input = ({ register, name, errors, type, inputProps, disabled = false, trigger, placeholder }: InputProps) => {
   return (
-    <>
-      {type === 'password' ? (
-        <div>
-          <TextField
-            key={name}
-            disabled={disabled}
-            type={showPassword ? 'text' : 'password'}
-            error={errors && !!errors[name]}
-            id={name}
-            label={label}
-            {...register(name)}
-            {...(inputProps && { inputProps: inputProps })}
-            color="primary"
-            onChange={() => trigger && trigger()}
-            fullWidth
-            autoComplete="off"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Lock />
-                </InputAdornment>
-              ),
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() =>
-                      setShowPassword(!showPassword)
-                    }
-                  >
-                    {!showPassword ? (
-                      <VisibilityOff />
-                    ) : (
-                      <Visibility />
-                    )}
-                  </IconButton>
-                </InputAdornment>
-              )
-            }}
-          />
-          {errors && formValidation(errors, name)}
-        </div>
-      ) : (
-        <div>
-          <TextField
-            disabled={disabled}
-            type={type}
-            error={errors && !!errors[name]}
-            id={name}
-            label={label}
-            {...register(name)}
-            {...(inputProps && { inputProps: inputProps })}
-            onChange={() => trigger && trigger()}
-            fullWidth
-            autoComplete="off"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Component />
-                </InputAdornment>
-              )
-            }}
-            className="hola"
-          />
-          {errors && formValidation(errors, name)}
-        </div>
-      )}
-    </>
+    <div>
+      <TextField
+        disabled={disabled}
+        type={type}
+        error={errors && !!errors[name]}
+        id={name}
+        placeholder={placeholder}
+        {...register(name)}
+        {...(inputProps && { inputProps: inputProps })}
+        color="primary"
+        onChange={() => trigger && trigger()}
+        fullWidth
+        autoComplete="off"
+        InputProps={inputProps}
+      />
+      {errors && formValidation(errors, name)}
+    </div>
   );
 };
 
