@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { LoginPasswordAndEmail } from '@/services/firebase/firebase.service';
 import mustachi from '@/assets/mustachi.svg';
-import { AccountCircle, Lock, Visibility, VisibilityOff } from '@mui/icons-material';
+import { AccountCircle } from '@mui/icons-material';
 import { Input, InputType } from '@/components/Input';
 import { Form, Circle, Button, StyledLink, Mustachi } from '@/styled-components';
 import { Layout } from './styled-components';
@@ -12,13 +11,13 @@ import { useDispatch } from 'react-redux';
 import { createUser } from '@/redux/states/user';
 import { EmailRegex, PasswordRegex } from '@/models';
 import { useYupValidationResolver } from '@/hooks';
-import { IconButton, InputAdornment } from '@mui/material';
+import { InputAdornment } from '@mui/material';
 import InputPassword from '@/components/InputPassword';
 
 /*
   datos de prueba en mi local (Dante)
   email: test@gmail.com
-  password: Testapp$
+  password: Testapp1$
 */
 
 const schema = yup.object({
@@ -39,6 +38,7 @@ export const Login = () => {
   const handleLogin = async (dataUser: any) => {
     const user: any = await LoginPasswordAndEmail(dataUser);
     const adapterUser = createAdaptedUser(user);
+    if (!adapterUser) return;
     dispatch(createUser(adapterUser));
   };
 

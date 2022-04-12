@@ -1,6 +1,6 @@
 export interface FirebaseUser {
   uid: string;
-  token: string;
+  accessToken: string;
   email: string;
 }
 
