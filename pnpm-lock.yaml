@@ -38,6 +38,7 @@ specifiers:
   eslint-plugin-react-hooks: ^4.3.0
   firebase: ^9.6.9
   i18next: ^21.6.14
+  i18next-http-backend: ^1.4.0
   i18next-xhr-backend: ^3.2.2
   install: ^0.13.0
   jest: ^27.5.1
@@ -78,6 +79,7 @@ dependencies:
   eslint-plugin-react-hooks: 4.3.0_eslint@8.11.0
   firebase: 9.6.9
   i18next: 21.6.14
+  i18next-http-backend: 1.4.0
   i18next-xhr-backend: 3.2.2
   install: 0.13.0
   notistack: 2.0.3_bec165dab4deb8368b73ca49b0092161
@@ -3528,6 +3530,14 @@ packages:
       yaml: 1.10.2
     dev: false
 
+  /cross-fetch/3.1.5:
+    resolution: {integrity: sha512-lvb1SBsI0Z7GDwmuid+mU3kWVBwTVUbe7S0H52yaaAdQOXq2YktTCZdlAcNKFzE6QtRz0snpw9bNiPeOIkkQvw==}
+    dependencies:
+      node-fetch: 2.6.7
+    transitivePeerDependencies:
+      - encoding
+    dev: false
+
   /cross-spawn/7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
     engines: {node: '>= 8'}
@@ -4888,6 +4898,14 @@ packages:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
     dev: true
+
+  /i18next-http-backend/1.4.0:
+    resolution: {integrity: sha512-wsvx7E/CT1pHmBM99Vu57YLJpsrHbVjxGxf25EIJ/6oTjsvCkZZ6c3SA4TejcK5jIHfv9oLxQX8l+DFKZHZ0Gg==}
+    dependencies:
+      cross-fetch: 3.1.5
+    transitivePeerDependencies:
+      - encoding
+    dev: false
 
   /i18next-xhr-backend/3.2.2:
     resolution: {integrity: sha512-OtRf2Vo3IqAxsttQbpjYnmMML12IMB5e0fc5B7qKJFLScitYaXa1OhMX0n0X/3vrfFlpHL9Ro/H+ps4Ej2j7QQ==}

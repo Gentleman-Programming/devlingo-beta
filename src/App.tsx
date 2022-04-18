@@ -14,6 +14,7 @@ import { Preloader } from './components';
 // Routes
 const Home = lazy(() => import('@/pages/Home/Home'));
 const Dashboard = lazy(() => import('@/pages/Dashboard/Dashboard'));
+const Login = lazy(() => import('@/pages/Login/Login'));
 const Register = lazy(() => import('@/pages/Register/Register'));
 
 const App = () => {
@@ -26,12 +27,10 @@ const App = () => {
             <Suspense fallback={<Preloader />}>
               <Provider store={store}>
                 <BrowserRouter>
-                  <Routes>
-                    {/* <Route path="/" element={<Navigate to={`dashboard`} />} /> */}
-                    {/*  <Route element={<RouteGuard />}>
-                    </Route> */}
+                  <Routes>                    
                     <Route path={`/`} element={<Home />} />
                     <Route path={`dashboard/*`} element={<Dashboard />} />
+                    <Route path={`login`} element={<Login />} />
                     <Route path={`register`} element={<Register />} />
                   </Routes>
                 </BrowserRouter>

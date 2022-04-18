@@ -1,2 +1,2 @@
+export * from './public.service';
 export * from './firebase';
-export * from './index';

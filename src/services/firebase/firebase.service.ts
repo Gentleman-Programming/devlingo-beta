@@ -1,4 +1,3 @@
-// Import the functions you need from the SDKs you need
 import { User } from '@/models';
 import {
   createUserWithEmailAndPassword,
@@ -9,6 +8,15 @@ import {
   signOut
 } from 'firebase/auth';
 import { auth } from './firebase.config';
+
+export const LoginPasswordAndEmail = async ({ email, password }: User) => {
+  try {
+    const { user } = await signInWithEmailAndPassword(auth, email, password);
+    return user;
+  } catch (error) {
+    return error;
+  }
+};
 
 /**
  * @desc it calls the signup endpoint if the form is valid.
@@ -40,7 +48,5 @@ export const signinWithGithub = async () => {
   // The signed-in user info.
 };
 
-// TODO
-export const login = ({ email, password }: User) => signInWithEmailAndPassword(auth, email, password);
 // TODO
 export const logout = () => signOut(auth);
