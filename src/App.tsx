@@ -14,6 +14,7 @@ import { Preloader } from './components';
 // Routes
 const Home = lazy(() => import('@/pages/Home/Home'));
 const Dashboard = lazy(() => import('@/pages/Dashboard/Dashboard'));
+const Register = lazy(() => import('@/pages/Register/Register'));
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
                     </Route> */}
                     <Route path={`/`} element={<Home />} />
                     <Route path={`dashboard/*`} element={<Dashboard />} />
+                    <Route path={`register`} element={<Register />} />
                   </Routes>
                 </BrowserRouter>
               </Provider>
