@@ -80,7 +80,7 @@ export const Home = () => {
             <HeroButtons to="/dashboard" primary="true">
               Empezar
             </HeroButtons>
-            <HeroButtons to="/dashboard">Ya Tengo Cuenta</HeroButtons>
+            <HeroButtons to="/login">Ya Tengo Cuenta</HeroButtons>
           </DivButtons>
         </DivHero>
       </Hero>

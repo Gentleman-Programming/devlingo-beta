@@ -1,9 +1,11 @@
-export interface EndpointUser {
-  name: string;
-  last_name: string;
+export interface FirebaseUser {
+  uid: string;
+  accessToken: string;
+  email: string;
 }
 
 export interface User {
-  name: string;
-  lastName: string;
+  email: string;
+  password: string;
+  username?: string;
 }

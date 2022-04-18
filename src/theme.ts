@@ -7,6 +7,19 @@ const theme = createTheme({
       width: 'auto',
       height: 'auto'
     }
+  },
+  components: {
+    MuiTextField: {
+      variants: [
+        {
+          props: { variant: 'outlined' },
+          style: {
+            backgroundColor: '#ffffff',
+            borderRadius: '.3rem'
+          }
+        }
+      ]
+    }
   }
 });
 

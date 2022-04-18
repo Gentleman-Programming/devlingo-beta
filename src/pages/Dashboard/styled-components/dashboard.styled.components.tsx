@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Background } from '../../../assets';
+import { Background } from '@/assets';
 
 export const Main = styled.main`
   display: flex;

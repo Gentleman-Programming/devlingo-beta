@@ -1,0 +1,9 @@
+{
+    "register.username": "Nombre de Usuario",
+    "register.email": "Correo Electrónico",
+    "register.password": "Contraseña",
+    "register.createAccount": "Crear Cuenta",
+    "register.signinWithGoogle": "Registrarse con google",
+    "register.signinWithGithub": "Registrarse con github",
+    "register.invalidEmail": "Invalid email address"
+}

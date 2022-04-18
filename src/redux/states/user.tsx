@@ -1,10 +1,11 @@
-import { User } from '@/models';
+import { FirebaseUser } from '@/models';
 import { setAndPersistDbUserState } from '@/services';
 import { createSlice } from '@reduxjs/toolkit';
 
-export const UserEmptyState: User = {
-  name: '',
-  lastName: ''
+export const UserEmptyState: FirebaseUser = {
+  uid: '',
+  email: '',
+  token: ''
 };
 
 export const userSlice = createSlice({
