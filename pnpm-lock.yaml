@@ -10,6 +10,7 @@ specifiers:
   '@mui/icons-material': ^5.4.4
   '@mui/material': ^5.4.4
   '@mui/styled-engine-sc': ^5.4.2
+  '@mui/system': ^5.2.8
   '@mui/x-data-grid': ^5.5.1
   '@reduxjs/toolkit': ^1.8.0
   '@testing-library/dom': ^8.11.3
@@ -41,7 +42,6 @@ specifiers:
   i18next: ^21.6.14
   i18next-xhr-backend: ^3.2.2
   jest: ^27.5.1
-  nanoid: ^3.3.2
   notistack: ^2.0.3
   prettier: ^2.5.1
   react: ^17.0.2
@@ -71,7 +71,8 @@ dependencies:
   '@mui/icons-material': 5.5.0_e26da9a06063015d999cdabd2929947d
   '@mui/material': 5.5.0_04cccb159326fc32d263f5d228230564
   '@mui/styled-engine-sc': 5.4.2_90ac855ed9e38c73d530a1b2a5582c28
-  '@mui/x-data-grid': 5.6.1_@mui+material@5.5.0+react@17.0.2
+  '@mui/system': 5.5.0_fcd809b460cfc9d78b56b52c09fcfe39
+  '@mui/x-data-grid': 5.6.1_ee2abc5db87850090b78d70f2ff1b661
   '@reduxjs/toolkit': 1.8.0_react-redux@7.2.6+react@17.0.2
   axios: 0.26.1
   context: 1.2.1
@@ -81,7 +82,6 @@ dependencies:
   firebase: 9.6.9
   i18next: 21.6.14
   i18next-xhr-backend: 3.2.2
-  nanoid: 3.3.2
   notistack: 2.0.3_bec165dab4deb8368b73ca49b0092161
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
@@ -2448,7 +2448,7 @@ packages:
       react-is: 17.0.2
     dev: false
 
-  /@mui/x-data-grid/5.6.1_@mui+material@5.5.0+react@17.0.2:
+  /@mui/x-data-grid/5.6.1_ee2abc5db87850090b78d70f2ff1b661:
     resolution: {integrity: sha512-qFyQtGi/ZL8zkmOp4dbAykiu8d/Dd9kt1QZrk7yq7NyMZdCLRRAGa7TH0sweOXJPzRIBmHEOUPVycRt20pVAGA==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -2457,6 +2457,7 @@ packages:
       react: ^17.0.2
     dependencies:
       '@mui/material': 5.5.0_04cccb159326fc32d263f5d228230564
+      '@mui/system': 5.5.0_fcd809b460cfc9d78b56b52c09fcfe39
       '@mui/utils': 5.4.4_react@17.0.2
       clsx: 1.1.1
       prop-types: 15.8.1
@@ -6040,6 +6041,7 @@ packages:
     resolution: {integrity: sha512-CuHBogktKwpm5g2sRgv83jEy2ijFzBwMoYA60orPDR7ynsLijJDqgsi4RDGj3OJpy3Ieb+LYwiRmIOGyytgITA==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
+    dev: true
 
   /natural-compare/1.4.0:
     resolution: {integrity: sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=}
