@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Main, FloatingButton, CodeContainer } from './styled-components/dashboard.styled.components';
+import { Main, FloatingButton, CodeContainer } from './styled-components/';
 import { MustachyWithDialog, Options } from './';
 import { Code } from '@/components/';
 

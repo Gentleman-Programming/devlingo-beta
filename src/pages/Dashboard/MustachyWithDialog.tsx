@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Mustachy } from '@/pages/Dashboard/Mustachy';
-import { Globo } from './styled-components/dashboard.styled.components';
 import { CSSProperties } from 'react';
 
 const Container = styled.div`
@@ -13,6 +12,30 @@ const Container = styled.div`
   }
   & > :first-child {
     grid-area: mustachy;
+  }
+`;
+
+const Globo = styled.div`
+  display: inline-flex;
+  align-items: center;
+  padding-inline: 1em;
+  border-radius: 75%;
+  aspect-ratio: 310 / 170;
+  position: relative;
+  text-align: center;
+  font-family: 'Ubuntu Mono';
+  background-color: #fff;
+
+  &:before {
+    content: '';
+    position: absolute;
+    border-top: 2em solid transparent;
+    border-right: 3em solid #fff;
+    border-bottom: 2em solid transparent;
+    left: 20%;
+    bottom: 0;
+    transform: rotate(70deg);
+    z-index: -1;
   }
 `;
 
