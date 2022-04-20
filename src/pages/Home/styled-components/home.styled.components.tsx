@@ -31,8 +31,8 @@ export const HeroButtons = styled(Link)<{ primary?: string }>`
   font-size: 1.5vw;
   border: 0.3vw solid #ea1889;
 
-  background-color: ${(props) => (props.primary ? '#EA1889' : '#181818;')};
-  color: ${(props) => (props.primary ? '#fff' : '#EA1889')};
+  background-color: ${(props: any) => (props.primary ? '#EA1889' : '#181818;')};
+  color: ${(props: any) => (props.primary ? '#fff' : '#EA1889')};
 
   &:active {
     box-shadow: 0 5px #a11360;

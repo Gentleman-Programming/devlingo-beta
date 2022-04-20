@@ -10,11 +10,11 @@ interface InputProps {
   register: UseFormRegister<any>;
   name: string;
   errors?: FieldErrors;
-  label?: string;
   type: InputType;
-  inputProps?: InputBaseProps['inputProps'];
+  inputProps?: any;
   disabled?: boolean;
   trigger?: UseFormTrigger<any>;
+  placeholder?: string;
 }
 
 export enum InputType {
@@ -26,21 +26,26 @@ export enum InputType {
   CHECKBOX = 'checkbox'
 }
 
-export const Input = ({ register, name, errors, label = '', type, inputProps, disabled = false, trigger }: InputProps) => {
+/*
+
+*/
+
+export const Input = ({ register, name, errors, type, inputProps, disabled = false, trigger, placeholder }: InputProps) => {
   return (
     <div>
       <TextField
-        required
         disabled={disabled}
         type={type}
         error={errors && !!errors[name]}
         id={name}
-        label={label}
-        variant="standard"
+        placeholder={placeholder}
         {...register(name)}
         {...(inputProps && { inputProps: inputProps })}
+        color="primary"
         onChange={() => trigger && trigger()}
         fullWidth
+        autoComplete="off"
+        InputProps={inputProps}
       />
       {errors && formValidation(errors, name)}
     </div>
