@@ -32,8 +32,6 @@ export const Dashboard = () => {
   const [quest, setQuest] = useState(false);
   const [message, setMessage] = useState(0);
   const [text, setText] = useState(messages[message]);
-  const [width, setWidth] = useState('15ch');
-  const [dialogWidth, setDialogWidth] = useState('441px');
 
   useEffect(() => {
     setText(messages[message]);
@@ -44,9 +42,7 @@ export const Dashboard = () => {
 
   useEffect(() => {
     if (quest) {
-      setWidth('10ch');
       setText(question);
-      setDialogWidth('15ch');
     }
   }, [quest]);
 
@@ -56,7 +52,7 @@ export const Dashboard = () => {
 
   return (
     <Main>
-      <MustachyWithDialog style={{ gridArea: 'mustachy' }} width={width} dialogWidth={dialogWidth}>
+      <MustachyWithDialog style={{ gridArea: 'mustachy' }} width="12ch" dialogWidth="17ch">
         {text}
       </MustachyWithDialog>
       {quest && (

@@ -41,7 +41,7 @@ const Globo = styled.div`
 
 export default function MustachyWithDialog({
   children,
-  width = '20ch',
+  width,
   style,
   dialogWidth
 }: {
