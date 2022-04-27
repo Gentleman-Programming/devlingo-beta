@@ -6,7 +6,7 @@ import { AccountCircle } from '@mui/icons-material';
 import { Input, InputType } from '@/components/Input';
 import { Form, Circle, Button, StyledLink, Mustachi } from '@/styled-components';
 import { Layout } from './styled-components';
-import { createAdaptedUser } from '@/adapters';
+import { createAddaptedUser } from '@/adapters';
 import { useDispatch } from 'react-redux';
 import { createUser } from '@/redux/states/user';
 import { EmailRegex, PasswordRegex } from '@/models';
@@ -37,7 +37,7 @@ export const Login = () => {
   });
   const handleLogin = async (dataUser: any) => {
     const user: any = await LoginPasswordAndEmail(dataUser);
-    const adapterUser = createAdaptedUser(user);
+    const adapterUser = await createAddaptedUser(user);
     if (!adapterUser) return;
     dispatch(createUser(adapterUser));
   };
