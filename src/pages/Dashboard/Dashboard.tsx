@@ -1,28 +1,67 @@
-import { useState } from 'react';
-import { Main, Globo, GloboCointainer, HeroButtons } from './styled-components/dashboard.styled.components';
-import { Mustachy } from './Mustachy';
+import { useEffect, useState } from 'react';
+
+import { Main, FloatingButton, CodeContainer } from './styled-components/';
+import { MustachyWithDialog, Options } from './';
+import { Code } from '@/components/';
+
+import { option } from '@/models';
+
+const messages = ['Hola!! Soy Mustachi y seré tu guía durante esta travesía', 'Te voy a hacer unas preguntas para conocer tu nivel'];
+
+const question = '¿Cuál es el resultado?';
+
+const code =
+  'function suma() {\n\tconst b = 2;\n\treturn suma2();\n}\n\nconst b = 33;\nconst c = 13;\n\nfunction suma2(){\n\tconst c = 33\n\treturn a + b + c;\n}';
+
+const options: Array<option> = [
+  {
+    option: '5',
+    isCorrect: true
+  },
+  {
+    option: '7',
+    isCorrect: false
+  },
+  {
+    option: '8',
+    isCorrect: false
+  }
+];
 
 export const Dashboard = () => {
-  const [text, setText] = useState('Hola!! Soy Mustachi y seré tu guía durante esta travesía');
+  const [quest, setQuest] = useState(false);
+  const [message, setMessage] = useState(0);
+  const [text, setText] = useState(messages[message]);
+
+  useEffect(() => {
+    setText(messages[message]);
+    if (message > messages.length - 1) {
+      setQuest(true);
+    }
+  }, [message]);
+
+  useEffect(() => {
+    if (quest) {
+      setText(question);
+    }
+  }, [quest]);
 
   const HandleCLick = () => {
-    setText('Te voy a hacer unas preguntas para conocer tu nivel')
+    setMessage((message) => message + 1);
   };
 
   return (
     <Main>
-      <Mustachy />
-
-      <GloboCointainer>
-        <Globo>
-          <p>{text}</p>
-        </Globo>
-      </GloboCointainer>
-
-      <HeroButtons onClick={HandleCLick} to="/dashboard" primary="true">
-        Continuar
-      </HeroButtons>
-      
+      <MustachyWithDialog style={{ gridArea: 'mustachy' }} width="12ch" dialogWidth="17ch">
+        {text}
+      </MustachyWithDialog>
+      {quest && (
+        <CodeContainer>
+          <Code text={code} />
+        </CodeContainer>
+      )}
+      {quest && <Options options={options} />}
+      {!quest && <FloatingButton onClick={HandleCLick}>Continuar</FloatingButton>}
     </Main>
   );
 };
