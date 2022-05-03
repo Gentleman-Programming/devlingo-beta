@@ -5,7 +5,7 @@ import React, { lazy, Suspense } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.scss';
-import { RouteGuard } from './components';
+import { FormHook, RouteGuard } from './components';
 import { AppContainer } from './styled-components';
 import theme from './theme';
 import { SnackbarUtilsConfigurator } from './utilities';
@@ -27,11 +27,12 @@ const App = () => {
             <Suspense fallback={<Preloader />}>
               <Provider store={store}>
                 <BrowserRouter>
-                  <Routes>                    
+                  <Routes>
                     <Route path={`/`} element={<Home />} />
                     <Route path={`dashboard/*`} element={<Dashboard />} />
                     <Route path={`login`} element={<Login />} />
                     <Route path={`register`} element={<Register />} />
+                    <Route path={`form`} element={<FormHook />} />
                   </Routes>
                 </BrowserRouter>
               </Provider>
