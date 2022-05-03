@@ -8,9 +8,5 @@ const container = document.getElementById('root');
 
 if (container instanceof HTMLElement) {
   const root = createRoot(container);
-  root.render(
-    <StrictMode>
-      <App />
-    </StrictMode>
-  );
+  root.render(<App />);
 }

@@ -3,13 +3,13 @@ import { ThemeProvider } from '@emotion/react';
 import { SnackbarProvider } from 'notistack';
 import React, { lazy, Suspense } from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.scss';
-import { RouteGuard } from './components';
+import { Preloader } from './components';
 import { AppContainer } from './styled-components';
 import theme from './theme';
 import { SnackbarUtilsConfigurator } from './utilities';
-import { Preloader } from './components';
+import { ParallaxProvider } from 'react-scroll-parallax';
 
 // Routes
 const Home = lazy(() => import('@/pages/Home/Home'));
@@ -19,7 +19,7 @@ const Register = lazy(() => import('@/pages/Register/Register'));
 
 const App = () => {
   return (
-    <React.StrictMode>
+    <ParallaxProvider>
       <ThemeProvider theme={theme}>
         <AppContainer className="App">
           <SnackbarProvider>
@@ -27,7 +27,7 @@ const App = () => {
             <Suspense fallback={<Preloader />}>
               <Provider store={store}>
                 <BrowserRouter>
-                  <Routes>                    
+                  <Routes>
                     <Route path={`/`} element={<Home />} />
                     <Route path={`dashboard/*`} element={<Dashboard />} />
                     <Route path={`login`} element={<Login />} />
@@ -39,7 +39,7 @@ const App = () => {
           </SnackbarProvider>
         </AppContainer>
       </ThemeProvider>
-    </React.StrictMode>
+    </ParallaxProvider>
   );
 };
 

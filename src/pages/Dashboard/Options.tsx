@@ -6,8 +6,8 @@ import styled from 'styled-components';
 export function Options({ options }: { options: Array<option> }) {
   return (
     <OptionsContainer>
-      {options.map(({ option }) => (
-        <Button>{option}</Button>
+      {options.map((element, index) => (
+        <Button key={index}>{element.option}</Button>
       ))}
     </OptionsContainer>
   );

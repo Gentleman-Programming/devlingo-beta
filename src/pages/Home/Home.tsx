@@ -1,45 +1,43 @@
-import { LayoutContainer, Navbar } from '@/styled-components';
-import { ParallaxProvider } from 'react-scroll-parallax';
+import { Navbar } from '@/styled-components';
 import LanguageIcon from '@mui/icons-material/Language';
 import {
-  ParagraphVerticalAlign,
-  TitleHome,
-  Hero,
-  ImageHero,
-  DivHero,
-  TextHero,
-  HeroButtons,
-  DivButtons,
-  SecondSection,
-  ImageSection,
-  TextSection,
-  HeroBubbleImg,
-  HeroBubble1,
-  HeroBubble2,
-  HeroBubble3,
-  HeroBubble4,
-  HeroBubble5,
-  HeroBubble6,
-  MiddleBubble1,
-  MiddleBubble2,
-  MiddleBubble3
-} from './styled-components/home.styled.components';
-
-import {
-  MustachiLogo,
-  MustachiFlag,
   BubbleHero1,
   BubbleHero2,
   BubbleHero3,
   BubbleHero4,
   BubbleHero5,
   BubbleHero6,
-  BubbleMiddle1
+  BubbleMiddle1,
+  MustachiFlag,
+  MustachiLogo,
 } from '../../assets';
+import {
+  DivButtons,
+  DivHero,
+  Hero,
+  HeroBubble1,
+  HeroBubble2,
+  HeroBubble3,
+  HeroBubble4,
+  HeroBubble5,
+  HeroBubble6,
+  HeroBubbleImg,
+  HeroButtons,
+  ImageHero,
+  ImageSection,
+  MiddleBubble1,
+  MiddleBubble2,
+  MiddleBubble3,
+  ParagraphVerticalAlign,
+  SecondSection,
+  TextHero,
+  TextSection,
+  TitleHome,
+} from './styled-components/home.styled.components';
 
 export const Home = () => {
   return (
-    <ParallaxProvider>
+    <>
       <HeroBubble1 translateY={['-1%', '1%']} speed={-10}>
         <HeroBubbleImg src={BubbleHero1} />
       </HeroBubble1>
@@ -103,7 +101,7 @@ export const Home = () => {
           Te encantará <br /> aprender con Devlingo
         </TextSection>
       </SecondSection>
-    </ParallaxProvider>
+    </>
   );
 };
 
