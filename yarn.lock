@@ -3011,10 +3011,10 @@ confusing-browser-globals@^1.0.10:
   resolved "https://registry.yarnpkg.com/confusing-browser-globals/-/confusing-browser-globals-1.0.11.tgz#ae40e9b57cdd3915408a2805ebd3a5585608dc81"
   integrity sha512-JsPKdmh8ZkmnHxDk55FZ1TqVLvEQTvoByJZRN9jzI0UjxK/QgAmsphz7PGtqgPieQZ/CQcHWXCR7ATDNhGe+YA==
 
-context@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/context/-/context-2.0.3.tgz#0e112b9e4e68558f820e2b79f2ba9e2e41f6edf2"
-  integrity sha512-v0FDsuEVIjAya5fJBpNxWDo+V9+HzDl8FyoXg7aCYJ6iF8C/rfhpIw9KKI2IcA0fZ70OytQPqN55cLRf+R/RCg==
+context@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/context/-/context-2.0.6.tgz#e47d691d9f1bdf4873909e1488f443f30ff73837"
+  integrity sha512-qfFtpZ/4XlrV5fqEF+cU5A/XbM9vp6rCFCsOr107n8S2ENAHzuWbdiaBgqgUUQ9fHJ8aXktCaXkXjTPPIcohUQ==
 
 convert-source-map@^1.4.0, convert-source-map@^1.5.0, convert-source-map@^1.6.0, convert-source-map@^1.7.0:
   version "1.8.0"
