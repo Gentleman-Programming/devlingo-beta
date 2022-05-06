@@ -1,21 +1,17 @@
 import store from '@/redux/store';
 import { ThemeProvider } from '@emotion/react';
 import { SnackbarProvider } from 'notistack';
-import React, { lazy, Suspense } from 'react';
+import { Suspense } from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
+
 import './App.scss';
 import { Preloader } from './components';
 import { AppContainer } from './styled-components';
 import theme from './theme';
 import { SnackbarUtilsConfigurator } from './utilities';
 import { ParallaxProvider } from 'react-scroll-parallax';
-
-// Routes
-const Home = lazy(() => import('@/pages/Home/Home'));
-const Dashboard = lazy(() => import('@/pages/Dashboard/Dashboard'));
-const Login = lazy(() => import('@/pages/Login/Login'));
-const Register = lazy(() => import('@/pages/Register/Register'));
+import { AppRouter } from './routes/';
 
 const App = () => {
   return (
@@ -27,12 +23,7 @@ const App = () => {
             <Suspense fallback={<Preloader />}>
               <Provider store={store}>
                 <BrowserRouter>
-                  <Routes>
-                    <Route path={`/`} element={<Home />} />
-                    <Route path={`dashboard/*`} element={<Dashboard />} />
-                    <Route path={`login`} element={<Login />} />
-                    <Route path={`register`} element={<Register />} />
-                  </Routes>
+                  <AppRouter />
                 </BrowserRouter>
               </Provider>
             </Suspense>
