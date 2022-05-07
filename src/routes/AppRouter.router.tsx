@@ -1,12 +1,10 @@
 import { Routes, Route } from 'react-router';
-import { lazy, useEffect, useState } from 'react';
+import { lazy } from 'react';
 import PublicRoutes from './PublicRouter.router';
 import PrivateRoutes from './PrivateRouter.router';
 import AuthRouter from './AuthRoutes.router';
-import { auth } from '@/services';
-import { useDispatch } from 'react-redux';
-import { createAddaptedUser } from '@/adapters';
-import { createUser } from '@/redux/states/user';
+import { useSelector } from 'react-redux';
+import { FirebaseUser } from '@/models';
 
 const Login = lazy(() => import('@/pages/Login/Login'));
 const Register = lazy(() => import('@/pages/Register/Register'));
@@ -19,20 +17,7 @@ const Home = lazy(() => import('@/pages/Home/Home'));
 */
 
 const AppRouter = () => {
-  const dispatch = useDispatch();
-  const [log, setLog] = useState(false);
-
-  useEffect(() => {
-    auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        const formatUser = await createAddaptedUser(user);
-        dispatch(createUser(formatUser));
-        setLog(true);
-      } else {
-        setLog(false);
-      }
-    });
-  }, [dispatch]);
+  const user = useSelector(({ user }: any) => user);
 
   return (
     <Routes>
@@ -40,7 +25,7 @@ const AppRouter = () => {
       <Route
         path={'login'}
         element={
-          <PublicRoutes log={log}>
+          <PublicRoutes user={user}>
             <Login />
           </PublicRoutes>
         }
@@ -48,7 +33,7 @@ const AppRouter = () => {
       <Route
         path={'register'}
         element={
-          <PublicRoutes log={log}>
+          <PublicRoutes user={user}>
             <Register />
           </PublicRoutes>
         }
@@ -56,7 +41,7 @@ const AppRouter = () => {
       <Route
         path={'*'}
         element={
-          <PrivateRoutes log={log}>
+          <PrivateRoutes user={user}>
             <AuthRouter />
           </PrivateRoutes>
         }

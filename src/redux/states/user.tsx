@@ -9,15 +9,21 @@ export const UserEmptyState: FirebaseUser = {
 
 export const userSlice = createSlice({
   name: 'user',
-  initialState: UserEmptyState,
+  initialState: localStorage.getItem('user_info') ? JSON.parse(localStorage.getItem('user_info') as string) : UserEmptyState,
   reducers: {
     createUser: (_state, action) => {
+      localStorage.setItem('user_info', JSON.stringify(action.payload));
       return action.payload;
     },
     modifyUser: (state, action) => {
-      return { ...state, ...action.payload };
+      const editDataUser = { ...state, ...action.payload };
+      localStorage.setItem('user_info', JSON.stringify(editDataUser));
+      return editDataUser;
     },
-    resetUser: () => UserEmptyState,
+    resetUser: () => {
+      localStorage.setItem('user_info', JSON.stringify(UserEmptyState));
+      return UserEmptyState;
+    },
   },
 });
 
