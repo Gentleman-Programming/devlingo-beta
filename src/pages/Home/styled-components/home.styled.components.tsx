@@ -6,8 +6,9 @@ export const ParagraphVerticalAlign = styled(Link)`
   display: flex;
   font-family: Inter;
   align-items: center;
-  font-size: 2.3vw;
+  font-size: 4.5vmin;
   color: white;
+  font-weight: bold;
   text-decoration: none;
   z-index: 1;
 
@@ -28,7 +29,7 @@ export const HeroButtons = styled(Link)<{ primary?: string }>`
   transition: all 0.5s ease 0s;
   box-shadow: 0 1vw #a11360;
   text-transform: uppercase;
-  font-size: 1.5vw;
+  font-size: 3vmin;
   border: 0.3vw solid #ea1889;
 
   background-color: ${(props: any) => (props.primary ? '#EA1889' : '#181818;')};
@@ -38,11 +39,17 @@ export const HeroButtons = styled(Link)<{ primary?: string }>`
     box-shadow: 0 5px #a11360;
     transform: translateY(5px);
   }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 3vmin 0;
+    margin-top: 3vmin;
+  }
 `;
 
 export const TitleHome = styled.h1`
   font-family: Inter;
-  font-size: 3vw;
+  font-size: 6vmin;
   z-index: 1;
 `;
 
@@ -53,10 +60,14 @@ export const Hero = styled.main`
   gap: 3%;
   align-items: center;
   height: 90vh;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 export const ImageHero = styled.img`
-  width: 25%;
+  width: 40vmin;
   z-index: 1;
 `;
 
@@ -65,12 +76,17 @@ export const DivHero = styled.div`
   display: flex;
   flex-direction: column;
   z-index: 1;
+
+  @media (max-width: 768px) {
+    width: 90%;
+  }
 `;
 
 export const TextHero = styled.h2`
   font-family: Inter;
   color: white;
-  font-size: 5vw;
+  font-size: 8vmin;
+  text-align: center;
 `;
 
 export const DivButtons = styled.div`
@@ -78,6 +94,12 @@ export const DivButtons = styled.div`
   display: flex;
   justify-content: center;
   gap: 5%;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 export const SecondSection = styled.section`
@@ -92,13 +114,15 @@ export const SecondSection = styled.section`
 `;
 
 export const ImageSection = styled.img`
-  width: 35%;
+  width: 50vmin;
 `;
 
 export const TextSection = styled.h3`
   font-family: Inter;
   color: white;
-  font-size: 5vw;
+  font-size: 8vmin;
+  text-align: center;
+  z-index: 1;
 `;
 
 export const HeroBubbleImg = styled.img`
