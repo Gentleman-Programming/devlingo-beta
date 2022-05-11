@@ -6,3 +6,4 @@ export * from './Button.styled.components';
 export * from './Circle.styled.components';
 export * from './StyledLink.styled.components';
 export * from './Form.styled.components';
+export * from './Wrapper.styled.components';

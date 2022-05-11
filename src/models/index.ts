@@ -5,3 +5,4 @@ export * from './state.model';
 export * from './subject-manager.model';
 export * from './user.model';
 export * from './quest.option';
+export * from './question.model';

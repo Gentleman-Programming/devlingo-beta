@@ -16,6 +16,7 @@ const Home = lazy(() => import('@/pages/Home/Home'));
 const Dashboard = lazy(() => import('@/pages/Dashboard/Dashboard'));
 const Login = lazy(() => import('@/pages/Login/Login'));
 const Register = lazy(() => import('@/pages/Register/Register'));
+const ControlPanel = lazy(() => import('@/pages/ControlPanel/ControlPanel'));
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
                     <Route path={`dashboard/*`} element={<Dashboard />} />
                     <Route path={`login`} element={<Login />} />
                     <Route path={`register`} element={<Register />} />
+                    <Route path={`admin`} element={<ControlPanel />} />
                   </Routes>
                 </BrowserRouter>
               </Provider>
