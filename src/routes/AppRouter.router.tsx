@@ -5,6 +5,7 @@ import PrivateRoutes from './PrivateRouter.router';
 import AuthRouter from './AuthRoutes.router';
 import { useSelector } from 'react-redux';
 import { FirebaseUser } from '@/models';
+import { verifyUser } from '@/utilities';
 
 const Login = lazy(() => import('@/pages/Login/Login'));
 const Register = lazy(() => import('@/pages/Register/Register'));
@@ -16,8 +17,13 @@ const Home = lazy(() => import('@/pages/Home/Home'));
   Testapp2102$
 */
 
+type prop = {
+  user: FirebaseUser;
+};
+
 const AppRouter = () => {
-  const user = useSelector(({ user }: any) => user);
+  const user = useSelector(({ user }: prop) => user);
+  const log = verifyUser(user);
 
   return (
     <Routes>
@@ -25,7 +31,7 @@ const AppRouter = () => {
       <Route
         path={'login'}
         element={
-          <PublicRoutes user={user}>
+          <PublicRoutes log={log}>
             <Login />
           </PublicRoutes>
         }
@@ -33,7 +39,7 @@ const AppRouter = () => {
       <Route
         path={'register'}
         element={
-          <PublicRoutes user={user}>
+          <PublicRoutes log={log}>
             <Register />
           </PublicRoutes>
         }
@@ -41,7 +47,7 @@ const AppRouter = () => {
       <Route
         path={'*'}
         element={
-          <PrivateRoutes user={user}>
+          <PrivateRoutes log={log}>
             <AuthRouter />
           </PrivateRoutes>
         }

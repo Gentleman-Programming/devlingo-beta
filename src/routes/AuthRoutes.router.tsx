@@ -7,6 +7,7 @@ const AuthRouter = () => {
   return (
     <Routes>
       <Route path={'dashboard/*'} element={<Dashboard />} />
+      <Route path={'*'} element={<h2>404 - Not Found</h2>} />
     </Routes>
   );
 };

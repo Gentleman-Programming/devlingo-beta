@@ -1,16 +1,15 @@
-import { FirebaseUser } from '@/models';
-import { Navigate } from 'react-router';
+import { Navigate, Outlet } from 'react-router';
 
 type props = {
-  user: FirebaseUser;
+  log: Boolean;
   children: JSX.Element;
 };
 
-const PublicRoutes = ({ user, children }: props) => {
-  if (user.email || user.accessToken || user.uid) {
-    return <Navigate to="/dashboard" />;
+const PublicRoutes = ({ log, children }: props): JSX.Element => {
+  if (log) {
+    return <Navigate to="/dashboard" replace />;
   }
-  return children;
+  return children ? children : <Outlet />;
 };
 
 export default PublicRoutes;

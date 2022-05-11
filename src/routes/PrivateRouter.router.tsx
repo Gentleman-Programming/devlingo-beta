@@ -1,14 +1,13 @@
-import { FirebaseUser } from '@/models';
 import { Navigate } from 'react-router';
 
 type props = {
-  user: FirebaseUser;
+  log: Boolean;
   children: JSX.Element;
 };
 
-const PrivateRoutes = ({ user, children }: props) => {
-  if (!user.email || !user.uid || !user.accessToken) {
-    return <Navigate to="/login" />;
+const PrivateRoutes = ({ log, children }: props): JSX.Element => {
+  if (!log) {
+    return <Navigate to="/login" replace />;
   }
   return children;
 };
