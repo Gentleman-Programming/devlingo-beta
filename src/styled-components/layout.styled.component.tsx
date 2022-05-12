@@ -10,6 +10,18 @@ export const Navbar = styled.nav`
   color: white;
 `;
 
+export const NavbarL = styled.nav`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: transparent;
+  color: white;
+  position: fixed;
+  top: 0;
+`;
+
 export const LayoutContainer = styled.div`
   display: flex;
   flex-direction: column;
