@@ -4,7 +4,7 @@ import styled, { keyframes } from 'styled-components';
 const shakeY = keyframes`
 	from,
 	to {
-			transform: rotate(0);
+			transform: translateX(25%) rotate(0);
 	}
 
 	10%,
@@ -12,21 +12,22 @@ const shakeY = keyframes`
 	50%,
 	70%,
 	90% {
-			transform: rotate(-10deg);
+			transform: translateX(25%) rotate(-10deg);
 	}
 
 	20%,
 	40%,
 	60%,
 	80% {
-			transform: rotate(10deg);
+			transform: translateX(25%) rotate(10deg);
 	}
 `;
 
 const StyledMustachy = styled.svg`
-  --x: 0;
-  --y: 0;
+  --x: 0px;
+  --y: 0px;
   transition: width 1s;
+  z-index: 100;
   &:hover {
     animation: ${shakeY} 1s infinite;
   }
@@ -40,12 +41,12 @@ const StyledMustachy = styled.svg`
   }
 `;
 
-export function Mustachy({ width = '30ch' }: { width?: string }) {
+export function Mustachy() {
   const mustachy = useRef<SVGSVGElement>(null);
   const eyeBall = useRef<SVGCircleElement>(null);
 
   useEffect(() => {
-    if (eyeBall.current instanceof SVGCircleElement && mustachy.current instanceof SVGSVGElement) {
+    if (eyeBall.current instanceof SVGCircleElement && mustachy.current instanceof SVGSVGElement && matchMedia('(pointer:fine)').matches) {
       const eyeArea = eyeBall.current.getBoundingClientRect();
       const R = eyeArea.width / 2;
       const centerY = eyeArea.top + R;
@@ -68,7 +69,7 @@ export function Mustachy({ width = '30ch' }: { width?: string }) {
   }, []);
 
   return (
-    <StyledMustachy ref={mustachy} width={width} viewBox="0 0 299 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <StyledMustachy ref={mustachy} viewBox="0 0 299 190" fill="none" xmlns="http://www.w3.org/2000/svg">
       <svg width="116" height="116">
         <circle ref={eyeBall} cx="50%" cy="50%" r="58.2802" fill="#fff" />
         <circle className="pupil" cx="50%" cy="50%" r="23.7722" fill="#181818" />
