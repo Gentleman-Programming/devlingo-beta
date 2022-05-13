@@ -6,4 +6,5 @@ export { default as Select } from './Select';
 export { default as Preloader } from './Preloader';
 export { default as Code } from './Code';
 export { Button } from './Button';
+export { default as Layout } from './Layout/Layout';
 export * from './SignInWithProviderButton';
