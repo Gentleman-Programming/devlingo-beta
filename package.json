@@ -71,7 +71,7 @@
     "eslint-plugin-react": "^7.29.4",
     "jest": "^27.5.1",
     "prettier": "^2.5.1",
-    "react-test-renderer": "^17.0.2",
+    "react-test-renderer": "^18.1.0",
     "rollup": "^2.69.1",
     "rxjs": "^7.5.4",
     "source-map-explorer": "^2.5.2",
