@@ -23,35 +23,18 @@ type prop = {
 
 const AppRouter = () => {
   const user = useSelector(({ user }: prop) => user);
-  const log = verifyUser(user);
+  const isUserLoggenIn = verifyUser(user);
 
   return (
     <Routes>
-      <Route path={'/'} element={<Home />} />
-      <Route
-        path={'login'}
-        element={
-          <PublicRoutes log={log}>
-            <Login />
-          </PublicRoutes>
-        }
-      />
-      <Route
-        path={'register'}
-        element={
-          <PublicRoutes log={log}>
-            <Register />
-          </PublicRoutes>
-        }
-      />
-      <Route
-        path={'*'}
-        element={
-          <PrivateRoutes log={log}>
-            <AuthRouter />
-          </PrivateRoutes>
-        }
-      />
+      <Route index element={<Home />} />
+      <Route element={<PublicRoutes isUserLoggenIn={isUserLoggenIn} />}>
+        <Route path={'login'} element={<Login />} />
+        <Route path={'register'} element={<Register />} />
+      </Route>
+      <Route element={<PrivateRoutes isUserLoggenIn={isUserLoggenIn} />}>
+        <Route path={'*'} element={<AuthRouter />} />
+      </Route>
     </Routes>
   );
 };

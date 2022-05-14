@@ -1,15 +1,14 @@
 import { Navigate, Outlet } from 'react-router';
 
 type props = {
-  log: Boolean;
-  children: JSX.Element;
+  isUserLoggenIn: Boolean;
 };
 
-const PublicRoutes = ({ log, children }: props): JSX.Element => {
-  if (log) {
+const PublicRoutes = ({ isUserLoggenIn }: props): JSX.Element => {
+  if (isUserLoggenIn) {
     return <Navigate to="/dashboard" replace />;
   }
-  return children ? children : <Outlet />;
+  return <Outlet />;
 };
 
 export default PublicRoutes;

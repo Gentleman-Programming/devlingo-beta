@@ -1,15 +1,14 @@
-import { Navigate } from 'react-router';
+import { Navigate, Outlet } from 'react-router';
 
 type props = {
-  log: Boolean;
-  children: JSX.Element;
+  isUserLoggenIn: Boolean;
 };
 
-const PrivateRoutes = ({ log, children }: props): JSX.Element => {
-  if (!log) {
+const PrivateRoutes = ({ isUserLoggenIn }: props): JSX.Element => {
+  if (!isUserLoggenIn) {
     return <Navigate to="/login" replace />;
   }
-  return children;
+  return <Outlet />;
 };
 
 export default PrivateRoutes;
