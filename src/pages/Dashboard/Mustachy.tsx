@@ -69,7 +69,7 @@ export function Mustachy() {
   }, []);
 
   return (
-    <StyledMustachy ref={mustachy} viewBox="0 0 299 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <StyledMustachy width="100%" ref={mustachy} viewBox="0 0 299 190" fill="none" xmlns="http://www.w3.org/2000/svg">
       <svg width="116" height="116">
         <circle ref={eyeBall} cx="50%" cy="50%" r="58.2802" fill="#fff" />
         <circle className="pupil" cx="50%" cy="50%" r="23.7722" fill="#181818" />
