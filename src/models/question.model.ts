@@ -1,11 +1,11 @@
-export enum pathCollection {
-  QUESTION = 'question',
-  USER = 'user',
-}
-
-export enum seniority {
-  TR = 'trainee',
-  JR = 'junior',
-  SSR = 'semi senior',
-  SR = 'senior',
+export interface IQuestion {
+  id?: string,
+  techName?: string,
+  seniority?: string,
+  question: string;
+  response: {
+    isCorrect: boolean;
+    text: string;
+  };
+  point: number;
 }

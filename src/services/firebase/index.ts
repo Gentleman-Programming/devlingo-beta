@@ -1,3 +1,3 @@
 export * from './firebase.config';
 export * from './firebase.service';
-export * from './firebase.collection';
+export * from './firebase.question';

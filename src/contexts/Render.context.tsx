@@ -1,4 +1,4 @@
-import { createContext, useState, Dispatch, SetStateAction } from 'react';
+import { ChangeEvent, createContext, useState } from 'react';
 
 interface IProps {
   children: JSX.Element | JSX.Element[];
