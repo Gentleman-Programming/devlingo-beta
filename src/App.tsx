@@ -1,23 +1,32 @@
-import store from '@/redux/store';
 import { ThemeProvider } from '@emotion/react';
 import { SnackbarProvider } from 'notistack';
-import React, { lazy, Suspense } from 'react';
-import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Suspense, useEffect } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
 import './App.scss';
 import { Preloader } from './components';
 import { AppContainer } from './styled-components';
 import theme from './theme';
 import { SnackbarUtilsConfigurator } from './utilities';
 import { ParallaxProvider } from 'react-scroll-parallax';
-
-// Routes
-const Home = lazy(() => import('@/pages/Home/Home'));
-const Dashboard = lazy(() => import('@/pages/Dashboard/Dashboard'));
-const Login = lazy(() => import('@/pages/Login/Login'));
-const Register = lazy(() => import('@/pages/Register/Register'));
+import { AppRouter } from './routes';
+import { auth } from './services';
+import { modifyUser } from '@/redux';
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      const expToken = (await user?.getIdTokenResult())?.claims.exp ?? 0;
+      const currentDate = Math.round(Date.now() / 1000);
+      if (expToken < currentDate && expToken > 0) {
+        dispatch(modifyUser({ accessToken: user?.refreshToken }));
+      }
+    });
+  }, [dispatch]);
+
   return (
     <ParallaxProvider>
       <ThemeProvider theme={theme}>
@@ -25,16 +34,9 @@ const App = () => {
           <SnackbarProvider>
             <SnackbarUtilsConfigurator />
             <Suspense fallback={<Preloader />}>
-              <Provider store={store}>
-                <BrowserRouter>
-                  <Routes>
-                    <Route path={`/`} element={<Home />} />
-                    <Route path={`dashboard/*`} element={<Dashboard />} />
-                    <Route path={`login`} element={<Login />} />
-                    <Route path={`register`} element={<Register />} />
-                  </Routes>
-                </BrowserRouter>
-              </Provider>
+              <BrowserRouter>
+                <AppRouter />
+              </BrowserRouter>
             </Suspense>
           </SnackbarProvider>
         </AppContainer>
