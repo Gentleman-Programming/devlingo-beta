@@ -1,25 +1,44 @@
 import { FirebaseUser } from '@/models';
-import { setAndPersistDbUserState } from '@/services';
 import { createSlice } from '@reduxjs/toolkit';
+
+import { persistDataLocalStorage } from '@/utilities';
+import { localStorageEntities } from '@/models';
 
 export const UserEmptyState: FirebaseUser = {
   uid: '',
   email: '',
-  token: ''
+  accessToken: '',
 };
 
 export const userSlice = createSlice({
   name: 'user',
-  initialState: UserEmptyState,
+  initialState: localStorage.getItem(localStorageEntities.user)
+    ? JSON.parse(localStorage.getItem(localStorageEntities.user) as string)
+    : UserEmptyState,
   reducers: {
-    createUser: (state, action) => {
+    createUser: (_state, action) => {
+      persistDataLocalStorage({
+        data: action.payload,
+        entity: localStorageEntities.user,
+      });
       return action.payload;
     },
     modifyUser: (state, action) => {
-      return { ...state, ...action.payload };
+      const editDataUser = { ...state, ...action.payload };
+      persistDataLocalStorage({
+        data: editDataUser,
+        entity: localStorageEntities.user,
+      });
+      return editDataUser;
     },
-    resetUser: () => UserEmptyState
-  }
+    resetUser: () => {
+      persistDataLocalStorage({
+        data: UserEmptyState,
+        entity: localStorageEntities.user,
+      });
+      return UserEmptyState;
+    },
+  },
 });
 
 // Action creators are generated for each case reducer function

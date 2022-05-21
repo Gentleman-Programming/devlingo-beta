@@ -2,71 +2,97 @@ import { collection, addDoc, getDocs, doc, setDoc, query, updateDoc } from 'fire
 import { IQuestion, seniority } from '@/models';
 import { db } from './firebase.config';
 
-export const addCollection = async (techName: string, path: seniority, data: IQuestion) => {
+/**
+ * Adding technology to the question database. If it exists, the specified information
+ * is added, otherwise it will be created and added in the same way.
+ * @param techName The technology to be added.
+ * @param seniority The seniority you will have:  TR | JR | SSR | SR .
+ * @param data The data to be contained in each registered seniority document.
+ * @returns void
+ */
+export const addCollection = async (
+    techName: string,
+    seniority: seniority,
+    data: IQuestion
+  ): Promise<void> => {
   try {
     const dbRef = collection(db, 'question');
-    const collectionRef = collection(db, 'question', techName, path);
+    const collectionRef = collection(db, 'question', techName, seniority);
 
-    return await Promise.all([
+    await Promise.all([
       setDoc(doc(dbRef, techName), { Title: techName }),
       addDoc(collectionRef, {
         seniority: collectionRef.id,
-        techName, ...data
+        techName,
+        ...data,
       }),
     ]);
   } catch (error) {
-    return error;
+    console.error(error);
   }
 };
 
+/**
+ * Displays all the data of the registered technologies.
+ * @param seniorityName Receives the seniority: TR | JR | SSR | SR .
+ * @returns All technologies registered with the seniority specified by parameter.
+ */
 export const viewCollection = async (seniorityName: seniority) => {
+  let data: any = [];
+
   try {
     const findTech = await findOneTech();
-    let data = <any>[];
 
-    for(let { Title } of findTech){
+    for (let { Title } of findTech) {
       const q = query(collection(db, 'question', Title, seniorityName));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => data.push({ id: doc.id, ...doc.data() }));
-    }    
-
-    return data;
+    }
 
   } catch (error) {
-    return error;
+    console.error(error);
   }
+  return data;
 };
 
+/**
+ * Show all the names of the technologies in the collection of questions.
+ * @returns All the names of the existing technologies in the collection question.
+ */
 export const findOneTech = async () => {
+  const tech: any = [];
+
   try {
     const q = query(collection(db, 'question'));
+
     const querySnapshot = await getDocs(q);
-    let data = <any>[];
-
-    querySnapshot.forEach((doc) => data.push({ id: doc.id, ...doc.data() }));
-
-    return data;
+    querySnapshot.forEach((doc) => tech.push({ id: doc.id, ...doc.data() }));
   } catch (error) {
-    return error;
+    console.error(error);
   }
+  return tech;
 };
 
-export const findAllTech = async () => {
+/**
+ * Show all data in the question collection.
+ * @returns All data in the question collection in a promise.
+ */
+export const findAllTech = async (): Promise<IQuestion[]> => {
+  const tech: IQuestion[] = [];
+
   try {
     const TR = viewCollection(seniority.TR);
     const JR = viewCollection(seniority.JR);
     const SSR = viewCollection(seniority.SSR);
     const SR = viewCollection(seniority.SR);
-    const tech: IQuestion[] = [];
 
     const questions = await Promise.all([TR, JR, SSR, SR]);
     questions.map((elem: IQuestion[]) => tech.push(...elem));
-
-    return tech;
   } catch (error) {
-    return error;    
+    console.error(error);
   }
-}
+  return tech;
+};
 
 export const updateCollection = async () => {};
 export const removeCollection = async () => {};

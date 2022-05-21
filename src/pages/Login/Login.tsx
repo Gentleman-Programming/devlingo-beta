@@ -14,15 +14,9 @@ import { useYupValidationResolver } from '@/hooks';
 import { InputAdornment } from '@mui/material';
 import InputPassword from '@/components/InputPassword';
 
-/*
-  datos de prueba en mi local (Dante)
-  email: test@gmail.com
-  password: Testapp1$
-*/
-
 const schema = yup.object({
   email: yup.string().matches(EmailRegex, 'ingrese un email valido').required('el email es requerido'),
-  password: yup.string().matches(PasswordRegex, 'ingrese una contraseña valida').required('debe ingresar una contraseña')
+  password: yup.string().matches(PasswordRegex, 'ingrese una contraseña valida').required('debe ingresar una contraseña'),
 });
 
 export const Login = () => {
@@ -31,14 +25,14 @@ export const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
-    resolver: useYupValidationResolver(schema)
+    resolver: useYupValidationResolver(schema),
   });
+
   const handleLogin = async (dataUser: any) => {
     const user: any = await LoginPasswordAndEmail(dataUser);
     const adapterUser = await createAddaptedUser(user);
-    if (!adapterUser) return;
     dispatch(createUser(adapterUser));
   };
 
@@ -64,7 +58,7 @@ export const Login = () => {
               <InputAdornment position="start">
                 <AccountCircle fontSize="large" />
               </InputAdornment>
-            )
+            ),
           }}
         />
         <InputPassword errors={errors} register={register} />
