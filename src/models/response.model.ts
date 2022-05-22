@@ -1,4 +1,4 @@
-export interface response {
+export interface IResponse {
   isCorrect: boolean;
   text: string;
 }

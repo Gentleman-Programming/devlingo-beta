@@ -1,6 +1,15 @@
-import { collection, addDoc, getDocs, doc, setDoc, query, updateDoc } from 'firebase/firestore';
 import { IQuestion, seniority } from '@/models';
 import { db } from './firebase.config';
+import {
+  collection,
+  addDoc,
+  getDocs,
+  doc,
+  setDoc,
+  query,
+  updateDoc,
+  deleteDoc
+} from 'firebase/firestore';
 
 /**
  * Adding technology to the question database. If it exists, the specified information
@@ -97,6 +106,7 @@ export const findAllTech = async (): Promise<IQuestion[]> => {
  * Updates the specified registrant data and seniority.
  * @param techName The technology to be updated.
  * @param seniority Current seniority: (ENUM) TR | JR | SSR | SR | SR .
+ * @param id Id of the document to be updated.
  * @param data Updated data to be recorded.
  * @returns void
  */
@@ -110,7 +120,25 @@ export const updateCollection = async (
     const updateRef = doc(db, 'question', techName, seniority, id);
     await updateDoc(updateRef, { ...data });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
-export const removeCollection = async () => {};
+
+/**
+ * Remove the specified registrant data and seniority.
+ * @param techName The technology to be removed.
+ * @param seniority Current seniority: (ENUM) TR | JR | SSR | SR | SR .
+ * @param id Id of the document to be removed.
+ */
+export const removeCollection = async (
+  techName: string,
+  seniority: seniority,
+  id: string
+): Promise<void> => {
+  try {
+    const removeDoc = doc(db, 'question', techName, seniority, id);
+    await deleteDoc(removeDoc);
+  } catch (error) {
+    console.error(error);
+  }
+};

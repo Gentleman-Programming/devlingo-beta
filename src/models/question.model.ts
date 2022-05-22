@@ -1,10 +1,10 @@
-import { response } from './response.model';
+import { IResponse } from './response.model';
 
 export interface IQuestion {
   id?: string;
   techName?: string;
   seniority?: string;
   question: string;
-  response: response[];
+  response: IResponse[];
   point: number;
 }
