@@ -1,16 +1,26 @@
 import styled from 'styled-components';
 import { Background } from '@/assets/';
 
-export const Main = styled.main`
-  display: flex;
-  align-items: center;
+interface Props {
+  $quest: boolean;
+}
+
+export const Main = styled.main<Props>`
+  display: grid;
   justify-content: center;
+  grid-template-areas: 'quest' 'options';
+  row-gap: 1em;
+  padding-bottom: 1em;
   min-height: 100vh;
   background-image: url(${Background}), linear-gradient(90deg, #181818 9%, #181818 100%);
   background-size: 120% 120%;
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  display: grid;
-  grid-template-areas: 'mustachy quest' 'options quest';
+  ${({ $quest }) => ($quest ? 'grid-template-columns: 5fr 3fr' : null)};
+
+  @media only screen and (min-width: 700px) {
+    grid-template-columns: minmax(30em, 50vmax) auto;
+    grid-template-areas: 'mustachy quest' 'options quest';
+  }
 `;
