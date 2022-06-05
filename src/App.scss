@@ -1,5 +1,5 @@
 body {
-	font-size: 2.25rem;
+  font-size: calc(15px + (30 - 15) * ((100vw - 280px) / (2000 - 280)));
 }
 
 @font-face {

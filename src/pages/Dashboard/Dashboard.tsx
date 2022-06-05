@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Main, FloatingButton, CodeContainer } from './styled-components/';
+import { Main, FloatingButton } from './styled-components/';
 import { MustachyWithDialog, Options } from './';
 import { Code } from '@/components/';
 
@@ -16,22 +16,35 @@ const code =
 const options: Array<option> = [
   {
     option: '5',
-    isCorrect: true
+    isCorrect: true,
   },
   {
     option: '7',
-    isCorrect: false
+    isCorrect: false,
   },
   {
     option: '8',
-    isCorrect: false
-  }
+    isCorrect: false,
+  },
 ];
 
 export const Dashboard = () => {
   const [quest, setQuest] = useState(false);
   const [message, setMessage] = useState(0);
   const [text, setText] = useState(messages[message]);
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const onResize = () => {
+      setViewportWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', onResize);
+
+    return () => {
+      window.removeEventListener('resize', onResize);
+    };
+  }, []);
 
   useEffect(() => {
     setText(messages[message]);
@@ -51,15 +64,10 @@ export const Dashboard = () => {
   };
 
   return (
-    <Main>
-      <MustachyWithDialog style={{ gridArea: 'mustachy' }} width="12ch" dialogWidth="17ch">
-        {text}
-      </MustachyWithDialog>
-      {quest && (
-        <CodeContainer>
-          <Code text={code} />
-        </CodeContainer>
-      )}
+    <Main $quest={quest && viewportWidth > 700}>
+      {viewportWidth < 700 && quest ? null : <MustachyWithDialog dialogWidth="calc(17ch + 10vmax)">{text}</MustachyWithDialog>}
+
+      {quest && <Code text={code} />}
       {quest && <Options options={options} />}
       {!quest && <FloatingButton onClick={HandleCLick}>Continuar</FloatingButton>}
     </Main>

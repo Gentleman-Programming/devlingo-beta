@@ -65,7 +65,7 @@ export const Home = () => {
       <Navbar>
         <TitleHome>Devlingo</TitleHome>
         <ParagraphVerticalAlign to="/dashboard">
-          <LanguageIcon sx={{ fontSize: '2.3vw' }} /> English
+          <LanguageIcon sx={{ fontSize: '4.5vmin' }} /> English
         </ParagraphVerticalAlign>
       </Navbar>
 
