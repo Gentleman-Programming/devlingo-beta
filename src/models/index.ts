@@ -6,3 +6,7 @@ export * from './select-options.model';
 export * from './state.model';
 export * from './subject-manager.model';
 export * from './user.model';
+export * from './quest.option';
+export * from './seniority.model';
+export * from './question.model';
+export * from './response.model';
