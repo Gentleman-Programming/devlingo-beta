@@ -1,5 +1,16 @@
 import { createAddaptedUser } from '@/adapters';
 import { signinWithGoogle, signinWithGithub } from '@/services/firebase';
+import styled from 'styled-components';
+
+const CircleButton = styled.button`
+  border-radius: 2vw;
+  width: 4vw;
+  height: 4vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+`;
 
 export enum AuthProvider {
   GOOGLE,
@@ -22,6 +33,6 @@ const SignInWithProviderButton = ({ children, provider }: ButtonProps) => {
         break;
     }
   };
-  return <button onClick={handleSubmit}>{children}</button>;
+  return <CircleButton onClick={handleSubmit}>{children}</CircleButton>;
 };
 export default SignInWithProviderButton;

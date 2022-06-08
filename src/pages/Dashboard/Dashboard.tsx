@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Main, FloatingButton } from './styled-components/';
 import { MustachyWithDialog, Options } from './';
 import { Code } from '@/components/';
+import Layout from '../../components/Layout/Layout';
 
 import { option } from '@/models';
 
@@ -64,13 +65,15 @@ export const Dashboard = () => {
   };
 
   return (
-    <Main $quest={quest && viewportWidth > 700}>
-      {viewportWidth < 700 && quest ? null : <MustachyWithDialog dialogWidth="calc(17ch + 10vmax)">{text}</MustachyWithDialog>}
+    <Layout>
+      <Main $quest={quest && viewportWidth > 700}>
+        {viewportWidth < 700 && quest ? null : <MustachyWithDialog dialogWidth="calc(17ch + 10vmax)">{text}</MustachyWithDialog>}
 
-      {quest && <Code text={code} />}
-      {quest && <Options options={options} />}
-      {!quest && <FloatingButton onClick={HandleCLick}>Continuar</FloatingButton>}
-    </Main>
+        {quest && <Code text={code} />}
+        {quest && <Options options={options} />}
+        {!quest && <FloatingButton onClick={HandleCLick}>Continuar</FloatingButton>}
+      </Main>
+    </Layout>
   );
 };
 

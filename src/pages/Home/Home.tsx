@@ -75,7 +75,7 @@ export const Home = () => {
         <DivHero>
           <TextHero>¡Una forma didactica, divertida y gratuita de aprender a programar!</TextHero>
           <DivButtons>
-            <HeroButtons to="/dashboard" primary="true">
+            <HeroButtons to="/register" primary="true">
               Empezar
             </HeroButtons>
             <HeroButtons to="/login">Ya Tengo Cuenta</HeroButtons>
