@@ -39,13 +39,11 @@ export const Login = () => {
   return (
     <Layout>
       <Circle width="85%" height="140%" left="-12%" top="-5%" paddingLeft="8%">
-        <h2>Inicia sesión para</h2>
-        <h2>seguir mejorando tus</h2>
-        <h2>habilidades</h2>
+        <h2>Inicia sesión para seguir mejorando tus habilidades</h2>
       </Circle>
       <Circle width="8%" height="8%" top="15%" left="-12%" />
       <Circle width="20%" height="20%" top="-45%" left="-4%" />
-      <Form onSubmit={handleSubmit(handleLogin)}>
+      <Form right="true" onSubmit={handleSubmit(handleLogin)}>
         <Mustachi src={mustachi} alt="mustachi" />
         <Input
           errors={errors}
@@ -63,7 +61,7 @@ export const Login = () => {
         />
         <InputPassword errors={errors} register={register} />
         <StyledLink to="/">olvide mi contraseña</StyledLink>
-        <Button type="submit">iniciar sesión</Button>
+        <Button primary="true" type="submit">iniciar sesión</Button>
       </Form>
     </Layout>
   );

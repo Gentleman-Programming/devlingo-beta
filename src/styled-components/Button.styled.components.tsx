@@ -1,22 +1,26 @@
 import styled from 'styled-components';
 
-export const Button = styled.button`
-  background-color: #ea1889;
-  border-radius: 3rem;
-  border: none;
-  color: #ffffff;
+export const Button = styled.button<{ primary?: string }>`
   width: 18rem;
-  height: 5rem;
-  cursor: pointer;
-  box-sizing: border-box;
-  transition: background-color 0.3s ease;
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  letter-spacing: 1%;
-  &:hover {
-    background-color: #181818;
-    color: #ea1889;
-    border: 0.4rem solid #ea1889;
+  font-weight: bold;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5vw 0;
+  border-radius: 1vw;
+  transition: all 0.5s ease 0s;
+  box-shadow: 0 1vw #a11360;
+  text-transform: uppercase;
+  font-size: 3vmin;
+  border: 0.3vw solid #ea1889;
+
+  background-color: ${(props: any) => (props.primary ? '#EA1889' : '#181818;')};
+  color: ${(props: any) => (props.primary ? '#fff' : '#EA1889')};
+
+  &:active {
+    box-shadow: 0 5px #a11360;
+    transform: translateY(5px);
   }
 `;
 

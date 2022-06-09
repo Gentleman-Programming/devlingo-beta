@@ -15,11 +15,67 @@ export const NavbarL = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px;
+  padding: 2vmin;
   background-color: transparent;
   color: white;
   position: fixed;
   top: 0;
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    z-index: 1;
+    right: 0;
+    color: black;
+    width: 15vmax;
+    border-radius: 1.5vw;
+  }
+
+  .dropdown-content a {
+    color: black;
+    text-decoration: none;
+    font-size: 2vmax;
+    padding: 1vmax;
+    width: 100%;
+  }
+
+  .dropdown-content a:hover, .dropdown-content a:active {
+    background-color: #f1f1f1;
+  }
+  .dropdown-content a:first-child {
+    border-radius: 1.5vw 1.5vw 0 0;
+  }
+  .dropdown-content a:last-child {
+    border-radius: 0 0 1.5vw 1.5vw;
+  }
+
+
+  .active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1vmax;
+  }
+  .active::after {
+    content: '';
+    position: absolute;
+    background-color: white;
+    z-index: -1;
+    visibility: visible;
+    transform: rotate(45deg);
+    width: 3vmax;
+    height: 3vmax;
+    top: 0;
+    right: 1.3vmax;
+  }
 `;
 
 export const LayoutContainer = styled.div`

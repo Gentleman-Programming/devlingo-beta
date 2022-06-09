@@ -7,8 +7,10 @@ export const Circle = styled.div`
   width: ${({ width }: CSSProperties) => width};
   height: ${({ height }: CSSProperties) => height};
   left: ${({ left }: CSSProperties) => left};
+  right: ${({ right }: CSSProperties) => right};
   top: ${({ top }: CSSProperties) => top};
   padding-left: ${({ paddingLeft }: CSSProperties) => paddingLeft};
+  padding-right: ${({ paddingRight }: CSSProperties) => paddingRight};
   position: relative;
   display: flex;
   flex-direction: column;
@@ -22,6 +24,13 @@ export const Circle = styled.div`
   justify-content: center;
   background-color: #ea1889;
   color: #ffffff;
+
+  h2 {
+    width: 75%;
+    text-align: center;
+    font-size: 4vw;
+    line-height: 4vw;
+  }
   @media ${device} {
     display: none;
   }
