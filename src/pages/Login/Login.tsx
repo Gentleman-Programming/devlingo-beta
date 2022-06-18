@@ -61,7 +61,9 @@ export const Login = () => {
         />
         <InputPassword errors={errors} register={register} />
         <StyledLink to="/">olvide mi contraseña</StyledLink>
-        <Button primary="true" type="submit">iniciar sesión</Button>
+        <Button primary="true" type="submit">
+          iniciar sesión
+        </Button>
       </Form>
     </Layout>
   );

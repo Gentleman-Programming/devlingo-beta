@@ -3,7 +3,8 @@ import styled from 'styled-components';
 export const StyledLink = styled(Link)`
   color: #ffffff;
   margin-bottom: 15px;
-  margin-left: 85px;
+  display: flex;
+  justify-content: flex-end;
   text-decoration: none;
   font-size: 20px;
   font-weight: 700;
