@@ -35,7 +35,7 @@ const Register = () => {
     formState: { errors }
   } = useForm<User>({ resolver });
 
-  const onSubmit: SubmitHandler<User> = async (newUserFormData) => {
+  const onSubmit: SubmitHandler<User> = async newUserFormData => {
     try {
       const newUser = await signup(newUserFormData);
       const appUser = await createAddaptedUser(newUser);
@@ -54,7 +54,8 @@ const Register = () => {
         <Mustachi src={mustachi} alt="mustachi" />
         <Input
           placeholder="correo electronico"
-          register={register} name="email"
+          register={register}
+          name="email"
           type={InputType.TEXT}
           label="email"
           errors={errors}
@@ -63,11 +64,11 @@ const Register = () => {
               <InputAdornment position="start">
                 <AccountCircle fontSize="large" />
               </InputAdornment>
-            ),
+            )
           }}
         />
         <Input
-          placeholder="contraseña" 
+          placeholder="contraseña"
           register={register}
           name="password"
           type={showPassword ? InputType.TEXT : InputType.PASSWORD}
@@ -93,8 +94,12 @@ const Register = () => {
           <p>──────── O ────────</p>
         </CenterDiv>
         <CenterDiv>
-          <SignInWithProviderButton provider={AuthProvider.GOOGLE}><GoogleIcon sx={{ fontSize: '4.5vmin' }} /> </SignInWithProviderButton>
-          <SignInWithProviderButton provider={AuthProvider.GITHUB}><GitHubIcon sx={{ fontSize: '4.5vmin' }} /> </SignInWithProviderButton>
+          <SignInWithProviderButton provider={AuthProvider.GOOGLE}>
+            <GoogleIcon sx={{ fontSize: '4.5vmin' }} />
+          </SignInWithProviderButton>
+          <SignInWithProviderButton provider={AuthProvider.GITHUB}>
+            <GitHubIcon sx={{ fontSize: '4.5vmin' }} />
+          </SignInWithProviderButton>
         </CenterDiv>
       </Form>
     </Layout>
