@@ -10,7 +10,7 @@ import { verifyUser } from '@/utilities';
 const Login = lazy(() => import('@/pages/Login/Login'));
 const Register = lazy(() => import('@/pages/Register/Register'));
 const Home = lazy(() => import('@/pages/Home/Home'));
-const ControlPanel = lazy(() => import('@/pages/ControlPanel/ControlPanel'));
+
 
 /*
   usuario de prueba:
@@ -35,7 +35,6 @@ const AppRouter = () => {
       </Route>
       <Route element={<PrivateRoutes isUserLoggenIn={isUserLoggenIn} />}>
         <Route path={'*'} element={<AuthRouter />} />
-        <Route path={'admin'} element={<ControlPanel />} />
       </Route>
     </Routes>
   );
