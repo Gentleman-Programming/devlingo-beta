@@ -1,11 +1,16 @@
-import { localStorageEntities, FirebaseUser } from '@/models';
+import { localStorageEntities } from '@/models';
 
-interface ILocalStorage {
-  data: FirebaseUser;
+interface ILocalStorage<T> {
+  data: T | T[];
   entity: localStorageEntities;
 }
 
-export const persistDataLocalStorage = ({ entity, data }: ILocalStorage): void => {
+export const persistDataLocalStorage = <T>({ entity, data }: ILocalStorage<T>): void => {
   const body = JSON.stringify(data);
   localStorage.setItem(entity, body);
+};
+
+export const getDataLocalStorage = <T>(entity: localStorageEntities): T => {
+  const data = localStorage.getItem(entity);
+  return JSON.parse(data as string);
 };
