@@ -1,17 +1,7 @@
 import { Button } from '@/components/';
-
-import { option } from '@/models';
+import { IResponse } from '@/models';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
-
-export function Options({ options }: { options: Array<option> }) {
-  return (
-    <OptionsContainer>
-      {options.map((element, index) => (
-        <Button key={index}>{element.option}</Button>
-      ))}
-    </OptionsContainer>
-  );
-}
 
 export const OptionsContainer = styled.div`
   display: grid;
@@ -24,3 +14,23 @@ export const OptionsContainer = styled.div`
     grid-template-rows: min-content min-content;
   }
 `;
+
+export function Options({ options, id, index }: { options: IResponse[]; id: string; index: number }) {
+  const navigate = useNavigate();
+  const handleClick =
+    ({ isCorrect }: IResponse) =>
+    () => {
+      const nextQuestion = +index + 1;
+      if (nextQuestion === 13) navigate('/');
+      else navigate(`/question/${nextQuestion}`);
+    };
+  return (
+    <OptionsContainer>
+      <div key={id}>
+        {options.map((option: IResponse) => (
+          <Button onClick={handleClick(option)}>{option.text}</Button>
+        ))}
+      </div>
+    </OptionsContainer>
+  );
+}

@@ -8,3 +8,8 @@ export interface IQuestion {
   response: IResponse[];
   point: number;
 }
+
+export interface QuestionContextProps {
+  questionStates: IQuestion[];
+  response: (isCorrect: boolean, point: number) => void;
+}

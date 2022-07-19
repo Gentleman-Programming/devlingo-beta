@@ -8,6 +8,7 @@ export const UserEmptyState: FirebaseUser = {
   uid: '',
   email: '',
   accessToken: '',
+  seniority: '',
 };
 
 export const userSlice = createSlice({
@@ -17,7 +18,7 @@ export const userSlice = createSlice({
     : UserEmptyState,
   reducers: {
     createUser: (_state, action) => {
-      persistDataLocalStorage({
+      persistDataLocalStorage<FirebaseUser>({
         data: action.payload,
         entity: localStorageEntities.user,
       });
@@ -25,14 +26,14 @@ export const userSlice = createSlice({
     },
     modifyUser: (state, action) => {
       const editDataUser = { ...state, ...action.payload };
-      persistDataLocalStorage({
+      persistDataLocalStorage<FirebaseUser>({
         data: editDataUser,
         entity: localStorageEntities.user,
       });
       return editDataUser;
     },
     resetUser: () => {
-      persistDataLocalStorage({
+      persistDataLocalStorage<FirebaseUser>({
         data: UserEmptyState,
         entity: localStorageEntities.user,
       });
