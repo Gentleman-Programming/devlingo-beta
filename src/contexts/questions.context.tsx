@@ -1,8 +1,11 @@
-import { createContext, useReducer } from 'react';
+import { createContext, useEffect, useReducer } from 'react';
 import { questionReducer, actionTypes } from '../reducers';
+import { getDataLocalStorage } from '@/utilities';
+import { IQuestion, localStorageEntities } from '@/models';
 
 type questionContextProps = {
   seniority: number;
+  initialState: number;
   IncrementSeniority: (points: number) => void;
   DecrementSeniority: (points: number) => void;
 };
@@ -13,9 +16,14 @@ interface props {
   children: JSX.Element | JSX.Element[];
 }
 
-const initialState = 500;
+let initialState: number;
 
 export const QuestionProvider = ({ children }: props) => {
+  useEffect(() => {
+    const questions = getDataLocalStorage<IQuestion[]>(localStorageEntities.questions);
+    initialState = questions.reduce((acum, { point }) => acum + point, 0);
+  }, []);
+
   const [seniority, dispatch] = useReducer(questionReducer, initialState);
 
   const IncrementSeniority = (points: number): void => {
@@ -32,5 +40,7 @@ export const QuestionProvider = ({ children }: props) => {
     });
   };
 
-  return <QuestionsContext.Provider value={{ IncrementSeniority, DecrementSeniority, seniority }}>{children}</QuestionsContext.Provider>;
+  const value = { IncrementSeniority, DecrementSeniority, seniority, initialState };
+
+  return <QuestionsContext.Provider value={value}>{children}</QuestionsContext.Provider>;
 };

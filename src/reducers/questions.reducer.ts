@@ -11,7 +11,12 @@ interface actionReducer {
 export const questionReducer = (state: number, action: actionReducer): number => {
   switch (action.type) {
     case actionTypes.reduce:
-      return state > 0 ? state - action.payload : state;
+      if (state > 0) {
+        const df = state - action.payload;
+        if (df > 0) return df;
+        return 0;
+      }
+      return state;
     case actionTypes.increment:
       return state + action.payload;
     default:

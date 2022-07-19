@@ -11,7 +11,7 @@ interface IContext {
 
 export const Render = createContext<IContext | any>('');
 
-export default function RenderContext({ children }: IProps) {
+export function RenderContext({ children }: IProps) {
   const [render, setRender] = useState<string>();
 
   const handleClick = (e: any) => setRender(e.currentTarget.textContent);
@@ -27,5 +27,3 @@ export default function RenderContext({ children }: IProps) {
     </>
   );
 }
-
-export { RenderContext };

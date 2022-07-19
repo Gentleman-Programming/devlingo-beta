@@ -9,10 +9,10 @@ import { QuestionProvider } from '@/contexts';
 
 const Questions = () => {
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
-  const { id } = useParams();
-  const questionIndex = parseInt(id as string) - 1;
+  const { id: index } = useParams();
+  const questionIndex = parseInt(index as string) - 1;
   const questions = getDataLocalStorage<IQuestion[]>(localStorageEntities.questions);
-  const question = questions[questionIndex];
+  const { response, id, question, point } = questions[questionIndex];
 
   useEffect(() => {
     const onResize = () => {
@@ -31,8 +31,8 @@ const Questions = () => {
       <Layout>
         <Main $quest={viewportWidth > 700}>
           {viewportWidth > 700 && <MustachyWithDialog dialogWidth="calc(17ch + 10vmax)">¿Cuál es el resultado?</MustachyWithDialog>}
-          <div style={{ color: '#efefef' }}>{question.question}</div>
-          <Options options={question.response} id={question.id as string} index={id} />
+          <div style={{ color: '#efefef' }}>{question}</div>
+          <Options options={response} id={id} index={index} points={point} />
         </Main>
       </Layout>
     </QuestionProvider>
