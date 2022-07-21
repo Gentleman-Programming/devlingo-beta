@@ -23,6 +23,19 @@ interface props {
   points: number;
 }
 
+const Container = styled.div`
+  display: grid;
+  row-gap: 1em;
+  align-items: center;
+  color: #fff;
+  margin-top: 1em;
+
+  @media only screen and (min-width: 700px) {
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+  }
+`;
+
 export function Options({ options, index, id, points }: props) {
   const { seniority, initialState, DecrementSeniority } = useQuestions();
   const navigate = useNavigate();
@@ -34,21 +47,25 @@ export function Options({ options, index, id, points }: props) {
         if (!isCorrect) {
           points !== 50 ? DecrementSeniority(30 - points) : DecrementSeniority(10);
         }
-        navigate(`/question/${nextQuestion}`);
+        navigate(`/question/${nextQuestion}`, { replace: true });
       } else {
         navigate('/');
       }
     };
 
   return (
-    <OptionsContainer>
+    <div style={{ gridArea: 'options' }}>
       <div key={id}>
-        <h2>puntaje inicial: {initialState}</h2>
-        <h2>puntaje actual: {seniority}</h2>
-        {options.map((option: IResponse) => (
-          <Button onClick={handleClick(option)}>{option.text}</Button>
-        ))}
+        <OptionsContainer>
+          {options.map((option: IResponse) => (
+            <Button onClick={handleClick(option)}>{option.text}</Button>
+          ))}
+        </OptionsContainer>
       </div>
-    </OptionsContainer>
+      <Container>
+        <h2>Puntaje inicial: {initialState}</h2>
+        <h2>Puntaje actual: {seniority}</h2>
+      </Container>
+    </div>
   );
 }
