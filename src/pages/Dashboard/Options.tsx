@@ -54,8 +54,8 @@ export function Options({ options, index, id, points }: props) {
     };
 
   return (
-    <div style={{ gridArea: 'options' }}>
-      <div key={id}>
+    <div key={id} style={{ gridArea: 'options' }}>
+      <div>
         <OptionsContainer>
           {options.map((option: IResponse) => (
             <Button onClick={handleClick(option)}>{option.text}</Button>
