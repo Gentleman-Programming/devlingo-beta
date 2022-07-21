@@ -16,6 +16,28 @@ export const Dashboard = () => {
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
 
+  const handleLoad = async () => {
+    const questions = await findAllTech();
+    questions.length = 12;
+    const body = {
+      data: questions,
+      entity: localStorageEntities.questions,
+    };
+    persistDataLocalStorage<IQuestion>(body);
+  };
+
+  const HandleClick = async () => {
+    if (text === messages[1]) {
+      navigate('/question/1');
+    } else {
+      setMessage((message) => message + 1);
+    }
+  };
+
+  useEffect(() => {
+    handleLoad();
+  }, []);
+
   useEffect(() => {
     const onResize = () => {
       setViewportWidth(window.innerWidth);
@@ -34,21 +56,6 @@ export const Dashboard = () => {
       setQuest(true);
     }
   }, [message]);
-
-  const HandleClick = async () => {
-    if (text === messages[1]) {
-      const questions = await findAllTech();
-      questions.length = 12;
-      const body = {
-        data: questions,
-        entity: localStorageEntities.questions,
-      };
-      persistDataLocalStorage<IQuestion>(body);
-      navigate('/question/1');
-    } else {
-      setMessage((message) => message + 1);
-    }
-  };
 
   return (
     <Layout>
