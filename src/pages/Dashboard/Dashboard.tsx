@@ -7,7 +7,7 @@ import { findAllTech } from '@/services';
 import { persistDataLocalStorage } from '@/utilities';
 import { IQuestion, localStorageEntities } from '@/models';
 
-const messages = ['Hola!! Soy Mustachi y seré tu guía durante esta travesía', 'Te voy a hacer unas preguntas para conocer tu nivel'];
+const messages = ['Hola!! Soy Mustachy y seré tu guía durante esta travesía', 'Te voy a hacer unas preguntas para conocer tu nivel'];
 
 export const Dashboard = () => {
   const [quest, setQuest] = useState(false);
