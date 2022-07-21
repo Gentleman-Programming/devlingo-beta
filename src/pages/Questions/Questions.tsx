@@ -30,9 +30,8 @@ const Questions = () => {
     <QuestionProvider>
       <Layout>
         <Main $quest={viewportWidth > 700}>
-          {viewportWidth > 700 && <MustachyWithDialog dialogWidth="calc(17ch + 10vmax)">¿Cuál es el resultado?</MustachyWithDialog>}
-          <div style={{ color: '#efefef' }}>{question}</div>
-          <Options options={response} id={id} index={index} points={point} />
+          {viewportWidth > 700 && <MustachyWithDialog dialogWidth="calc(17ch + 10vmax)">{question}</MustachyWithDialog>}
+          {id && index && <Options options={response} id={id} index={questionIndex + 1} points={point} />}
         </Main>
       </Layout>
     </QuestionProvider>
