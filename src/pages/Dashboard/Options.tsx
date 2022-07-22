@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router';
+import { Navigate } from 'react-router';
 import styled from 'styled-components';
 import { Button } from '@/components/';
 import { IResponse } from '@/models';
@@ -38,19 +38,13 @@ const Container = styled.div`
 
 export function Options({ options, index, id, points }: props) {
   const { seniority, initialState, DecrementSeniority } = useQuestions();
-  const navigate = useNavigate();
   const handleClick =
     ({ isCorrect }: IResponse) =>
-    (): void => {
+    () => {
       const nextQuestion = +index + 1;
-      if (nextQuestion === 13) {
-        navigate('/');
-        return;
-      }
-      if (!isCorrect) {
-        DecrementSeniority(points);
-      }
-      navigate(`/question/${nextQuestion}`, { replace: true });
+      if (nextQuestion === 13) return <Navigate to="/" />;
+      if (!isCorrect) DecrementSeniority(points);
+      return <Navigate to="`/question/${nextQuestion}`" />;
     };
 
   return (
