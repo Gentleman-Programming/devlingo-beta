@@ -43,14 +43,14 @@ export function Options({ options, index, id, points }: props) {
     ({ isCorrect }: IResponse) =>
     (): void => {
       const nextQuestion = +index + 1;
-      if (nextQuestion !== 13) {
-        if (!isCorrect) {
-          DecrementSeniority(points);
-        }
-        navigate(`/question/${nextQuestion}`, { replace: true });
-      } else {
+      if (nextQuestion === 13) {
         navigate('/');
+        return;
       }
+      if (!isCorrect) {
+        DecrementSeniority(points);
+      }
+      navigate(`/question/${nextQuestion}`, { replace: true });
     };
 
   return (
