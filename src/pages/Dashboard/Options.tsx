@@ -41,11 +41,11 @@ export function Options({ options, index, id, points }: props) {
   const navigate = useNavigate();
   const handleClick =
     ({ isCorrect }: IResponse) =>
-    () => {
+    (): void => {
       const nextQuestion = +index + 1;
       if (nextQuestion !== 13) {
         if (!isCorrect) {
-          points !== 50 ? DecrementSeniority(30 - points) : DecrementSeniority(10);
+          DecrementSeniority(points);
         }
         navigate(`/question/${nextQuestion}`, { replace: true });
       } else {
@@ -65,6 +65,15 @@ export function Options({ options, index, id, points }: props) {
       <Container>
         <h2>Puntaje inicial: {initialState}</h2>
         <h2>Puntaje actual: {seniority}</h2>
+        {seniority === initialState ? (
+          <h2>sos senior</h2>
+        ) : seniority < initialState && seniority > 50 ? (
+          <h2>sos semisenior</h2>
+        ) : seniority < 50 && seniority > 20 ? (
+          <h2>sos junior</h2>
+        ) : (
+          <h2>sos trainner</h2>
+        )}
       </Container>
     </div>
   );
