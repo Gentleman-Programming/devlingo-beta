@@ -26,7 +26,7 @@ export const Dashboard = () => {
     persistDataLocalStorage<IQuestion>(body);
   };
 
-  const HandleClick = async () => {
+  const HandleClick = () => {
     if (text === messages[1]) {
       navigate('/question/1');
     } else {
