@@ -1,5 +1,5 @@
-import { Routes, Route } from 'react-router';
 import { lazy } from 'react';
+import { Routes, Route } from 'react-router';
 
 const Dashboard = lazy(() => import('@/pages/Dashboard/Dashboard'));
 const ControlPanel = lazy(() => import('@/pages/ControlPanel/ControlPanel'));
