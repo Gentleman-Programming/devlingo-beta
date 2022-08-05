@@ -12,12 +12,14 @@ import { getDataLocalStorage } from '@/utilities';
 import { IQuestion, localStorageEntities } from '@/models';
 
 import { useQuestions } from '@/hooks';
+
 import { QuestionProvider } from '@/contexts';
 
 const Questions = () => {
   const { id: index } = useParams();
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
   const { IncrementSeniority, seniority, initialState } = useQuestions();
+
   const navigate = useNavigate();
 
   const questionIndex = parseInt(index as string) - 1;
