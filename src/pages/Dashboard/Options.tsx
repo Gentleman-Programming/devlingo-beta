@@ -36,8 +36,22 @@ const Container = styled.div`
   }
 `;
 
+const getSeniorityText = (seniority: number, initialState: number) => {
+  if (seniority === initialState) {
+    return 'Senior';
+  } else if (seniority < initialState && seniority > 50) {
+    return 'Semisenior';
+  } else if (seniority < 50 && seniority > 20) {
+    return 'Junior';
+  } else {
+    return 'Trainee';
+  }
+};
+
 export function Options({ options, index, id, points }: props) {
   const { seniority, initialState, DecrementSeniority } = useQuestions();
+
+  const seniorityText = getSeniorityText(seniority, initialState);
 
   const navigate = useNavigate();
 
@@ -45,7 +59,7 @@ export function Options({ options, index, id, points }: props) {
     ({ isCorrect }: IResponse) =>
     () => {
       const nextQuestion = +index + 1;
-      if (nextQuestion === 13) return navigate('/', { replace: true });
+      if (nextQuestion === 13) return navigate('/results', { replace: true, state: seniorityText });
       if (!isCorrect) DecrementSeniority(points);
       navigate(`/question/${nextQuestion}`, { replace: true });
     };
@@ -62,15 +76,8 @@ export function Options({ options, index, id, points }: props) {
       <Container>
         <h2>Puntaje inicial: {initialState}</h2>
         <h2>Puntaje actual: {seniority}</h2>
-        {seniority === initialState ? (
-          <h2>sos senior</h2>
-        ) : seniority < initialState && seniority > 50 ? (
-          <h2>sos semisenior</h2>
-        ) : seniority < 50 && seniority > 20 ? (
-          <h2>sos junior</h2>
-        ) : (
-          <h2>sos trainner</h2>
-        )}
+
+        <h2>sos {seniorityText}</h2>
       </Container>
     </div>
   );
