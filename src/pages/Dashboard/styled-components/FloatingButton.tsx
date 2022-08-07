@@ -5,4 +5,5 @@ export const FloatingButton = styled(Button)`
   position: fixed;
   bottom: 2em;
   right: 2em;
+  font-size: 2vmax;
 `;
