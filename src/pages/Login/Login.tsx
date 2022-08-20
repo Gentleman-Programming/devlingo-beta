@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import { LoginPasswordAndEmail } from '@/services/firebase/firebase.service';
 import mustachi from '@/assets/mustachi.svg';
@@ -7,7 +8,6 @@ import { Input, InputType } from '@/components/Input';
 import { Form, Circle, Button, StyledLink, Mustachi } from '@/styled-components';
 import { Layout } from './styled-components';
 import { createAddaptedUser } from '@/adapters';
-import { useDispatch } from 'react-redux';
 import { createUser } from '@/redux/states/user';
 import { EmailRegex, PasswordRegex } from '@/models';
 import { useYupValidationResolver } from '@/hooks';
@@ -51,7 +51,7 @@ export const Login = () => {
           type={InputType.TEXT}
           name="email"
           placeholder="correo electronico"
-          inputProps={{
+          InputProps={{
             startAdornment: (
               <InputAdornment position="start">
                 <AccountCircle fontSize="large" />
@@ -61,7 +61,9 @@ export const Login = () => {
         />
         <InputPassword errors={errors} register={register} />
         <StyledLink to="/">olvide mi contraseña</StyledLink>
-        <Button primary="true" type="submit">iniciar sesión</Button>
+        <Button primary="true" type="submit">
+          iniciar sesión
+        </Button>
       </Form>
     </Layout>
   );
