@@ -24,7 +24,6 @@ export const questionReducer = (state: number, action: actionReducer): number =>
     }
 
     default: {
-      console.error(state);
       return state;
     }
   }

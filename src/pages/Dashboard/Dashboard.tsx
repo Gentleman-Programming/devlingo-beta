@@ -6,6 +6,7 @@ import Layout from '../../components/Layout/Layout';
 import { findAllTech } from '@/services';
 import { persistDataLocalStorage } from '@/utilities';
 import { IQuestion, localStorageEntities } from '@/models';
+import { getFileFirebaseStorage } from '@/services';
 
 const messages = ['Hola!! Soy Mustachy y seré tu guía durante esta travesía', 'Te voy a hacer unas preguntas para conocer tu nivel'];
 

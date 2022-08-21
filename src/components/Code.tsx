@@ -13,7 +13,11 @@ const onClick = (element: React.RefObject<HTMLDivElement>) => {
   }
 };
 
-export default function Code({ text }: { text: string }) {
+interface props {
+  text: string;
+}
+
+export default function Code({ text }: props) {
   const codeRef = useRef<HTMLDivElement>(null);
   return (
     <CodeContainer ref={codeRef} onClick={() => onClick(codeRef)}>

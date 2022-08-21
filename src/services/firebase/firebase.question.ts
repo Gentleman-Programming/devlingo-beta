@@ -1,15 +1,6 @@
 import { IQuestion, seniority } from '@/models';
 import { db } from './firebase.config';
-import {
-  collection,
-  addDoc,
-  getDocs,
-  doc,
-  setDoc,
-  query,
-  updateDoc,
-  deleteDoc
-} from 'firebase/firestore';
+import { collection, addDoc, getDocs, doc, setDoc, query, updateDoc, deleteDoc } from 'firebase/firestore';
 
 /**
  * Adding technology to the question database. If it exists, the specified information
@@ -19,11 +10,7 @@ import {
  * @param data The data to be contained in each registered seniority document.
  * @returns void
  */
-export const addCollection = async (
-  techName: string,
-  seniority: seniority,
-  data: IQuestion
-  ): Promise<void> => {
+export const addCollection = async (techName: string, seniority: seniority, data: IQuestion): Promise<void> => {
   try {
     const dbRef = collection(db, 'question');
     const collectionRef = collection(db, 'question', techName, seniority);
@@ -110,12 +97,7 @@ export const findAllTech = async (): Promise<IQuestion[]> => {
  * @param data Updated data to be recorded.
  * @returns void
  */
-export const updateCollection = async (
-  techName: string,
-  seniority: seniority,
-  id: string,
-  data: IQuestion
-  ): Promise<void> => {
+export const updateCollection = async (techName: string, seniority: seniority, id: string, data: IQuestion): Promise<void> => {
   try {
     const updateRef = doc(db, 'question', techName, seniority, id);
     await updateDoc(updateRef, { ...data });
@@ -130,11 +112,7 @@ export const updateCollection = async (
  * @param seniority Current seniority: (ENUM) TR | JR | SSR | SR | SR .
  * @param id Id of the document to be removed.
  */
-export const removeCollection = async (
-  techName: string,
-  seniority: seniority,
-  id: string
-): Promise<void> => {
+export const removeCollection = async (techName: string, seniority: seniority, id: string): Promise<void> => {
   try {
     const removeDoc = doc(db, 'question', techName, seniority, id);
     await deleteDoc(removeDoc);
