@@ -1,8 +1,11 @@
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import { Button } from '@/components/';
-import { IResponse } from '@/models';
+import { FirebaseUser, IResponse, seniority as SENIORITY } from '@/models';
 import { useQuestions } from '@/hooks';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateDocumentInDb } from '@/services/firebase/firebase.service';
+import { modifyUser } from '@/redux';
 
 export const OptionsContainer = styled.div`
   display: grid;
@@ -38,28 +41,37 @@ const Container = styled.div`
 
 const getSeniorityText = (seniority: number, initialState: number) => {
   if (seniority === initialState) {
-    return 'Senior';
+    return SENIORITY.SR;
   } else if (seniority < initialState && seniority > 50) {
-    return 'Semisenior';
+    return SENIORITY.SSR;
   } else if (seniority < 50 && seniority > 20) {
-    return 'Junior';
+    return SENIORITY.JR;
   } else {
-    return 'Trainee';
+    return SENIORITY.TR;
   }
+};
+
+type prop = {
+  user: FirebaseUser;
 };
 
 export function Options({ options, index, id, points }: props) {
   const { seniority, initialState, DecrementSeniority } = useQuestions();
+  const { uid } = useSelector(({ user }: prop) => user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const seniorityText = getSeniorityText(seniority, initialState);
 
-  const navigate = useNavigate();
-
   const handleClick =
     ({ isCorrect }: IResponse) =>
-    () => {
+    async () => {
       const nextQuestion = +index + 1;
-      if (nextQuestion === 13) return navigate('/results', { replace: true, state: seniorityText });
+      if (nextQuestion === 13) {
+        await updateDocumentInDb({ seniorityGlobal: seniorityText }, 'users', uid);
+        dispatch(modifyUser({ seniorityGlobal: seniorityText }));
+        return navigate('/results', { replace: true, state: seniorityText });
+      }
       if (!isCorrect) DecrementSeniority(points);
       navigate(`/question/${nextQuestion}`, { replace: true });
     };
@@ -68,16 +80,16 @@ export function Options({ options, index, id, points }: props) {
     <div key={id} style={{ gridArea: 'options' }}>
       <div>
         <OptionsContainer>
-          {options.map((option: IResponse) => (
-            <Button onClick={handleClick(option)}>{option.text}</Button>
+          {options.map((option: IResponse, index) => (
+            <Button key={index} onClick={handleClick(option)}>
+              {option.text}
+            </Button>
           ))}
         </OptionsContainer>
       </div>
       <Container>
         <h2>Puntaje inicial: {initialState}</h2>
         <h2>Puntaje actual: {seniority}</h2>
-
-        <h2>sos {seniorityText}</h2>
       </Container>
     </div>
   );

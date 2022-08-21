@@ -7,7 +7,7 @@ import {
   signInWithPopup,
   signOut,
 } from 'firebase/auth';
-import { setDoc, doc, collection, query, getDoc } from 'firebase/firestore';
+import { setDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { auth, db } from './firebase.config';
 import { adapterNewUser } from '@/adapters';
 
@@ -22,6 +22,23 @@ export const createRegisterInDb = async <T>(data: T, path: string, id: string): 
   await setDoc(ref, data);
 };
 
+/**
+ *
+ * @param data
+ * @param path
+ * @param id
+ */
+export const updateDocumentInDb = async <T>(data: T, path: string, id: string): Promise<void> => {
+  const ref = doc(db, path, id);
+  await updateDoc(ref, data);
+};
+
+/**
+ *
+ * @param uid
+ * @param path
+ * @returns
+ */
 export const findByUidInDb = async (uid: string, path: string) => {
   const ref = doc(db, path, uid);
   return await getDoc(ref);

@@ -21,7 +21,6 @@ const Questions = () => {
   const { response, id, question, point } = questions[questionIndex];
 
   const fetchQuestion = async (url: string) => {
-    console.log(url);
     const req = await fetch(url, { mode: 'no-cors' });
     setQuestionCode(await req.text());
   };
