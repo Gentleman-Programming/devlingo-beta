@@ -44,7 +44,7 @@ export const signup = async ({ email, password }: UserLogin) => {
  */
 export const signinWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
-  return signInWithPopup(auth, provider);
+  return await signInWithPopup(auth, provider);
   // return GoogleAuthProvider.credentialFromResult(result);
 };
 
@@ -54,7 +54,7 @@ export const signinWithGoogle = async () => {
  */
 export const signinWithGithub = async () => {
   const provider = new GithubAuthProvider();
-  return signInWithPopup(auth, provider);
+  return await signInWithPopup(auth, provider);
   // const credential = GithubAuthProvider.credentialFromResult(result);
   // The signed-in user info.
 };
