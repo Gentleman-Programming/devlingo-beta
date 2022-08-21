@@ -8,7 +8,7 @@ import InputPassword from '@/components/InputPassword';
 import { InputType } from '@/components/Input';
 import { SignInWithProviderButton, AuthProvider } from '@/components/SignInWithProviderButton';
 import { useYupValidationResolver } from '@/hooks';
-import { User } from '@/models';
+import { UserLogin } from '@/models';
 import { signup } from '@/services/firebase';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -32,9 +32,9 @@ const Register = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<User>({ resolver });
+  } = useForm<UserLogin>({ resolver });
 
-  const onSubmit: SubmitHandler<User> = async (newUserFormData) => {
+  const onSubmit: SubmitHandler<UserLogin> = async (newUserFormData) => {
     try {
       await signup(newUserFormData);
       navigate('/login');

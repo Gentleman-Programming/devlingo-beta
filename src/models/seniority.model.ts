@@ -3,4 +3,5 @@ export const enum seniority {
   JR = 'junior',
   SSR = 'semi senior',
   SR = 'senior',
+  none = '',
 }

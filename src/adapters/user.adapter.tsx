@@ -24,7 +24,7 @@ export const adapterNewUser = ({ email, uid }: User): FirebaseUser => {
     uid,
     username,
     role: rol.user,
-    seniorityGlobal: seniority.JR,
+    seniorityGlobal: seniority.none,
     email: email as string,
   };
 };
