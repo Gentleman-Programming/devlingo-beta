@@ -1,4 +1,4 @@
-import { User } from '@/models';
+import { FirebaseUser, UserLogin } from '@/models';
 import {
   createUserWithEmailAndPassword,
   GithubAuthProvider,
@@ -6,7 +6,6 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
-  UserCredential,
 } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
 import { auth, db } from './firebase.config';
@@ -23,7 +22,7 @@ export const createRegisterInDb = <T>(data: T, path: string): void => {
   addDoc(ref, data);
 };
 
-export const LoginPasswordAndEmail = async ({ email, password }: User) => {
+export const LoginPasswordAndEmail = async ({ email, password }: UserLogin) => {
   const { user } = await signInWithEmailAndPassword(auth, email, password);
   return user;
 };
@@ -33,10 +32,10 @@ export const LoginPasswordAndEmail = async ({ email, password }: User) => {
  * @param  User
  * @return Promise<UserCredentials>
  */
-export const signup = async ({ email, password }: User) => {
-  const { user }: UserCredential = await createUserWithEmailAndPassword(auth, email, password);
+export const signup = async ({ email, password }: UserLogin) => {
+  const { user } = await createUserWithEmailAndPassword(auth, email, password);
   const formatUser = adapterNewUser(user);
-  createRegisterInDb<any>(formatUser, 'users');
+  createRegisterInDb<FirebaseUser>(formatUser, 'users');
 };
 
 /**
