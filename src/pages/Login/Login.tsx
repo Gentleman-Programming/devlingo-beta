@@ -9,14 +9,17 @@ import { Form, Circle, Button, StyledLink, Mustachi } from '@/styled-components'
 import { Layout } from './styled-components';
 import { createAddaptedUser } from '@/adapters';
 import { createUser } from '@/redux/states/user';
-import { EmailRegex, PasswordRegex } from '@/models';
+import { EmailRegex, PasswordRegex, UserLogin } from '@/models';
 import { useYupValidationResolver } from '@/hooks';
 import { InputAdornment } from '@mui/material';
 import InputPassword from '@/components/InputPassword';
 
 const schema = yup.object({
   email: yup.string().matches(EmailRegex, 'ingrese un email valido').required('el email es requerido'),
-  password: yup.string().matches(PasswordRegex, 'ingrese una contraseña valida').required('debe ingresar una contraseña'),
+  password: yup
+    .string()
+    .matches(PasswordRegex, 'la contraseña debe contener minimo 8 caracteres, una mayuscula, un numero y un caracter especial')
+    .required('debe ingresar una contraseña'),
 });
 
 export const Login = () => {
@@ -30,8 +33,8 @@ export const Login = () => {
     resolver: useYupValidationResolver(schema),
   });
 
-  const handleLogin = async (dataUser: any) => {
-    const user: any = await LoginPasswordAndEmail(dataUser);
+  const handleLogin = async (dataUser: UserLogin) => {
+    const user = await LoginPasswordAndEmail(dataUser);
     const adapterUser = await createAddaptedUser(user);
     dispatch(createUser(adapterUser));
   };

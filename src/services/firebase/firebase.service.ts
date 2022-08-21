@@ -7,7 +7,7 @@ import {
   signInWithPopup,
   signOut,
 } from 'firebase/auth';
-import { setDoc, doc, collection, query, where } from 'firebase/firestore';
+import { setDoc, doc, collection, query, getDoc } from 'firebase/firestore';
 import { auth, db } from './firebase.config';
 import { adapterNewUser } from '@/adapters';
 
@@ -23,13 +23,14 @@ export const createRegisterInDb = async <T>(data: T, path: string, id: string): 
 };
 
 export const findByUidInDb = async (uid: string, path: string) => {
-  const ref = collection(db, path);
-  const queryDB = query(ref, where('uid', '==', uid));
+  const ref = doc(db, path, uid);
+  return await getDoc(ref);
 };
 
 export const LoginPasswordAndEmail = async ({ email, password }: UserLogin) => {
   const { user } = await signInWithEmailAndPassword(auth, email, password);
-  return user;
+  const userDB = (await findByUidInDb(user.uid, 'users')).data();
+  return { refreshToken: user.refreshToken, accessToken: await user.getIdToken(), ...(userDB as FirebaseUser) };
 };
 
 /**
