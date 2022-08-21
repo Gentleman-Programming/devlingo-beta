@@ -5,17 +5,27 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
-  signOut
+  signOut,
+  UserCredential,
 } from 'firebase/auth';
-import { auth } from './firebase.config';
+import { addDoc, collection } from 'firebase/firestore';
+import { auth, db } from './firebase.config';
+import { adapterNewUser } from '@/adapters';
+
+/**
+ * @desc create a new record in firestore db
+ * @param data
+ * @param path
+ * @return void
+ */
+export const createRegisterInDb = <T>(data: T, path: string): void => {
+  const ref = collection(db, path);
+  addDoc(ref, data);
+};
 
 export const LoginPasswordAndEmail = async ({ email, password }: User) => {
-  try {
-    const { user } = await signInWithEmailAndPassword(auth, email, password);
-    return user;
-  } catch (error) {
-    return error;
-  }
+  const { user } = await signInWithEmailAndPassword(auth, email, password);
+  return user;
 };
 
 /**
@@ -24,7 +34,9 @@ export const LoginPasswordAndEmail = async ({ email, password }: User) => {
  * @return Promise<UserCredentials>
  */
 export const signup = async ({ email, password }: User) => {
-  return createUserWithEmailAndPassword(auth, email, password);
+  const { user }: UserCredential = await createUserWithEmailAndPassword(auth, email, password);
+  const formatUser = adapterNewUser(user);
+  createRegisterInDb<any>(formatUser, 'users');
 };
 
 /**

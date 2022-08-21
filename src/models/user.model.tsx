@@ -3,6 +3,8 @@ export interface FirebaseUser {
   accessToken: string;
   email: string;
   seniority: string;
+  role: string;
+  username: string;
 }
 
 export interface User {
