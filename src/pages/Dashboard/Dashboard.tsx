@@ -17,16 +17,16 @@ const code =
 const options: Array<option> = [
   {
     option: '5',
-    isCorrect: true,
+    isCorrect: true
   },
   {
     option: '7',
-    isCorrect: false,
+    isCorrect: false
   },
   {
     option: '8',
-    isCorrect: false,
-  },
+    isCorrect: false
+  }
 ];
 
 export const Dashboard = () => {
@@ -61,7 +61,7 @@ export const Dashboard = () => {
   }, [quest]);
 
   const HandleCLick = () => {
-    setMessage((message) => message + 1);
+    setMessage(message => message + 1);
   };
 
   return (

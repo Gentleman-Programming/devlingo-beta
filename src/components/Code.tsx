@@ -7,16 +7,10 @@ import { useRef } from 'react';
 
 SyntaxHighlighter.registerLanguage('javascript', js);
 
-const onClick = (element: React.RefObject<HTMLDivElement>) => {
-  if (element.current instanceof HTMLDivElement) {
-    element.current.requestFullscreen();
-  }
-};
-
 export default function Code({ text }: { text: string }) {
   const codeRef = useRef<HTMLDivElement>(null);
   return (
-    <CodeContainer ref={codeRef} onClick={() => onClick(codeRef)}>
+    <CodeContainer ref={codeRef}>
       <SyntaxHighlighter language="javascript" style={theme} showLineNumbers wrapLines>
         {text}
       </SyntaxHighlighter>

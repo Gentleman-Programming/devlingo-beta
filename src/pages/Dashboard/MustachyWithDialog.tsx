@@ -30,7 +30,7 @@ const Globo = styled.div`
   justify-content: center;
   font-family: 'Ubuntu Mono';
   background-color: #fff;
-
+  font-size: 2vmax;
   &:before {
     content: '';
     position: absolute;
