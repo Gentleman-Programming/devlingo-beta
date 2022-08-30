@@ -2,7 +2,7 @@ import { FirebaseUser } from '@/models';
 import { verifyUser } from '@/utilities';
 import { lazy } from 'react';
 import { useSelector } from 'react-redux';
-import { Route, Routes } from 'react-router';
+import { Navigate, Route, Routes } from 'react-router';
 import PrivateRoutes from './PrivateRouter.router';
 import PublicRoutes from './PublicRouter.router';
 
@@ -28,6 +28,7 @@ const AppRouter = () => {
 
   return (
     <Routes>
+      <Route path="/" element={<Navigate to={`dashboard`} />} />
       <Route path={'home'} element={<Home />} />
       <Route element={<PublicRoutes isUserLoggenIn={isUserLoggenIn} />}>
         <Route path={'login'} element={<Login />} />
