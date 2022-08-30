@@ -1,5 +1,5 @@
 import { InputError } from '@/styled-components';
-import { InputBaseProps, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import { FieldErrors, UseFormRegister, UseFormTrigger } from 'react-hook-form';
 
 const formValidation = (errors: FieldErrors, errorKey: string) => {
@@ -11,7 +11,7 @@ interface InputProps {
   name: string;
   errors?: FieldErrors;
   type: InputType;
-  inputProps?: any;
+  InputProps?: any;
   disabled?: boolean;
   trigger?: UseFormTrigger<any>;
   placeholder?: string;
@@ -23,29 +23,25 @@ export enum InputType {
   SEARCH = 'search',
   TEXT = 'text',
   HIDDEN = 'hidden',
-  CHECKBOX = 'checkbox'
+  CHECKBOX = 'checkbox',
 }
 
-/*
-
-*/
-
-export const Input = ({ register, name, errors, type, inputProps, disabled = false, trigger, placeholder }: InputProps) => {
+export const Input = ({ register, name, errors, type, InputProps, disabled = false, trigger, placeholder }: InputProps) => {
   return (
     <div>
       <TextField
+        autoComplete="new-password"
         disabled={disabled}
         type={type}
         error={errors && !!errors[name]}
         id={name}
         placeholder={placeholder}
         {...register(name)}
-        {...(inputProps && { inputProps: inputProps })}
+        {...(InputProps && { InputProps: InputProps })}
         color="primary"
         onChange={() => trigger && trigger()}
         fullWidth
-        autoComplete="off"
-        InputProps={inputProps}
+        InputProps={InputProps}
       />
       {errors && formValidation(errors, name)}
     </div>

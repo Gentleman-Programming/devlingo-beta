@@ -1,16 +1,30 @@
-import { FirebaseUser } from '@/models';
 import { User } from 'firebase/auth';
+import { FirebaseUser, rol, seniority } from '@/models';
 import { UserEmptyState } from '../redux/states/user';
 
-export const createAddaptedUser = async (user: User) => {
+export const createAddaptedUser = async ({ email, uid, accessToken, refreshToken, role, seniorityGlobal }: FirebaseUser) => {
   try {
-    const formattedUser: FirebaseUser = {
-      email: user.email ?? '',
-      uid: user.uid ?? '',
-      accessToken: await user.getIdToken(),
+    return {
+      email,
+      uid,
+      refreshToken,
+      role,
+      seniorityGlobal,
+      accessToken,
     };
-    return formattedUser;
   } catch (_err) {
     return UserEmptyState;
   }
+};
+
+export const adapterNewUser = ({ email, uid }: User): FirebaseUser => {
+  const indexTruncate = email?.indexOf('@') as number;
+  const username = email?.substring(0, indexTruncate) as string;
+  return {
+    uid,
+    username,
+    role: rol.user,
+    seniorityGlobal: seniority.none,
+    email: email as string,
+  };
 };

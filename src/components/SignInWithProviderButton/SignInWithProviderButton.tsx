@@ -1,5 +1,6 @@
 import { createAddaptedUser } from '@/adapters';
 import { signinWithGoogle, signinWithGithub } from '@/services/firebase';
+import { UserCredential } from 'firebase/auth';
 import styled from 'styled-components';
 
 const CircleButton = styled.button`
@@ -14,7 +15,7 @@ const CircleButton = styled.button`
 
 export enum AuthProvider {
   GOOGLE,
-  GITHUB
+  GITHUB,
 }
 
 interface ButtonProps {

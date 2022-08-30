@@ -1,11 +1,19 @@
 export interface FirebaseUser {
   uid: string;
-  accessToken: string;
+  accessToken?: string;
   email: string;
+  seniorityGlobal?: string;
+  role: rol;
+  username: string;
+  refreshToken?: string;
 }
 
-export interface User {
+export interface UserLogin {
   email: string;
   password: string;
-  username?: string;
+}
+
+export const enum rol {
+  user = 'user',
+  admin = 'admin',
 }

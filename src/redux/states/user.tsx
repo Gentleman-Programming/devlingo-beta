@@ -1,23 +1,25 @@
-import { FirebaseUser } from '@/models';
+import { FirebaseUser, rol } from '@/models';
 import { createSlice } from '@reduxjs/toolkit';
 
-import { persistDataLocalStorage } from '@/utilities';
+import { persistDataLocalStorage, getDataLocalStorage } from '@/utilities';
 import { localStorageEntities } from '@/models';
 
 export const UserEmptyState: FirebaseUser = {
   uid: '',
   email: '',
   accessToken: '',
+  seniorityGlobal: '',
+  role: rol.user,
+  refreshToken: '',
+  username: '',
 };
 
 export const userSlice = createSlice({
   name: 'user',
-  initialState: localStorage.getItem(localStorageEntities.user)
-    ? JSON.parse(localStorage.getItem(localStorageEntities.user) as string)
-    : UserEmptyState,
+  initialState: getDataLocalStorage<FirebaseUser>(localStorageEntities.user) ?? UserEmptyState,
   reducers: {
     createUser: (_state, action) => {
-      persistDataLocalStorage({
+      persistDataLocalStorage<FirebaseUser>({
         data: action.payload,
         entity: localStorageEntities.user,
       });
@@ -25,14 +27,14 @@ export const userSlice = createSlice({
     },
     modifyUser: (state, action) => {
       const editDataUser = { ...state, ...action.payload };
-      persistDataLocalStorage({
+      persistDataLocalStorage<FirebaseUser>({
         data: editDataUser,
         entity: localStorageEntities.user,
       });
       return editDataUser;
     },
     resetUser: () => {
-      persistDataLocalStorage({
+      persistDataLocalStorage<FirebaseUser>({
         data: UserEmptyState,
         entity: localStorageEntities.user,
       });

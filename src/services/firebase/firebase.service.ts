@@ -1,21 +1,53 @@
-import { User } from '@/models';
+import { FirebaseUser, UserLogin } from '@/models';
 import {
   createUserWithEmailAndPassword,
   GithubAuthProvider,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
-  signOut
+  signOut,
 } from 'firebase/auth';
-import { auth } from './firebase.config';
+import { setDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { auth, db } from './firebase.config';
+import { adapterNewUser } from '@/adapters';
 
-export const LoginPasswordAndEmail = async ({ email, password }: User) => {
-  try {
-    const { user } = await signInWithEmailAndPassword(auth, email, password);
-    return user;
-  } catch (error) {
-    return error;
-  }
+/**
+ * @desc create a new record in firestore db
+ * @param data
+ * @param path
+ * @return void
+ */
+export const createRegisterInDb = async <T>(data: T, path: string, id: string): Promise<void> => {
+  const ref = doc(db, path, id);
+  await setDoc(ref, data);
+};
+
+/**
+ *
+ * @param data
+ * @param path
+ * @param id
+ */
+export const updateDocumentInDb = async <T>(data: T, path: string, id: string): Promise<void> => {
+  const ref = doc(db, path, id);
+  await updateDoc(ref, data);
+};
+
+/**
+ *
+ * @param uid
+ * @param path
+ * @returns
+ */
+export const findByUidInDb = async (uid: string, path: string) => {
+  const ref = doc(db, path, uid);
+  return await getDoc(ref);
+};
+
+export const LoginPasswordAndEmail = async ({ email, password }: UserLogin) => {
+  const { user } = await signInWithEmailAndPassword(auth, email, password);
+  const userDB = (await findByUidInDb(user.uid, 'users')).data();
+  return { refreshToken: user.refreshToken, accessToken: await user.getIdToken(), ...(userDB as FirebaseUser) };
 };
 
 /**
@@ -23,8 +55,10 @@ export const LoginPasswordAndEmail = async ({ email, password }: User) => {
  * @param  User
  * @return Promise<UserCredentials>
  */
-export const signup = async ({ email, password }: User) => {
-  return createUserWithEmailAndPassword(auth, email, password);
+export const signup = async ({ email, password }: UserLogin) => {
+  const { user } = await createUserWithEmailAndPassword(auth, email, password);
+  const formatUser = adapterNewUser(user);
+  createRegisterInDb<FirebaseUser>(formatUser, 'users', formatUser.uid);
 };
 
 /**
@@ -33,7 +67,7 @@ export const signup = async ({ email, password }: User) => {
  */
 export const signinWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
-  return signInWithPopup(auth, provider);
+  return await signInWithPopup(auth, provider);
   // return GoogleAuthProvider.credentialFromResult(result);
 };
 
@@ -43,7 +77,7 @@ export const signinWithGoogle = async () => {
  */
 export const signinWithGithub = async () => {
   const provider = new GithubAuthProvider();
-  return signInWithPopup(auth, provider);
+  return await signInWithPopup(auth, provider);
   // const credential = GithubAuthProvider.credentialFromResult(result);
   // The signed-in user info.
 };

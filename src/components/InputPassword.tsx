@@ -18,7 +18,7 @@ const InputPassword = ({ errors, register }: props) => {
       type={showPassword ? InputType.TEXT : InputType.PASSWORD}
       name="password"
       placeholder="contraseña"
-      inputProps={{
+      InputProps={{
         startAdornment: (
           <InputAdornment position="start">
             <Lock fontSize="large" />
@@ -30,7 +30,7 @@ const InputPassword = ({ errors, register }: props) => {
               {!showPassword ? <VisibilityOff fontSize="large" /> : <Visibility fontSize="large" />}
             </IconButton>
           </InputAdornment>
-        )
+        ),
       }}
     />
   );
