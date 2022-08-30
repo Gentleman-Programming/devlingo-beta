@@ -82,14 +82,14 @@
   "main": "babel.config.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/erudit-ai/Erudit-Front-End.git"
+    "url": "git+https://github.com/Gentleman-Programming/devlingo"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/erudit-ai/Erudit-Front-End/issues"
+    "url": "https://github.com/Gentleman-Programming/devlingo/issues"
   },
-  "homepage": "https://github.com/erudit-ai/Erudit-Front-End#readme",
+  "homepage": "https://github.com/Gentleman-Programming/devlingo#readme",
   "description": ""
 }
