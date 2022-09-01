@@ -1,6 +1,7 @@
 import { createAddaptedUser } from '@/adapters';
-import { signinWithGoogle, signinWithGithub } from '@/services/firebase';
-import { UserCredential } from 'firebase/auth';
+import { createUser } from '@/redux';
+import { signinWithGithub, signinWithGoogle } from '@/services/firebase';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 const CircleButton = styled.button`
@@ -15,7 +16,7 @@ const CircleButton = styled.button`
 
 export enum AuthProvider {
   GOOGLE,
-  GITHUB,
+  GITHUB
 }
 
 interface ButtonProps {
@@ -24,15 +25,11 @@ interface ButtonProps {
 }
 
 const SignInWithProviderButton = ({ children, provider }: ButtonProps) => {
+  const dispatch = useDispatch();
+
   const handleSubmit = async () => {
-    switch (provider) {
-      case AuthProvider.GOOGLE:
-        await createAddaptedUser(await signinWithGoogle());
-        break;
-      case AuthProvider.GITHUB:
-        await createAddaptedUser(await signinWithGithub());
-        break;
-    }
+    const adapterUser = await createAddaptedUser(await signinWithGoogle());
+    dispatch(createUser(adapterUser));
   };
   return <CircleButton onClick={handleSubmit}>{children}</CircleButton>;
 };

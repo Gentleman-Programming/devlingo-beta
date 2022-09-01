@@ -20,8 +20,8 @@ export const addCollection = async (techName: string, seniority: seniority, data
       addDoc(collectionRef, {
         seniority: collectionRef.id,
         techName,
-        ...data,
-      }),
+        ...data
+      })
     ]);
   } catch (error) {
     console.error(error);
@@ -37,12 +37,12 @@ export const viewCollection = async (seniorityName: seniority): Promise<any> => 
   let data: any = [];
 
   try {
-    const findTech = await findOneTech();
+    const findTech = await getTechNames();
 
     for (let { Title } of findTech) {
       const q = query(collection(db, 'question', Title, seniorityName));
       const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => data.push({ id: doc.id, ...doc.data() }));
+      querySnapshot.forEach(doc => data.push({ id: doc.id, ...doc.data() }));
     }
   } catch (error) {
     console.error(error);
@@ -54,14 +54,14 @@ export const viewCollection = async (seniorityName: seniority): Promise<any> => 
  * Show all the names of the technologies in the collection of questions.
  * @returns All the names of the existing technologies in the collection question.
  */
-export const findOneTech = async (): Promise<any> => {
+export const getTechNames = async (): Promise<any> => {
   const tech: any = [];
 
   try {
     const q = query(collection(db, 'question'));
 
     const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => tech.push({ id: doc.id, ...doc.data() }));
+    querySnapshot.forEach(doc => tech.push({ id: doc.id, ...doc.data() }));
   } catch (error) {
     console.error(error);
   }
@@ -73,7 +73,7 @@ export const findOneTech = async (): Promise<any> => {
  * @returns All data in the question collection in a promise.
  */
 export const findAllTech = async (): Promise<IQuestion[]> => {
-  const tech: IQuestion[] = [];
+  let tech: IQuestion[] = [];
 
   try {
     const TR = viewCollection(seniority.TR);
@@ -82,7 +82,7 @@ export const findAllTech = async (): Promise<IQuestion[]> => {
     const SR = viewCollection(seniority.SR);
 
     const questions = await Promise.all([TR, JR, SSR, SR]);
-    questions.map((elem: IQuestion[]) => tech.push(...elem));
+    tech = questions.flat(1);
   } catch (error) {
     console.error(error);
   }

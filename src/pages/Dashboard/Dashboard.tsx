@@ -1,12 +1,11 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
-import { Main, FloatingButton } from './styled-components/';
-import { MustachyWithDialog } from './';
-import Layout from '../../components/Layout/Layout';
+import { IQuestion, localStorageEntities } from '@/models';
 import { findAllTech } from '@/services';
 import { persistDataLocalStorage } from '@/utilities';
-import { IQuestion, localStorageEntities } from '@/models';
-import { getFileFirebaseStorage } from '@/services';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
+import Layout from '../../components/Layout/Layout';
+import { MustachyWithDialog } from './';
+import { FloatingButton, Main } from './styled-components/';
 
 const messages = ['Hola!! Soy Mustachy y seré tu guía durante esta travesía', 'Te voy a hacer unas preguntas para conocer tu nivel'];
 
