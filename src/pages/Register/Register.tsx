@@ -1,23 +1,19 @@
-import * as yup from 'yup';
-import { AccountCircle } from '@mui/icons-material';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import GoogleIcon from '@mui/icons-material/Google';
-import { InputAdornment } from '@mui/material';
+import mustachi from '@/assets/mustachi.svg';
 import { Input } from '@/components';
-import InputPassword from '@/components/InputPassword';
 import { InputType } from '@/components/Input';
-import { SignInWithProviderButton, AuthProvider } from '@/components/SignInWithProviderButton';
+import InputPassword from '@/components/InputPassword';
 import { useYupValidationResolver } from '@/hooks';
 import { UserLogin } from '@/models';
 import { signup } from '@/services/firebase';
+import { Button, Circle, Form, Mustachi } from '@/styled-components';
+import { AccountCircle } from '@mui/icons-material';
+import { InputAdornment } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Form, Circle, Button, Mustachi } from '@/styled-components';
-import mustachi from '@/assets/mustachi.svg';
 import { useNavigate } from 'react-router-dom';
+import * as yup from 'yup';
 
 import { Layout } from '../Login/styled-components';
-import { CenterDiv } from './styled-components';
 
 const validationSchema = yup.object({
   email: yup.string().email().required('Required'),
