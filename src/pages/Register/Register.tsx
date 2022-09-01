@@ -21,7 +21,7 @@ import { CenterDiv } from './styled-components';
 
 const validationSchema = yup.object({
   email: yup.string().email().required('Required'),
-  password: yup.string().min(6).required('Required'),
+  password: yup.string().min(6).required('Required')
 });
 
 const Register = () => {
@@ -31,10 +31,10 @@ const Register = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<UserLogin>({ resolver });
 
-  const onSubmit: SubmitHandler<UserLogin> = async (newUserFormData) => {
+  const onSubmit: SubmitHandler<UserLogin> = async newUserFormData => {
     try {
       await signup(newUserFormData);
       navigate('/login');
@@ -68,17 +68,6 @@ const Register = () => {
         />
         <InputPassword errors={errors} register={register} />
         <Button primary="true">{t('register.createAccount')}</Button>
-        <CenterDiv>
-          <p>──────── O ────────</p>
-        </CenterDiv>
-        <CenterDiv>
-          <SignInWithProviderButton provider={AuthProvider.GOOGLE}>
-            <GoogleIcon sx={{ fontSize: '4.5vmin' }} />{' '}
-          </SignInWithProviderButton>
-          <SignInWithProviderButton provider={AuthProvider.GITHUB}>
-            <GitHubIcon sx={{ fontSize: '4.5vmin' }} />{' '}
-          </SignInWithProviderButton>
-        </CenterDiv>
       </Form>
     </Layout>
   );
