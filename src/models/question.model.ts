@@ -6,6 +6,7 @@ export interface IQuestion {
   seniority?: string;
   question: string;
   response: IResponse[];
+  example?: string;
   point: number;
 }
 

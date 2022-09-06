@@ -18,7 +18,8 @@ export const Dashboard = () => {
 
   const handleLoad = async () => {
     const questions = await findAllTech();
-    questions.length = 12;
+    /* questions.length = 4; */
+
     const body = {
       data: questions,
       entity: localStorageEntities.questions,
