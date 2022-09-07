@@ -1,4 +1,5 @@
 import { Navigate, Outlet } from 'react-router';
+import { AuthFlag } from '../utilities';
 
 type props = {
   isValid: Function;
@@ -6,10 +7,14 @@ type props = {
 };
 
 const RouterGuard = ({ isValid, replaceLink }: props): JSX.Element => {
-  if (!isValid()) {
-    return <Navigate to={`${replaceLink}`} replace />;
+  if (!AuthFlag) {
+    return <Outlet />;
+  } else {
+    if (!isValid()) {
+      return <Navigate to={`${replaceLink}`} replace />;
+    }
+    return <Outlet />;
   }
-  return <Outlet />;
 };
 
 export default RouterGuard;

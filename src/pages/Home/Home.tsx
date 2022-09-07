@@ -1,5 +1,6 @@
 import { Navbar } from '@/styled-components';
 import LanguageIcon from '@mui/icons-material/Language';
+import { AuthFlag, LanguageFlag } from '@/utilities';
 import {
   BubbleHero1,
   BubbleHero2,
@@ -65,7 +66,11 @@ export const Home = () => {
       <Navbar>
         <TitleHome>Devlingo</TitleHome>
         <ParagraphVerticalAlign to="/dashboard">
-          <LanguageIcon sx={{ fontSize: '4.5vmin' }} /> English
+          {LanguageFlag && (
+            <>
+              <LanguageIcon sx={{ fontSize: '4.5vmin' }} /> English
+            </>
+          )}
         </ParagraphVerticalAlign>
       </Navbar>
 
@@ -75,10 +80,19 @@ export const Home = () => {
         <DivHero>
           <TextHero>¡Una forma didactica, divertida y gratuita de aprender a programar!</TextHero>
           <DivButtons>
-            <HeroButtons to="/register" primary="true">
-              Empezar
-            </HeroButtons>
-            <HeroButtons to="/login">Ya Tengo Cuenta</HeroButtons>
+            {!AuthFlag ? (
+              <HeroButtons to="/dashboard" primary="true">
+                Empezar
+              </HeroButtons>
+            ) : (
+              <>
+                {' '}
+                <HeroButtons to="/register" primary="true">
+                  Empezar
+                </HeroButtons>
+                <HeroButtons to="/login">Ya Tengo Cuenta</HeroButtons>{' '}
+              </>
+            )}
           </DivButtons>
         </DivHero>
       </Hero>
