@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router';
 import Layout from '../../components/Layout/Layout';
 import { MustachyWithDialog } from './';
 import { FloatingButton, Main } from './styled-components/';
+import { AuthFlag } from '@/utilities';
 
 const messages = ['Hola!! Soy Mustachy y seré tu guía durante esta travesía', 'Te voy a hacer unas preguntas para conocer tu nivel'];
 
@@ -58,12 +59,21 @@ export const Dashboard = () => {
   }, [message]);
 
   return (
-    <Layout>
-      <Main $quest={quest && viewportWidth > 700}>
-        {viewportWidth < 700 && quest ? null : <MustachyWithDialog dialogWidth="calc(17ch + 10vmax)">{text}</MustachyWithDialog>}
-        <FloatingButton onClick={HandleClick}>Continuar</FloatingButton>
-      </Main>
-    </Layout>
+    <>
+      {!AuthFlag ? (
+        <Main $quest={quest && viewportWidth > 700}>
+          {viewportWidth < 700 && quest ? null : <MustachyWithDialog dialogWidth="calc(17ch + 10vmax)">{text}</MustachyWithDialog>}
+          <FloatingButton onClick={HandleClick}>Continuar</FloatingButton>
+        </Main>
+      ) : (
+        <Layout>
+          <Main $quest={quest && viewportWidth > 700}>
+            {viewportWidth < 700 && quest ? null : <MustachyWithDialog dialogWidth="calc(17ch + 10vmax)">{text}</MustachyWithDialog>}
+            <FloatingButton onClick={HandleClick}>Continuar</FloatingButton>
+          </Main>
+        </Layout>
+      )}
+    </>
   );
 };
 
