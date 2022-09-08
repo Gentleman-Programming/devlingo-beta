@@ -1,6 +1,6 @@
 import { IQuestion, seniority } from '@/models';
 import { db } from './firebase.config';
-import { collection, addDoc, getDocs, doc, setDoc, query, updateDoc, deleteDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, doc, query, updateDoc, deleteDoc } from 'firebase/firestore';
 
 /**
  * Adding technology to the question database. If it exists, the specified information
@@ -10,62 +10,17 @@ import { collection, addDoc, getDocs, doc, setDoc, query, updateDoc, deleteDoc }
  * @param data The data to be contained in each registered seniority document.
  * @returns void
  */
-export const addCollection = async (techName: string, seniority: seniority, data: IQuestion): Promise<void> => {
+export const addCollection = async (techName: string, seniority: seniority, data: IQuestion) => {
   try {
-    const dbRef = collection(db, 'question');
-    const collectionRef = collection(db, 'question', techName, seniority);
-
-    await Promise.all([
-      setDoc(doc(dbRef, techName), { Title: techName }),
-      addDoc(collectionRef, {
-        seniority: collectionRef.id,
-        techName,
-        ...data
-      })
-    ]);
+    await addDoc(collection(db, 'questions'), {
+      techName,
+      seniority,
+      example: null,
+      ...data,
+    });
   } catch (error) {
     console.error(error);
   }
-};
-
-/**
- * Displays all the data of the registered technologies.
- * @param seniorityName Receives the seniority: (ENUM) TR | JR | SSR | SR .
- * @returns All technologies registered with the seniority specified by parameter.
- */
-export const viewCollection = async (seniorityName: seniority): Promise<any> => {
-  let data: any = [];
-
-  try {
-    const findTech = await getTechNames();
-
-    for (let { Title } of findTech) {
-      const q = query(collection(db, 'question', Title, seniorityName));
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach(doc => data.push({ id: doc.id, ...doc.data() }));
-    }
-  } catch (error) {
-    console.error(error);
-  }
-  return data;
-};
-
-/**
- * Show all the names of the technologies in the collection of questions.
- * @returns All the names of the existing technologies in the collection question.
- */
-export const getTechNames = async (): Promise<any> => {
-  const tech: any = [];
-
-  try {
-    const q = query(collection(db, 'question'));
-
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach(doc => tech.push({ id: doc.id, ...doc.data() }));
-  } catch (error) {
-    console.error(error);
-  }
-  return tech;
 };
 
 /**
@@ -73,16 +28,13 @@ export const getTechNames = async (): Promise<any> => {
  * @returns All data in the question collection in a promise.
  */
 export const findAllTech = async (): Promise<IQuestion[]> => {
-  let tech: IQuestion[] = [];
+  const tech: any = [];
 
   try {
-    const TR = viewCollection(seniority.TR);
-    const JR = viewCollection(seniority.JR);
-    const SSR = viewCollection(seniority.SSR);
-    const SR = viewCollection(seniority.SR);
+    const q = query(collection(db, 'questions'));
 
-    const questions = await Promise.all([TR, JR, SSR, SR]);
-    tech = questions.flat(1);
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => tech.push({ id: doc.id, ...doc.data() }));
   } catch (error) {
     console.error(error);
   }
@@ -91,15 +43,13 @@ export const findAllTech = async (): Promise<IQuestion[]> => {
 
 /**
  * Updates the specified registrant data and seniority.
- * @param techName The technology to be updated.
- * @param seniority Current seniority: (ENUM) TR | JR | SSR | SR | SR .
  * @param id Id of the document to be updated.
  * @param data Updated data to be recorded.
  * @returns void
  */
-export const updateCollection = async (techName: string, seniority: seniority, id: string, data: IQuestion): Promise<void> => {
+export const updateCollection = async (id: string, data: IQuestion) => {
   try {
-    const updateRef = doc(db, 'question', techName, seniority, id);
+    const updateRef = doc(db, 'questions', id);
     await updateDoc(updateRef, { ...data });
   } catch (error) {
     console.error(error);
@@ -108,13 +58,11 @@ export const updateCollection = async (techName: string, seniority: seniority, i
 
 /**
  * Remove the specified registrant data and seniority.
- * @param techName The technology to be removed.
- * @param seniority Current seniority: (ENUM) TR | JR | SSR | SR | SR .
  * @param id Id of the document to be removed.
  */
-export const removeCollection = async (techName: string, seniority: seniority, id: string): Promise<void> => {
+export const removeCollection = async (id: string) => {
   try {
-    const removeDoc = doc(db, 'question', techName, seniority, id);
+    const removeDoc = doc(db, 'questions', id);
     await deleteDoc(removeDoc);
   } catch (error) {
     console.error(error);
