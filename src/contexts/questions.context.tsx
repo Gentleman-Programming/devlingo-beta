@@ -1,5 +1,4 @@
 import { createContext, useReducer } from 'react';
-
 import { questionReducer, actionTypes } from '../reducers';
 import { getDataLocalStorage } from '@/utilities';
 import { FirebaseUser, IQuestion, localStorageEntities } from '@/models';
@@ -17,13 +16,12 @@ interface props {
   children: JSX.Element | JSX.Element[];
 }
 
+const questions = getDataLocalStorage<IQuestion[]>(localStorageEntities.questions);
+const lastPts = getDataLocalStorage<FirebaseUser>(localStorageEntities.user).test?.pts;
+const questionsPts = questions.reduce((acum, { point }) => acum + point, 0);
+const state = lastPts > 0 ? lastPts : questionsPts;
+
 export const QuestionProvider = ({ children }: props) => {
-  const questions = getDataLocalStorage<IQuestion[]>(localStorageEntities.questions);
-  const lastPts = getDataLocalStorage<FirebaseUser>(localStorageEntities.user).test?.pts;
-  const questionsPts = questions.reduce((acum, { point }) => acum + point, 0);
-
-  const state = lastPts > 0 ? lastPts : questionsPts;
-
   const [seniority, dispatch] = useReducer(questionReducer, state);
 
   const IncrementSeniority = (points: number): void => {

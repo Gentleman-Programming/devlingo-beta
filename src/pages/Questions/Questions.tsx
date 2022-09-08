@@ -1,20 +1,22 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { MustachyWithDialog, Options } from '@/pages';
 import { Main } from '@/pages/Dashboard/styled-components';
 import { Layout } from '@/components';
 import { getDataLocalStorage } from '@/utilities';
-import { IQuestion, localStorageEntities } from '@/models';
+import { IQuestion, localStorageEntities, FirebaseUser } from '@/models';
 import { QuestionProvider } from '@/contexts';
 import { Code } from '@/components';
 
 const Questions = () => {
   const { id: index } = useParams();
+  const navigate = useNavigate();
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
   const [questionCode, setQuestionCode] = useState<string>();
 
   const questionIndex = parseInt(index as string) - 1;
   const questions = getDataLocalStorage<IQuestion[]>(localStorageEntities.questions);
+  const currentQuestion = getDataLocalStorage<FirebaseUser>(localStorageEntities.user).test.progress;
   const { response, id, question, point } = questions[questionIndex];
 
   const fetchQuestion = async (url: string) => {
@@ -37,6 +39,10 @@ const Questions = () => {
   useEffect(() => {
     fetchQuestion(question);
   }, [question]);
+
+  useEffect(() => {
+    currentQuestion !== questionIndex && navigate(`/question/${currentQuestion}`);
+  }, []);
 
   return (
     <QuestionProvider>
