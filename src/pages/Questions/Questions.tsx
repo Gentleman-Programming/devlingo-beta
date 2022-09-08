@@ -1,19 +1,16 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { MustachyWithDialog, Options } from '@/pages';
 import { Main } from '@/pages/Dashboard/styled-components';
 import { Layout } from '@/components';
 import { getDataLocalStorage } from '@/utilities';
 import { IQuestion, localStorageEntities } from '@/models';
-import { useQuestions } from '@/hooks';
 import { QuestionProvider } from '@/contexts';
 import { Code } from '@/components';
 
 const Questions = () => {
   const { id: index } = useParams();
-  const navigate = useNavigate();
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
-  const { IncrementSeniority, seniority, initialState } = useQuestions();
   const [questionCode, setQuestionCode] = useState<string>();
 
   const questionIndex = parseInt(index as string) - 1;
@@ -35,14 +32,6 @@ const Questions = () => {
     return () => {
       window.removeEventListener('resize', onResize);
     };
-  }, []);
-
-  useEffect(() => {
-    if (Number(index) > 1) {
-      const df = initialState - seniority;
-      IncrementSeniority(df);
-      navigate('/question/1');
-    }
   }, []);
 
   useEffect(() => {

@@ -2,7 +2,7 @@ import { createContext, useReducer } from 'react';
 
 import { questionReducer, actionTypes } from '../reducers';
 import { getDataLocalStorage } from '@/utilities';
-import { IQuestion, localStorageEntities } from '@/models';
+import { FirebaseUser, IQuestion, localStorageEntities } from '@/models';
 
 type questionContextProps = {
   seniority: number;
@@ -19,8 +19,10 @@ interface props {
 
 export const QuestionProvider = ({ children }: props) => {
   const questions = getDataLocalStorage<IQuestion[]>(localStorageEntities.questions);
+  const lastPts = getDataLocalStorage<FirebaseUser>(localStorageEntities.user).test?.pts;
+  const questionsPts = questions.reduce((acum, { point }) => acum + point, 0);
 
-  const state = questions.reduce((acum, { point }) => acum + point, 0);
+  const state = lastPts > 0 ? lastPts : questionsPts;
 
   const [seniority, dispatch] = useReducer(questionReducer, state);
 
@@ -38,7 +40,7 @@ export const QuestionProvider = ({ children }: props) => {
     });
   };
 
-  const value = { IncrementSeniority, DecrementSeniority, seniority, initialState: state };
+  const value = { IncrementSeniority, DecrementSeniority, seniority, initialState: questionsPts };
 
   return <QuestionsContext.Provider value={value}>{children}</QuestionsContext.Provider>;
 };
