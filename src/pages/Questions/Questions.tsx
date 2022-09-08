@@ -53,7 +53,7 @@ const Questions = () => {
     <QuestionProvider>
       <Layout>
         <Main $quest={viewportWidth > 700}>
-          {viewportWidth > 700 && <MustachyWithDialog dialogWidth="calc(17ch + 10vmax)">cual es el resultado?</MustachyWithDialog>}
+          {viewportWidth > 700 && <MustachyWithDialog dialogWidth="calc(17ch + 10vmax)">{question}</MustachyWithDialog>}
           <Code text={questionCode as string} />
           {id && index && <Options options={response} id={id} index={questionIndex + 1} points={point} />}
         </Main>
