@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router';
 import { MustachyWithDialog, Options } from '@/pages';
 import { Main } from '@/pages/Dashboard/styled-components';
 import { Layout } from '@/components';
-import { getDataLocalStorage } from '@/utilities';
+import { AuthFlag, getDataLocalStorage } from '@/utilities';
 import { IQuestion, localStorageEntities } from '@/models';
 import { useQuestions } from '@/hooks';
 import { QuestionProvider } from '@/contexts';
@@ -51,13 +51,21 @@ const Questions = () => {
 
   return (
     <QuestionProvider>
-      <Layout>
+      {!AuthFlag ? (
         <Main $quest={viewportWidth > 700}>
           {viewportWidth > 700 && <MustachyWithDialog dialogWidth="calc(17ch + 10vmax)">{question}</MustachyWithDialog>}
           {questionCode && <Code text={questionCode} />}
           {id && index && <Options options={response} id={id} index={questionIndex + 1} points={point} />}
         </Main>
-      </Layout>
+      ) : (
+        <Layout>
+          <Main $quest={viewportWidth > 700}>
+            {viewportWidth > 700 && <MustachyWithDialog dialogWidth="calc(17ch + 10vmax)">{question}</MustachyWithDialog>}
+            {questionCode && <Code text={questionCode} />}
+            {id && index && <Options options={response} id={id} index={questionIndex + 1} points={point} />}
+          </Main>
+        </Layout>
+      )}
     </QuestionProvider>
   );
 };
