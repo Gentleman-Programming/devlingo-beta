@@ -8,3 +8,4 @@ export * from './user.model';
 export * from './seniority.model';
 export * from './question.model';
 export * from './response.model';
+export * from './test.model';

@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-
 import { Main } from '@/pages/Dashboard/styled-components';
-
 import { Layout } from '@/components';
 import { FirebaseUser } from '@/models';
 

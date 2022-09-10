@@ -1,7 +1,5 @@
-import { FirebaseUser, seniority as SENIORITY } from '@/models';
+import { FirebaseUser } from '@/models';
 
-export const verifyUser = ({ accessToken }: FirebaseUser): Boolean => {
-  return !!accessToken;
-};
+export const verifyUser = ({ accessToken }: FirebaseUser): Boolean => !!accessToken;
 
 export const verifyExistSeniority = (seniority: string) => !!seniority;

@@ -1,3 +1,4 @@
+import { ITest } from './';
 export interface FirebaseUser {
   uid: string;
   accessToken?: string;
@@ -6,6 +7,7 @@ export interface FirebaseUser {
   role: rol;
   username: string;
   refreshToken?: string;
+  test: ITest;
 }
 
 export interface UserLogin {

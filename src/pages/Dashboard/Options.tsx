@@ -1,10 +1,10 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import { Button } from '@/components/';
-import { FirebaseUser, IResponse, seniority as SENIORITY } from '@/models';
+import { categories, FirebaseUser, IResponse, seniority as SENIORITY } from '@/models';
 import { useQuestions } from '@/hooks';
-import { useSelector, useDispatch } from 'react-redux';
-import { updateDocumentInDb } from '@/services/firebase/firebase.service';
+import { useDispatch } from 'react-redux';
 import { modifyUser } from '@/redux';
 
 export const OptionsContainer = styled.div`
@@ -57,7 +57,6 @@ type prop = {
 
 export function Options({ options, index, id, points }: props) {
   const { seniority, initialState, DecrementSeniority } = useQuestions();
-  const { uid } = useSelector(({ user }: prop) => user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -67,12 +66,15 @@ export function Options({ options, index, id, points }: props) {
     ({ isCorrect }: IResponse) =>
     async () => {
       const nextQuestion = +index + 1;
-      if (nextQuestion === 13) {
-        await updateDocumentInDb({ seniorityGlobal: seniorityText }, 'users', uid);
-        dispatch(modifyUser({ seniorityGlobal: seniorityText }));
+      dispatch(modifyUser({ test: { name: categories.general, progress: nextQuestion, pts: seniority } }));
+      if (!isCorrect) {
+        dispatch(modifyUser({ test: { name: categories.general, progress: nextQuestion, pts: seniority - points } }));
+        DecrementSeniority(points);
+      }
+      if (nextQuestion === 7) {
+        dispatch(modifyUser({ seniorityGlobal: seniorityText, test: { name: categories.general, progress: +index, pts: seniority } }));
         return navigate('/results', { replace: true, state: seniorityText });
       }
-      if (!isCorrect) DecrementSeniority(points);
       navigate(`/question/${nextQuestion}`, { replace: true });
     };
 
