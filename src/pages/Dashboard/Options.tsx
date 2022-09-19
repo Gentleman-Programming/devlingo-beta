@@ -10,8 +10,8 @@ import { modifyUser } from '@/redux';
 export const OptionsContainer = styled.div`
   display: grid;
   grid-area: options;
-  row-gap: 1em;
-  align-items: center;
+  gap: 1.5em;
+  /* align-: center; */
 
   @media only screen and (min-width: 700px) {
     grid-template-columns: repeat(auto-fit, minmax(30em, 1fr));
@@ -62,28 +62,26 @@ export function Options({ options, index, id, points }: props) {
 
   const seniorityText = getSeniorityText(seniority, initialState);
 
-  const handleClick =
-    ({ isCorrect }: IResponse) =>
-    async () => {
-      const nextQuestion = +index + 1;
-      dispatch(modifyUser({ test: { name: categories.general, progress: nextQuestion, pts: seniority } }));
-      if (!isCorrect) {
-        dispatch(modifyUser({ test: { name: categories.general, progress: nextQuestion, pts: seniority - points } }));
-        DecrementSeniority(points);
-      }
-      if (nextQuestion === 7) {
-        dispatch(modifyUser({ seniorityGlobal: seniorityText, test: { name: categories.general, progress: +index, pts: seniority } }));
-        return navigate('/results', { replace: true, state: seniorityText });
-      }
-      navigate(`/question/${nextQuestion}`, { replace: true });
-    };
+  const handleClick = async ({ isCorrect }: IResponse) => {
+    const nextQuestion = +index + 1;
+    dispatch(modifyUser({ test: { name: categories.general, progress: nextQuestion, pts: seniority } }));
+    if (!isCorrect) {
+      dispatch(modifyUser({ test: { name: categories.general, progress: nextQuestion, pts: seniority - points } }));
+      DecrementSeniority(points);
+    }
+    if (nextQuestion === 7) {
+      dispatch(modifyUser({ seniorityGlobal: seniorityText, test: { name: categories.general, progress: +index, pts: seniority } }));
+      return navigate('/results', { replace: true, state: seniorityText });
+    }
+    navigate(`/question/${nextQuestion}`, { replace: true });
+  };
 
   return (
     <div key={id} style={{ gridArea: 'options' }}>
       <div>
         <OptionsContainer>
           {options.map((option: IResponse, index) => (
-            <Button key={index} onClick={handleClick(option)}>
+            <Button key={index} onClick={() => handleClick(option)}>
               {option.text}
             </Button>
           ))}
