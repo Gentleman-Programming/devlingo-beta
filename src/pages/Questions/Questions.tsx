@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import { MustachyWithDialog, Options } from '@/pages';
+import { useSelector } from 'react-redux';
+
 import { Main } from '@/pages/Dashboard/styled-components';
+import { MustachyWithDialog, Options } from '@/pages';
 import { Layout } from '@/components';
 import { getDataLocalStorage, AuthFlag } from '@/utilities';
 import { IQuestion, localStorageEntities, FirebaseUser } from '@/models';
-import { useQuestions } from '@/hooks';
-import { QuestionProvider } from '@/contexts';
 import { Code } from '@/components';
-import { useSelector } from 'react-redux';
+import { QuestionProvider } from '@/contexts';
+import { useQuestions } from '@/hooks';
 
 type prop = {
   user: FirebaseUser;
@@ -18,17 +19,11 @@ const Questions = () => {
   const { id: index } = useParams();
   const navigate = useNavigate();
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
-  const [questionCode, setQuestionCode] = useState<string>();
 
   const questionIndex = parseInt(index as string) - 1;
   const questions = getDataLocalStorage<IQuestion[]>(localStorageEntities.questions);
   const { progress: currentQuestion } = useSelector(({ user }: prop) => user.test);
-  const { response, id, question, point } = questions[questionIndex];
-
-  const fetchQuestion = async (url: string) => {
-    const req = await fetch(url, { mode: 'no-cors' });
-    setQuestionCode(await req.text());
-  };
+  const { response, id, question, point, example } = questions[questionIndex];
 
   useEffect(() => {
     const onResize = () => {
@@ -43,10 +38,6 @@ const Questions = () => {
   }, []);
 
   useEffect(() => {
-    fetchQuestion(question);
-  }, [question]);
-
-  useEffect(() => {
     if (currentQuestion !== questionIndex) navigate(`/question/${currentQuestion}`);
   }, []);
 
@@ -55,14 +46,14 @@ const Questions = () => {
       {!AuthFlag ? (
         <Main $quest={viewportWidth > 700}>
           {viewportWidth > 700 && <MustachyWithDialog dialogWidth="calc(17ch + 10vmax)">{question}</MustachyWithDialog>}
-          {questionCode && <Code text={questionCode} />}
+          {example && <Code text={example} />}
           {id && index && <Options options={response} id={id} index={questionIndex + 1} points={point} />}
         </Main>
       ) : (
         <Layout>
           <Main $quest={viewportWidth > 700}>
             {viewportWidth > 700 && <MustachyWithDialog dialogWidth="calc(17ch + 10vmax)">{question}</MustachyWithDialog>}
-            {questionCode && <Code text={questionCode} />}
+            {example && <Code text={example} />}
             {id && index && <Options options={response} id={id} index={questionIndex + 1} points={point} />}
           </Main>
         </Layout>
