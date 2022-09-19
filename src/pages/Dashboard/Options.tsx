@@ -1,17 +1,16 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
-import { Button } from '@/components/';
-import { categories, FirebaseUser, IResponse, seniority as SENIORITY } from '@/models';
-import { useQuestions } from '@/hooks';
 import { useDispatch } from 'react-redux';
+
+import { useQuestions } from '@/hooks';
 import { modifyUser } from '@/redux';
+import { Button } from '@/components';
+import { categories, FirebaseUser, IResponse, seniority as SENIORITY } from '@/models';
 
 export const OptionsContainer = styled.div`
   display: grid;
   grid-area: options;
   gap: 1.5em;
-  /* align-: center; */
 
   @media only screen and (min-width: 700px) {
     grid-template-columns: repeat(auto-fit, minmax(30em, 1fr));
@@ -26,7 +25,7 @@ interface props {
   points: number;
 }
 
-const Container = styled.div`
+const Container = styled.h2`
   display: grid;
   row-gap: 1em;
   align-items: center;
@@ -65,19 +64,21 @@ export function Options({ options, index, id, points }: props) {
   const handleClick = async ({ isCorrect }: IResponse) => {
     const nextQuestion = +index + 1;
     dispatch(modifyUser({ test: { name: categories.general, progress: nextQuestion, pts: seniority } }));
+
     if (!isCorrect) {
       dispatch(modifyUser({ test: { name: categories.general, progress: nextQuestion, pts: seniority - points } }));
       DecrementSeniority(points);
     }
     if (nextQuestion === 7) {
       dispatch(modifyUser({ seniorityGlobal: seniorityText, test: { name: categories.general, progress: +index, pts: seniority } }));
+
       return navigate('/results', { replace: true, state: seniorityText });
     }
     navigate(`/question/${nextQuestion}`, { replace: true });
   };
 
   return (
-    <div key={id} style={{ gridArea: 'options' }}>
+    <div style={{ gridArea: 'options' }}>
       <div>
         <OptionsContainer>
           {options.map((option: IResponse, index) => (
@@ -87,10 +88,7 @@ export function Options({ options, index, id, points }: props) {
           ))}
         </OptionsContainer>
       </div>
-      <Container>
-        <h2>Puntaje inicial: {initialState}</h2>
-        <h2>Puntaje actual: {seniority}</h2>
-      </Container>
+      <Container>{seniorityText}</Container>
     </div>
   );
 }
