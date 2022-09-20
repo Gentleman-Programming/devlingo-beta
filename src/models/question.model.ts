@@ -14,3 +14,9 @@ export interface QuestionContextProps {
   questionStates: IQuestion[];
   response: (isCorrect: boolean, point: number) => void;
 }
+
+export enum Status {
+  Pending,
+  Answered,
+  Nexting,
+}

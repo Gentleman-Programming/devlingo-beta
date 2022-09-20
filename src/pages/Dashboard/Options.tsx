@@ -1,11 +1,21 @@
-import { useNavigate } from 'react-router';
+import { MouseEvent } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
 
 import { useQuestions } from '@/hooks';
-import { modifyUser } from '@/redux';
 import { Button } from '@/components';
-import { categories, FirebaseUser, IResponse, seniority as SENIORITY } from '@/models';
+import { IResponse, Seniority, Status } from '@/models';
+
+interface StyledButtonProps {
+  correct: boolean;
+}
+
+const StyledButton = styled(Button)<StyledButtonProps>`
+  --result: ${({ correct }) => (correct ? '#68ff2c' : '#f22')};
+
+  &.active {
+    background-color: var(--result);
+  }
+`;
 
 export const OptionsContainer = styled.div`
   display: grid;
@@ -18,20 +28,15 @@ export const OptionsContainer = styled.div`
   }
 `;
 
-interface props {
-  options: IResponse[];
-  id: string;
-  index: number;
-  points: number;
-}
-
-const Container = styled.h2`
+const Container = styled.span`
   display: grid;
   row-gap: 1em;
   align-items: center;
   color: #fff;
   margin-top: 1em;
-
+  text-transform: uppercase;
+  font-size: 1.7em;
+  font-weight: 600;
   @media only screen and (min-width: 700px) {
     grid-template-columns: auto auto;
     justify-content: space-between;
@@ -40,51 +45,50 @@ const Container = styled.h2`
 
 const getSeniorityText = (seniority: number, initialState: number) => {
   if (seniority === initialState) {
-    return SENIORITY.SR;
+    return Seniority.SR;
   } else if (seniority < initialState && seniority > 50) {
-    return SENIORITY.SSR;
+    return Seniority.SSR;
   } else if (seniority < 50 && seniority > 20) {
-    return SENIORITY.JR;
+    return Seniority.JR;
   } else {
-    return SENIORITY.TR;
+    return Seniority.TR;
   }
 };
 
-type prop = {
-  user: FirebaseUser;
-};
+interface Props {
+  options: IResponse[];
+  id: string;
+  index: number;
+  points: number;
+  handleSelect: ({ isCorrect }: IResponse) => void;
+  state: Status;
+}
 
-export function Options({ options, index, id, points }: props) {
-  const { seniority, initialState, DecrementSeniority } = useQuestions();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+export function Options({ options, handleSelect, state, id }: Props) {
+  const { seniority, initialState } = useQuestions();
+
+  const onSelect = (e: MouseEvent<HTMLButtonElement>, option: IResponse, index: number) => {
+    e.currentTarget.classList.add('active');
+
+    handleSelect(option);
+  };
 
   const seniorityText = getSeniorityText(seniority, initialState);
-
-  const handleClick = async ({ isCorrect }: IResponse) => {
-    const nextQuestion = +index + 1;
-    dispatch(modifyUser({ test: { name: categories.general, progress: nextQuestion, pts: seniority } }));
-
-    if (!isCorrect) {
-      dispatch(modifyUser({ test: { name: categories.general, progress: nextQuestion, pts: seniority - points } }));
-      DecrementSeniority(points);
-    }
-    if (nextQuestion === 7) {
-      dispatch(modifyUser({ seniorityGlobal: seniorityText, test: { name: categories.general, progress: +index, pts: seniority } }));
-
-      return navigate('/results', { replace: true, state: seniorityText });
-    }
-    navigate(`/question/${nextQuestion}`, { replace: true });
-  };
 
   return (
     <div style={{ gridArea: 'options' }}>
       <div>
         <OptionsContainer>
           {options.map((option: IResponse, index) => (
-            <Button key={index} onClick={() => handleClick(option)}>
+            <StyledButton
+              key={id + index}
+              disabled={state === Status.Answered}
+              type="button"
+              onClick={(e) => onSelect(e, option, index)}
+              correct={option.isCorrect}
+            >
               {option.text}
-            </Button>
+            </StyledButton>
           ))}
         </OptionsContainer>
       </div>

@@ -11,8 +11,14 @@ export const Button = styled.button<{ primary?: string }>`
   border: 0.3ch solid #ea1889;
   background-color: ${(props) => (!props.primary ? '#EA1889' : '#181818;')};
   color: ${(props) => (!props.primary ? '#fff' : '#EA1889')};
-  &:active {
+
+  &:active:not(:disabled) {
     box-shadow: 0 5px #a11360;
     transform: translateY(5px);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    box-shadow: unset;
   }
 `;
