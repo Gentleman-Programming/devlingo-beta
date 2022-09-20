@@ -4,7 +4,7 @@ export interface FirebaseUser {
   accessToken?: string;
   email: string;
   seniorityGlobal?: string;
-  role: rol;
+  role: Rol;
   username: string;
   refreshToken?: string;
   test: ITest;
@@ -15,7 +15,7 @@ export interface UserLogin {
   password: string;
 }
 
-export const enum rol {
-  user = 'user',
-  admin = 'admin',
+export const enum Rol {
+  User = 'user',
+  Admin = 'admin',
 }

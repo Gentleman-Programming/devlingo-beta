@@ -1,4 +1,4 @@
-import { categories, FirebaseUser, rol } from '@/models';
+import { Categories, FirebaseUser, Rol } from '@/models';
 import { createSlice } from '@reduxjs/toolkit';
 
 import { persistDataLocalStorage, getDataLocalStorage } from '@/utilities';
@@ -9,11 +9,11 @@ export const UserEmptyState: FirebaseUser = {
   email: '',
   accessToken: '',
   seniorityGlobal: '',
-  role: rol.user,
+  role: Rol.User,
   refreshToken: '',
   username: '',
   test: {
-    name: categories.general,
+    name: Categories.General,
     progress: 1,
     pts: 0,
   },

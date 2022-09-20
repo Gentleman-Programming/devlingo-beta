@@ -1,14 +1,14 @@
-export const enum categories {
-  react = 'react',
-  general = 'general',
-  js = 'javascript',
-  ts = 'typescript',
-  css = 'css',
-  html = 'html',
+export const enum Categories {
+  React = 'react',
+  General = 'general',
+  Js = 'javascript',
+  Ts = 'typescript',
+  Css = 'css',
+  Html = 'html',
 }
 
 export interface ITest {
-  name: categories;
+  name: Categories;
   progress: number;
   pts: number;
 }

@@ -1,7 +1,7 @@
-export const enum seniority {
+export const enum Seniority {
   TR = 'trainee',
   JR = 'junior',
   SSR = 'semi senior',
   SR = 'senior',
-  none = '',
+  None = '',
 }

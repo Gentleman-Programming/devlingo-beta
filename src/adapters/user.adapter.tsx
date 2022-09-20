@@ -1,5 +1,5 @@
 import { User } from 'firebase/auth';
-import { FirebaseUser, rol, seniority } from '@/models';
+import { FirebaseUser, Rol, Seniority } from '@/models';
 import { UserEmptyState } from '../redux/states/user';
 
 export const createAddaptedUser = async ({ email, uid, accessToken, refreshToken, role, seniorityGlobal }: FirebaseUser) => {
@@ -23,8 +23,8 @@ export const adapterNewUser = ({ email, uid }: User): FirebaseUser => {
   return {
     uid,
     username,
-    role: rol.user,
-    seniorityGlobal: seniority.none,
+    role: Rol.User,
+    seniorityGlobal: Seniority.None,
     email: email as string,
   };
 };
