@@ -82,9 +82,8 @@ export function Options({ options, handleSelect, state, id }: Props) {
           {options.map((option: IResponse, index) => (
             <StyledButton
               key={id + index}
-              disabled={state === Status.Answered}
               type="button"
-              onClick={(e) => onSelect(e, option, index)}
+              onClick={state === Status.Pending ? (e) => onSelect(e, option, index) : undefined}
               correct={option.isCorrect}
             >
               {option.text}
