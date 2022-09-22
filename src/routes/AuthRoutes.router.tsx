@@ -2,6 +2,7 @@ import { lazy } from 'react';
 import { Routes, Route } from 'react-router';
 import { useSelector } from 'react-redux';
 import { verifyExistSeniority } from '@/utilities/verifyUser.utility';
+import { QuestionProvider } from '@/contexts';
 import { FirebaseUser } from '@/models';
 import { RouterGuard } from '@/components';
 
@@ -22,7 +23,14 @@ const AuthRouter = () => {
     <Routes>
       <Route element={<RouterGuard isValid={isExistSeniority} replaceLink="/results" />}>
         <Route path={'dashboard/*'} element={<Dashboard />} />
-        <Route path={'question/:id'} element={<Questions />} />
+        <Route
+          path={'question/:id'}
+          element={
+            <QuestionProvider>
+              <Questions />
+            </QuestionProvider>
+          }
+        />
       </Route>
 
       <Route element={<RouterGuard isValid={notExistSeniority} replaceLink="/question/1" />}>

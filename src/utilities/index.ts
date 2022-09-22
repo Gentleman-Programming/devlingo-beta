@@ -5,3 +5,4 @@ export * from './local-storage.utility';
 export * from './snackbar.utility';
 export * from './verifyUser.utility';
 export * from './feature-flags.utility';
+export * from './getSeniorityText.utility';

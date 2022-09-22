@@ -5,27 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FloatingButton, Main } from '@/pages/Dashboard/styled-components';
 import { MustachyWithDialog, Options } from '@/pages';
 import { Layout } from '@/components';
-import { getDataLocalStorage, AuthFlag } from '@/utilities';
+import { getDataLocalStorage, getSeniorityText } from '@/utilities';
 import { IQuestion, localStorageEntities, FirebaseUser, IResponse, Categories, Seniority, Status } from '@/models';
 import { Code } from '@/components';
-import { QuestionProvider } from '@/contexts';
 import { useQuestions } from '@/hooks';
 import { modifyUser } from '@/redux';
 
 type prop = {
   user: FirebaseUser;
-};
-
-const getSeniorityText = (seniority: number, initialState: number) => {
-  if (seniority === initialState) {
-    return Seniority.SR;
-  } else if (seniority < initialState && seniority > 50) {
-    return Seniority.SSR;
-  } else if (seniority < 50 && seniority > 20) {
-    return Seniority.JR;
-  } else {
-    return Seniority.TR;
-  }
 };
 
 const Questions = () => {
@@ -65,13 +52,12 @@ const Questions = () => {
     if (state === Status.Nexting) {
       navigate(`/question/${nextQuestion}`, { replace: true });
 
-      if (nextQuestion === 7) {
+      if (nextQuestion === 17) {
         dispatch(
           modifyUser({ seniorityGlobal: seniorityText, test: { name: Categories.General, progress: questionIndex, pts: seniority } }),
         );
-        /*  */
+
         navigate('/results', { replace: true, state: seniorityText });
-        /*  */
       }
       setState(Status.Pending);
     }
@@ -92,33 +78,18 @@ const Questions = () => {
   };
 
   return (
-    <QuestionProvider>
-      {!AuthFlag ? (
-        <Main $quest={viewportWidth > 700}>
-          {viewportWidth > 700 && <MustachyWithDialog dialogWidth="calc(17ch + 10vmax)">{question}</MustachyWithDialog>}
-          {example && <Code text={example} />}
-          {id && index && (
-            <Options state={state} options={response} id={id} index={questionIndex + 1} points={point} handleSelect={handleSelect} />
-          )}
-          <FloatingButton disabled={state !== Status.Answered} onClick={goNext}>
-            ¡Siguiente!
-          </FloatingButton>
-        </Main>
-      ) : (
-        <Layout>
-          <Main $quest={viewportWidth > 700}>
-            {viewportWidth > 700 && <MustachyWithDialog dialogWidth="calc(17ch + 10vmax)">{question}</MustachyWithDialog>}
-            {example && <Code text={example} />}
-            {id && index && (
-              <Options state={state} options={response} id={id} index={questionIndex + 1} points={point} handleSelect={handleSelect} />
-            )}
-            <FloatingButton disabled={state !== Status.Answered} onClick={goNext}>
-              ¡Siguiente!
-            </FloatingButton>
-          </Main>
-        </Layout>
-      )}
-    </QuestionProvider>
+    <Layout>
+      <Main $quest={viewportWidth > 700}>
+        {viewportWidth > 700 && <MustachyWithDialog dialogWidth="calc(17ch + 10vmax)">{question}</MustachyWithDialog>}
+        {example && <Code text={example} />}
+        {id && index && (
+          <Options state={state} options={response} id={id} index={questionIndex + 1} points={point} handleSelect={handleSelect} />
+        )}
+        <FloatingButton disabled={state !== Status.Answered} onClick={goNext}>
+          ¡Siguiente!
+        </FloatingButton>
+      </Main>
+    </Layout>
   );
 };
 
