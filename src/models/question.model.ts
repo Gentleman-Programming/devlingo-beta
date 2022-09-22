@@ -16,7 +16,7 @@ export interface QuestionContextProps {
 }
 
 export enum Status {
-  Pending,
-  Answered,
-  Nexting,
+  Pending = 'pending',
+  Answered = 'answered',
+  Nexting = 'nexting',
 }

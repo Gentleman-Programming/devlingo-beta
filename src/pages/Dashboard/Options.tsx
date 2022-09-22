@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 import { useQuestions } from '@/hooks';
 import { Button } from '@/components';
-import { IResponse, Seniority, Status } from '@/models';
+import { IResponse, Status } from '@/models';
+import { getSeniorityText } from '@/utilities';
 
 interface StyledButtonProps {
   correct: boolean;
@@ -42,18 +43,6 @@ const Container = styled.span`
     justify-content: space-between;
   }
 `;
-
-const getSeniorityText = (seniority: number, initialState: number) => {
-  if (seniority === initialState) {
-    return Seniority.SR;
-  } else if (seniority < initialState && seniority > 50) {
-    return Seniority.SSR;
-  } else if (seniority < 50 && seniority > 20) {
-    return Seniority.JR;
-  } else {
-    return Seniority.TR;
-  }
-};
 
 interface Props {
   options: IResponse[];

@@ -11,16 +11,12 @@ import { collection, addDoc, getDocs, doc, query, updateDoc, deleteDoc } from 'f
  * @returns void
  */
 export const addCollection = async (techName: string, seniority: seniority, data: IQuestion) => {
-  try {
-    await addDoc(collection(db, 'questions'), {
-      techName,
-      seniority,
-      example: null,
-      ...data,
-    });
-  } catch (error) {
-    console.error(error);
-  }
+  await addDoc(collection(db, 'questions'), {
+    techName,
+    seniority,
+    example: null,
+    ...data,
+  });
 };
 
 /**
@@ -30,14 +26,11 @@ export const addCollection = async (techName: string, seniority: seniority, data
 export const findAllTech = async (): Promise<IQuestion[]> => {
   const tech: any = [];
 
-  try {
-    const q = query(collection(db, 'questions'));
+  const q = query(collection(db, 'questions'));
 
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => tech.push({ id: doc.id, ...doc.data() }));
-  } catch (error) {
-    console.error(error);
-  }
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => tech.push({ id: doc.id, ...doc.data() }));
+
   return tech;
 };
 
@@ -48,12 +41,8 @@ export const findAllTech = async (): Promise<IQuestion[]> => {
  * @returns void
  */
 export const updateCollection = async (id: string, data: IQuestion) => {
-  try {
-    const updateRef = doc(db, 'questions', id);
-    await updateDoc(updateRef, { ...data });
-  } catch (error) {
-    console.error(error);
-  }
+  const updateRef = doc(db, 'questions', id);
+  await updateDoc(updateRef, { ...data });
 };
 
 /**
@@ -61,10 +50,6 @@ export const updateCollection = async (id: string, data: IQuestion) => {
  * @param id Id of the document to be removed.
  */
 export const removeCollection = async (id: string) => {
-  try {
-    const removeDoc = doc(db, 'questions', id);
-    await deleteDoc(removeDoc);
-  } catch (error) {
-    console.error(error);
-  }
+  const removeDoc = doc(db, 'questions', id);
+  await deleteDoc(removeDoc);
 };
