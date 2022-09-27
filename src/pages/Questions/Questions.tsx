@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FloatingButton, Main } from '@/pages/Dashboard/styled-components';
 import { MustachyWithDialog, Options } from '@/pages';
 import { Layout } from '@/components';
-import { getDataLocalStorage, getSeniorityText } from '@/utilities';
+import { determinateSeniorities, getDataLocalStorage, getSeniorityText } from '@/utilities';
 import { IQuestion, localStorageEntities, FirebaseUser, IResponse, Categories, Seniority, Status } from '@/models';
 import { Code } from '@/components';
 import { useQuestions, useSeniority } from '@/hooks';
@@ -21,7 +21,6 @@ const Questions = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { seniorities, updateSeniority } = useSeniority();
   const { seniority, initialState, DecrementSeniority } = useQuestions();
 
   const [state, setState] = useState<Status>(Status.Pending);
@@ -68,14 +67,12 @@ const Questions = () => {
   const handleSelect = ({ isCorrect }: IResponse) => {
     setState(Status.Answered);
     dispatch(modifyUser({ test: { name: Categories.General, progress: nextQuestion, pts: seniority } }));
+    console.log(determinateSeniorities());
 
     if (!isCorrect) {
       dispatch(modifyUser({ test: { name: Categories.General, progress: nextQuestion, pts: seniority - point } }));
-      updateSeniority({ js: { pts: 10 + questionIndex + 2, txt: Seniority.SR } });
       DecrementSeniority(point);
     }
-
-    console.log(seniorities);
   };
 
   const goNext = () => {

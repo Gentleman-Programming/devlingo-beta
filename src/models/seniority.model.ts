@@ -16,5 +16,4 @@ export interface IQuestionsForSeniority {
 
 export interface ICategorieForSeniority {
   questions: IQuestion[];
-  initialValue: number;
 }

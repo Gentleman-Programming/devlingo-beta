@@ -7,17 +7,14 @@ export const emptySeniorities: ISeniority = {
   html: {
     pts: 0,
     txt: Seniority.TR,
-    initialValue: 0,
   },
   css: {
     pts: 0,
     txt: Seniority.TR,
-    initialValue: 0,
   },
   js: {
     pts: 0,
     txt: Seniority.TR,
-    initialValue: 0,
   },
   global: Seniority.TR,
 };
