@@ -1,4 +1,4 @@
-import { ITest } from './';
+import { ITest, Seniority } from './';
 export interface FirebaseUser {
   uid: string;
   accessToken?: string;
@@ -17,15 +17,15 @@ export interface UserLogin {
 
 export interface ICategory {
   pts: number;
-  txt: string;
-  initialValue: number;
+  txt: Seniority;
+  initialValue?: number;
 }
 
 export interface ISeniority {
-  html: ICategory;
-  js: ICategory;
-  css: ICategory;
-  global: string;
+  html?: ICategory;
+  js?: ICategory;
+  css?: ICategory;
+  global?: Seniority;
 }
 
 export const enum Rol {
