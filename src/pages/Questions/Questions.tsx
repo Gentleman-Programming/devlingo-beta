@@ -27,6 +27,7 @@ const Questions = () => {
 
   const questionIndex = parseInt(index as string) - 1;
   const questions = getDataLocalStorage<IQuestion[]>(localStorageEntities.questions);
+  const limitQuestions = questions.length + 1;
   const { progress: currentQuestion } = useSelector(({ user }: prop) => user.test);
   const { response, id, question, point, example } = questions[questionIndex];
   const seniorityText: Seniority = getSeniorityText(seniority, initialState);
@@ -52,7 +53,7 @@ const Questions = () => {
     if (state === Status.Nexting) {
       navigate(`/question/${nextQuestion}`, { replace: true });
 
-      if (nextQuestion === 17) {
+      if (nextQuestion === limitQuestions) {
         dispatch(
           modifyUser({ seniorityGlobal: seniorityText, test: { name: Categories.General, progress: questionIndex, pts: seniority } }),
         );
