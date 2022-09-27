@@ -8,11 +8,23 @@ export interface FirebaseUser {
   username: string;
   refreshToken?: string;
   test: ITest;
+  seniorities: ISeniority;
 }
 
 export interface UserLogin {
   email: string;
   password: string;
+}
+
+export interface ICategory {
+  pts: number;
+  txt: string;
+}
+
+export interface ISeniority {
+  html: ICategory;
+  js: ICategory;
+  css: ICategory;
 }
 
 export const enum Rol {
