@@ -8,7 +8,6 @@ export interface FirebaseUser {
   username: string;
   refreshToken?: string;
   test: ITest;
-  seniorities: ISeniority;
 }
 
 export interface UserLogin {
@@ -19,12 +18,14 @@ export interface UserLogin {
 export interface ICategory {
   pts: number;
   txt: string;
+  initialValue: number;
 }
 
 export interface ISeniority {
   html: ICategory;
   js: ICategory;
   css: ICategory;
+  global: string;
 }
 
 export const enum Rol {

@@ -17,20 +17,6 @@ export const UserEmptyState: FirebaseUser = {
     progress: 1,
     pts: 0,
   },
-  seniorities: {
-    js: {
-      pts: 0,
-      txt: '',
-    },
-    css: {
-      pts: 0,
-      txt: '',
-    },
-    html: {
-      pts: 0,
-      txt: '',
-    },
-  },
 };
 
 export const userSlice = createSlice({
