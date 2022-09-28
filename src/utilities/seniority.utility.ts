@@ -1,5 +1,5 @@
 import { getDataLocalStorage, getSeniorityText } from '@/utilities';
-import { localStorageEntities, IQuestion } from '@/models';
+import { localStorageEntities, IQuestion, ISeniority, ICategory } from '@/models';
 
 export const filterForTech = (techs: string[] = ['JavaScript', 'Html5']) => {
   const questionsForSeniorities: any = {};
@@ -16,7 +16,7 @@ export const filterForTech = (techs: string[] = ['JavaScript', 'Html5']) => {
   return questionsForSeniorities;
 };
 
-export const determinateSeniorities = (seniorities?: any) => {
+export const determinateSeniorities = (seniorities: any) => {
   const questionsForTech = filterForTech();
   const currentSeniorities: any = {};
 
@@ -31,7 +31,8 @@ export const determinateSeniorities = (seniorities?: any) => {
     acumInitial += initialValue;
     acumPts += currentValue;
 
-    currentSeniorities[tech] = seniorityText;
+    currentSeniorities[tech].txt = seniorityText;
+    currentSeniorities[tech].pts = currentValue;
   }
 
   currentSeniorities.global = getSeniorityText(acumPts, acumInitial);

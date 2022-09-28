@@ -18,7 +18,6 @@ export interface UserLogin {
 export interface ICategory {
   pts: number;
   txt: Seniority;
-  initialValue?: number;
 }
 
 export interface ISeniority {

@@ -23,6 +23,13 @@ export const senioritiesSlice = createSlice({
   name: 'seniorities',
   initialState: getDataLocalStorage<ISeniority>(localStorageEntities.seniorities) || emptySeniorities,
   reducers: {
+    createSeniorities: (_, { payload }) => {
+      persistDataLocalStorage<ISeniority>({
+        data: payload,
+        entity: localStorageEntities.seniorities,
+      });
+      return payload;
+    },
     modifySeniority: (state, { payload }) => {
       const seniorityUpdated: ISeniority = { ...state, ...payload };
       persistDataLocalStorage({
@@ -41,6 +48,6 @@ export const senioritiesSlice = createSlice({
   },
 });
 
-export const { resetSeniorities, modifySeniority } = senioritiesSlice.actions;
+export const { resetSeniorities, modifySeniority, createSeniorities } = senioritiesSlice.actions;
 
 export default senioritiesSlice.reducer;

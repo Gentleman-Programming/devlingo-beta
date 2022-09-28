@@ -10,10 +10,7 @@ import { IQuestion, localStorageEntities, FirebaseUser, IResponse, Categories, S
 import { Code } from '@/components';
 import { useQuestions, useSeniority } from '@/hooks';
 import { modifyUser } from '@/redux';
-
-type prop = {
-  user: FirebaseUser;
-};
+import { AppStore } from '@/redux/store';
 
 const Questions = () => {
   const { id: index } = useParams();
@@ -28,7 +25,7 @@ const Questions = () => {
   const questionIndex = parseInt(index as string) - 1;
   const questions = getDataLocalStorage<IQuestion[]>(localStorageEntities.questions);
   const limitQuestions = questions.length + 1;
-  const { progress: currentQuestion } = useSelector(({ user }: prop) => user.test);
+  const { progress: currentQuestion } = useSelector(({ user }: AppStore) => user.test);
   const { response, id, question, point, example } = questions[questionIndex];
   const seniorityText: Seniority = getSeniorityText(seniority, initialState);
   const nextQuestion = questionIndex + 2;
@@ -67,7 +64,6 @@ const Questions = () => {
   const handleSelect = ({ isCorrect }: IResponse) => {
     setState(Status.Answered);
     dispatch(modifyUser({ test: { name: Categories.General, progress: nextQuestion, pts: seniority } }));
-    console.log(determinateSeniorities());
 
     if (!isCorrect) {
       dispatch(modifyUser({ test: { name: Categories.General, progress: nextQuestion, pts: seniority - point } }));
