@@ -1,5 +1,5 @@
 import { getDataLocalStorage, getSeniorityText } from '@/utilities';
-import { localStorageEntities, IQuestion, ISeniority, ICategory } from '@/models';
+import { localStorageEntities, IQuestion } from '@/models';
 
 export const filterForTech = (techs: string[] = ['JavaScript', 'Html5']) => {
   const questionsForSeniorities: any = {};
