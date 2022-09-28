@@ -4,7 +4,6 @@ import { localStorageEntities, IQuestion } from '@/models';
 export const filterForTech = (techs: string[] = ['JavaScript', 'Html5']) => {
   const questionsForSeniorities: any = {};
   const questions = getDataLocalStorage<IQuestion[]>(localStorageEntities.questions);
-  console.log(questions);
 
   for (const tech of techs) {
     const questsTech = questions.filter(({ techName }) => techName === tech);
