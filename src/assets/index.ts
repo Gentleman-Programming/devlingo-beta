@@ -8,3 +8,4 @@ export { default as BubbleHero5 } from './bubble-hero5.svg';
 export { default as BubbleHero6 } from './bubble-hero6.svg';
 export { default as BubbleMiddle1 } from './bubble-middle1.svg';
 export { default as Background } from './background.svg';
+export { default as teclado } from './teclado.mp3';

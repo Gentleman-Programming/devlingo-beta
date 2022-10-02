@@ -66,7 +66,7 @@ export const Dashboard = () => {
 
   return (
     <Main $quest={quest && viewportWidth > 700}>
-      {viewportWidth < 700 && quest ? null : <MustachyWithDialog dialogWidth="calc(17ch + 10vmax)">{text}</MustachyWithDialog>}
+      <MustachyWithDialog>{text}</MustachyWithDialog>
       <FloatingButton onClick={HandleClick}>Continuar</FloatingButton>
     </Main>
   );
