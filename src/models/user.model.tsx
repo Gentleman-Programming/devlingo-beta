@@ -1,13 +1,13 @@
 import { ITest, Seniority } from './';
 export interface FirebaseUser {
-  uid: string;
+  uid?: string;
   accessToken?: string;
-  email: string;
+  email?: string;
   seniorityGlobal?: string;
-  role: Rol;
-  username: string;
+  role?: Rol;
+  username?: string;
   refreshToken?: string;
-  test: ITest;
+  test?: ITest;
 }
 
 export interface UserLogin {
@@ -18,11 +18,12 @@ export interface UserLogin {
 export interface ICategory {
   pts: number;
   txt: Seniority;
+  initialValue?: number;
 }
 
 export interface ISeniority {
-  html?: ICategory;
-  js?: ICategory;
+  Html5?: ICategory;
+  JavaScript?: ICategory;
   css?: ICategory;
   global?: Seniority;
 }

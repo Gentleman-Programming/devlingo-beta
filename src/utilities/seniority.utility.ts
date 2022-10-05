@@ -5,12 +5,12 @@ export const filterForTech = (techs: string[] = ['JavaScript', 'Html5']) => {
   const questionsForSeniorities: any = {};
   const questions = getDataLocalStorage<IQuestion[]>(localStorageEntities.questions);
 
-  for (const tech of techs) {
+  techs.forEach((tech) => {
     const questsTech = questions.filter(({ techName }) => techName === tech);
     const initialValue = questsTech.reduce((acum, { point }) => acum + point, 0);
 
     questionsForSeniorities[tech] = { questions: questsTech, initialValue };
-  }
+  });
 
   return questionsForSeniorities;
 };

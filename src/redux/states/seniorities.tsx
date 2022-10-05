@@ -1,19 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { persistDataLocalStorage, getDataLocalStorage, filterForTech } from '@/utilities';
+import { persistDataLocalStorage, getDataLocalStorage } from '@/utilities';
 import { localStorageEntities, ISeniority, Seniority } from '@/models';
 
 export const emptySeniorities: ISeniority = {
-  html: {
-    pts: 0,
+  Html5: {
+    pts: 1000,
     txt: Seniority.SR,
   },
   css: {
-    pts: 0,
+    pts: 1000,
     txt: Seniority.SR,
   },
-  js: {
-    pts: 0,
+  JavaScript: {
+    pts: 1000,
     txt: Seniority.SR,
   },
   global: Seniority.SR,
