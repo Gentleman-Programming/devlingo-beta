@@ -1,19 +1,18 @@
+import { AccountCircle } from '@mui/icons-material';
+import GoogleIcon from '@mui/icons-material/Google';
+import { InputAdornment } from '@mui/material';
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
+
 import { createAddaptedUser } from '@/adapters';
 import mustachi from '@/assets/mustachi.svg';
 import { AuthProvider, SignInWithProviderButton } from '@/components';
 import { Input, InputType } from '@/components/Input';
 import InputPassword from '@/components/InputPassword';
-import { useYupValidationResolver } from '@/hooks';
-import { EmailRegex, PasswordRegex, UserLogin } from '@/models';
-import { createUser } from '@/redux/states/user';
+import { useYupValidationResolver, useUser } from '@/hooks';
+import { EmailRegex, FirebaseUser, PasswordRegex, UserLogin } from '@/models';
 import { LoginPasswordAndEmail } from '@/services/firebase/firebase.service';
 import { Button, Circle, Form, Mustachi, StyledLink } from '@/styled-components';
-import { AccountCircle } from '@mui/icons-material';
-import GoogleIcon from '@mui/icons-material/Google';
-import { InputAdornment } from '@mui/material';
-import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
-import * as yup from 'yup';
 import { CenterDiv } from '../Register/styled-components';
 import { Layout } from './styled-components';
 
@@ -22,24 +21,24 @@ const schema = yup.object({
   password: yup
     .string()
     .matches(PasswordRegex, 'la contraseña debe contener minimo 8 caracteres, una mayuscula, un numero y un caracter especial')
-    .required('debe ingresar una contraseña')
+    .required('debe ingresar una contraseña'),
 });
 
 export const Login = () => {
-  const dispatch = useDispatch();
+  const { CreateUser } = useUser();
 
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
-    resolver: useYupValidationResolver(schema)
+    resolver: useYupValidationResolver(schema),
   });
 
   const handleLogin = async (dataUser: UserLogin) => {
     const user = await LoginPasswordAndEmail(dataUser);
     const adapterUser = await createAddaptedUser(user);
-    dispatch(createUser(adapterUser));
+    CreateUser(adapterUser as FirebaseUser);
   };
 
   return (
@@ -64,7 +63,7 @@ export const Login = () => {
               <InputAdornment position="start">
                 <AccountCircle fontSize="large" />
               </InputAdornment>
-            )
+            ),
           }}
         />
         <InputPassword errors={errors} register={register} />

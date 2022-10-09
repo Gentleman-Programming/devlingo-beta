@@ -1,34 +1,27 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { FloatingButton, Main } from '@/pages/Dashboard/styled-components';
 import { MustachyWithDialog, Options } from '@/pages';
-import { Layout } from '@/components';
+import { Layout, Code } from '@/components';
 import { getDataLocalStorage, getSeniorityText } from '@/utilities';
-import { IQuestion, localStorageEntities, FirebaseUser, IResponse, Categories, Seniority, Status } from '@/models';
-import { Code } from '@/components';
-import { useQuestions } from '@/hooks';
-import { modifyUser } from '@/redux';
-
-type prop = {
-  user: FirebaseUser;
-};
+import { IQuestion, localStorageEntities, IResponse, Categories, Seniority, Status, ICategory } from '@/models';
+import { useQuestions, useSeniority, useUser } from '@/hooks';
 
 const Questions = () => {
   const { id: index } = useParams();
-  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
-
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { seniority, initialState, DecrementSeniority } = useQuestions();
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+  const { user, ModifyUser } = useUser();
+  const { seniority, initialState } = useQuestions();
+  const { seniorities, UpdateSeniorities } = useSeniority();
 
   const [state, setState] = useState<Status>(Status.Pending);
 
   const questionIndex = parseInt(index as string) - 1;
   const questions = getDataLocalStorage<IQuestion[]>(localStorageEntities.questions);
-  const { progress: currentQuestion } = useSelector(({ user }: prop) => user.test);
-  const { response, id, question, point, example } = questions[questionIndex];
+  const limitQuestions = questions.length + 1;
+  const { response, id, question, point, example, techName } = questions[questionIndex];
   const seniorityText: Seniority = getSeniorityText(seniority, initialState);
   const nextQuestion = questionIndex + 2;
 
@@ -45,17 +38,15 @@ const Questions = () => {
   }, []);
 
   useEffect(() => {
-    if (currentQuestion !== questionIndex) navigate(`/question/${currentQuestion}`);
+    if ((user.test?.progress as number) !== questionIndex) navigate(`/question/${user.test?.progress as number}`);
   }, []);
 
   useEffect(() => {
     if (state === Status.Nexting) {
       navigate(`/question/${nextQuestion}`, { replace: true });
 
-      if (nextQuestion === 17) {
-        dispatch(
-          modifyUser({ seniorityGlobal: seniorityText, test: { name: Categories.General, progress: questionIndex, pts: seniority } }),
-        );
+      if (nextQuestion === limitQuestions) {
+        ModifyUser({ seniorityGlobal: seniorityText, test: { name: Categories.General, progress: questionIndex, pts: seniority } });
 
         navigate('/results', { replace: true, state: seniorityText });
       }
@@ -65,11 +56,23 @@ const Questions = () => {
 
   const handleSelect = ({ isCorrect }: IResponse) => {
     setState(Status.Answered);
-    dispatch(modifyUser({ test: { name: Categories.General, progress: nextQuestion, pts: seniority } }));
+    const tech: ICategory = seniorities[techName];
+    ModifyUser({ test: { name: Categories.General, progress: nextQuestion, pts: seniority } });
 
     if (!isCorrect) {
-      dispatch(modifyUser({ test: { name: Categories.General, progress: nextQuestion, pts: seniority - point } }));
-      DecrementSeniority(point);
+      const currentPts = tech.pts - point;
+
+      ModifyUser({ test: { name: Categories.General, progress: nextQuestion, pts: seniority - point } });
+
+      UpdateSeniorities({
+        ...seniorities,
+        [techName as string]: {
+          ...tech,
+          pts: currentPts,
+          txt: getSeniorityText(currentPts, tech?.initialValue as number),
+        },
+        global: getSeniorityText(seniority, initialState),
+      });
     }
   };
 

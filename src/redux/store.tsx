@@ -1,13 +1,15 @@
-import { FirebaseUser } from '@/models';
+import { FirebaseUser, ISeniority } from '@/models';
 import { configureStore } from '@reduxjs/toolkit';
-import { userSlice } from './states/user';
+import { userSlice, senioritiesSlice } from './states';
 
 export interface AppStore {
   user: FirebaseUser;
+  seniorities: ISeniority;
 }
 
 export default configureStore<AppStore>({
   reducer: {
     user: userSlice.reducer,
+    seniorities: senioritiesSlice.reducer,
   },
 });

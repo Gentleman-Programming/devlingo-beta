@@ -1,18 +1,31 @@
-import { ITest } from './';
+import { ITest, Seniority } from './';
 export interface FirebaseUser {
-  uid: string;
+  uid?: string;
   accessToken?: string;
-  email: string;
+  email?: string;
   seniorityGlobal?: string;
-  role: Rol;
-  username: string;
+  role?: Rol;
+  username?: string;
   refreshToken?: string;
-  test: ITest;
+  test?: ITest;
 }
 
 export interface UserLogin {
   email: string;
   password: string;
+}
+
+export interface ICategory {
+  pts: number;
+  txt: Seniority;
+  initialValue?: number;
+}
+
+export interface ISeniority {
+  Html5?: ICategory;
+  JavaScript?: ICategory;
+  css?: ICategory;
+  global?: Seniority;
 }
 
 export const enum Rol {

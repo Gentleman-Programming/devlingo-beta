@@ -1,10 +1,9 @@
 import { MouseEvent } from 'react';
 import styled from 'styled-components';
 
-import { useQuestions } from '@/hooks';
+import { useSeniority } from '@/hooks';
 import { Button } from '@/components';
 import { IResponse, Status } from '@/models';
-import { getSeniorityText } from '@/utilities';
 
 interface StyledButtonProps {
   correct: boolean;
@@ -54,15 +53,13 @@ interface Props {
 }
 
 export function Options({ options, handleSelect, state, id }: Props) {
-  const { seniority, initialState } = useQuestions();
+  const { seniorities } = useSeniority();
 
   const onSelect = (e: MouseEvent<HTMLButtonElement>, option: IResponse, index: number) => {
     e.currentTarget.classList.add('active');
 
     handleSelect(option);
   };
-
-  const seniorityText = getSeniorityText(seniority, initialState);
 
   return (
     <div style={{ gridArea: 'options' }}>
@@ -80,7 +77,7 @@ export function Options({ options, handleSelect, state, id }: Props) {
           ))}
         </OptionsContainer>
       </div>
-      <Container>{seniorityText}</Container>
+      <Container>{seniorities.global}</Container>
     </div>
   );
 }

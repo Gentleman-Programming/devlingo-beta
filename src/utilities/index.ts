@@ -6,3 +6,4 @@ export * from './snackbar.utility';
 export * from './verifyUser.utility';
 export * from './feature-flags.utility';
 export * from './getSeniorityText.utility';
+export * from './seniority.utility';
