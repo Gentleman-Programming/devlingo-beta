@@ -1,4 +1,5 @@
-import { ITest, Seniority } from './';
+import { ITest, Seniority } from '@/models';
+
 export interface FirebaseUser {
   uid?: string;
   accessToken?: string;

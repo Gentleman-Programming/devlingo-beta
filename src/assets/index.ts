@@ -9,3 +9,6 @@ export { default as BubbleHero6 } from './bubble-hero6.svg';
 export { default as BubbleMiddle1 } from './bubble-middle1.svg';
 export { default as Background } from './background.svg';
 export { default as teclado } from './teclado.mp3';
+export { default as css } from './css.svg';
+export { default as javascript } from './javascript.svg';
+export { default as html } from './html.svg';

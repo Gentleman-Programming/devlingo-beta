@@ -1,13 +1,34 @@
+import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 
 import { useSeniority } from '@/hooks';
+import { Icon, Layout } from '@/components';
+import { ICategory } from '@/models';
 import { Main } from '@/pages/Dashboard/styled-components';
-import { Layout } from '@/components';
+import { css, html, javascript } from '@/assets';
+import { MustachyWithDialog } from '../Dashboard';
 
 const Results = () => {
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
   const { seniorities } = useSeniority();
+
   const categories = Object.keys(seniorities);
+
+  const icon = {
+    JavaScript: javascript,
+    css: css,
+    Html5: html,
+    global: '',
+  };
+
+  const Technology = styled.h2`
+    color: #fff;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 1ch;
+    font-size: 1.2rem;
+  `;
 
   useEffect(() => {
     const onResize = () => {
@@ -21,19 +42,29 @@ const Results = () => {
     };
   }, []);
 
+  const Container = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    grid-column: 1 / 3;
+    text-align: center;
+    text-transform: uppercase;
+  `;
+
   return (
     <Layout>
       <Main $quest={viewportWidth > 700}>
-        <h1 style={{ color: '#fff', fontSize: '3em', textAlign: 'center' }}>Eres {seniorities.global}</h1>
-        {categories.map((category) => {
-          if (category === 'global') return null;
-
-          return (
-            <h2>
-              <b>{category}</b>: {seniorities[category]?.txt}
-            </h2>
-          );
-        })}
+        <MustachyWithDialog>{`Eres ${seniorities.global}`}</MustachyWithDialog>
+        <Container>
+          {categories.map((category) => {
+            return category === 'global' ? null : (
+              <Technology key={category}>
+                <Icon icon={icon[category as keyof typeof seniorities]} />
+                <b>{category}</b> : {(seniorities[category as keyof typeof seniorities] as ICategory).txt}
+              </Technology>
+            );
+          })}
+        </Container>
       </Main>
     </Layout>
   );
