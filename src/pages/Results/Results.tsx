@@ -24,7 +24,7 @@ const Results = () => {
   const Technology = styled.h2`
     color: #fff;
     display: inline-flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     column-gap: 1ch;
     font-size: 1.2rem;
@@ -47,7 +47,7 @@ const Results = () => {
     flex-wrap: wrap;
     flex-direction: column;
     grid-column: 1 / 3;
-    text-align: center;
+    /*  text-align: center; */
     text-transform: uppercase;
   `;
 
