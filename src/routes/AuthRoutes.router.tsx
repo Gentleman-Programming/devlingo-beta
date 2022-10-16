@@ -3,7 +3,6 @@ import { Routes, Route } from 'react-router';
 
 import { useUser } from '@/hooks';
 import { verifyExistSeniority } from '@/utilities';
-import { QuestionProvider } from '@/contexts';
 import { RouterGuard } from '@/components';
 
 const Dashboard = lazy(() => import('@/pages/Dashboard/Dashboard'));
@@ -19,14 +18,7 @@ const AuthRouter = () => {
     <Routes>
       <Route element={<RouterGuard isValid={isExistSeniority} replaceLink="/results" />}>
         <Route path={'dashboard/*'} element={<Dashboard />} />
-        <Route
-          path={'question/:id'}
-          element={
-            <QuestionProvider>
-              <Questions />
-            </QuestionProvider>
-          }
-        />
+        <Route path={'question/:id'} element={<Questions />} />
       </Route>
 
       <Route element={<RouterGuard isValid={notExistSeniority} replaceLink="/question/1" />}>

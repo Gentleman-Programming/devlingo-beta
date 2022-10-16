@@ -6,23 +6,21 @@ import { MustachyWithDialog, Options } from '@/pages';
 import { Layout, Code } from '@/components';
 import { getDataLocalStorage, getSeniorityText } from '@/utilities';
 import { IQuestion, localStorageEntities, IResponse, Categories, Seniority, Status, ICategory } from '@/models';
-import { useQuestions, useSeniority, useUser } from '@/hooks';
+import { useSeniority, useUser } from '@/hooks';
 
 const Questions = () => {
   const { id: index } = useParams();
   const navigate = useNavigate();
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
   const { user, ModifyUser } = useUser();
-  const { seniority, initialState } = useQuestions();
   const { seniorities, UpdateSeniorities } = useSeniority();
-
   const [state, setState] = useState<Status>(Status.Pending);
 
   const questionIndex = parseInt(index as string) - 1;
   const questions = getDataLocalStorage<IQuestion[]>(localStorageEntities.questions);
   const limitQuestions = questions.length + 1;
   const { response, id, question, point, example, techName } = questions[questionIndex];
-  const seniorityText: Seniority = getSeniorityText(seniority, initialState);
+  const seniorityText: Seniority = getSeniorityText(seniorities.pts, seniorities.initialValue);
   const nextQuestion = questionIndex + 2;
 
   useEffect(() => {
@@ -46,7 +44,7 @@ const Questions = () => {
       navigate(`/question/${nextQuestion}`, { replace: true });
 
       if (nextQuestion === limitQuestions) {
-        ModifyUser({ seniorityGlobal: seniorityText, test: { name: Categories.General, progress: questionIndex, pts: seniority } });
+        ModifyUser({ seniorityGlobal: seniorityText, test: { pts: seniorities.pts, name: Categories.General, progress: questionIndex } });
 
         navigate('/results', { replace: true, state: seniorityText });
       }
@@ -57,12 +55,13 @@ const Questions = () => {
   const handleSelect = ({ isCorrect }: IResponse) => {
     setState(Status.Answered);
     const tech: ICategory = seniorities[techName];
-    ModifyUser({ test: { name: Categories.General, progress: nextQuestion, pts: seniority } });
+    ModifyUser({ test: { pts: seniorities.pts, name: Categories.General, progress: nextQuestion } });
 
     if (!isCorrect) {
       const currentPts = tech.pts - point;
+      const currentGlobalPts = seniorities.pts - point;
 
-      ModifyUser({ test: { name: Categories.General, progress: nextQuestion, pts: seniority - point } });
+      ModifyUser({ test: { name: Categories.General, progress: nextQuestion, pts: currentGlobalPts } });
 
       UpdateSeniorities({
         ...seniorities,
@@ -71,9 +70,12 @@ const Questions = () => {
           pts: currentPts,
           txt: getSeniorityText(currentPts, tech?.initialValue as number),
         },
-        global: getSeniorityText(seniority, initialState),
+        global: getSeniorityText(seniorities.pts, seniorities.initialValue),
+        pts: currentGlobalPts,
       });
     }
+
+    console.log(seniorities);
   };
 
   const goNext = () => {

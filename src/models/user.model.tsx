@@ -27,6 +27,8 @@ export interface ISeniority {
   JavaScript?: ICategory;
   css?: ICategory;
   global?: Seniority;
+  initialValue: number;
+  pts: number;
 }
 
 export const enum Rol {

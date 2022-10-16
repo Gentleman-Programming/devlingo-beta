@@ -5,11 +5,12 @@ export const getSeniorityText = (seniority: number, initialState: number) => {
   const midPercent = initialState * 0.5;
   if (seniority === initialState) {
     return Seniority.SR;
-  } else if (seniority < initialState && seniority >= hightPercent) {
-    return Seniority.SSR;
-  } else if (seniority < hightPercent && seniority >= midPercent) {
-    return Seniority.JR;
-  } else {
-    return Seniority.TR;
   }
+  if (seniority < initialState && seniority >= hightPercent) {
+    return Seniority.SSR;
+  }
+  if (seniority < hightPercent && seniority >= midPercent) {
+    return Seniority.JR;
+  }
+  return Seniority.TR;
 };

@@ -17,6 +17,8 @@ export const emptySeniorities: ISeniority = {
     txt: Seniority.SR,
   },
   global: Seniority.SR,
+  initialValue: 1000,
+  pts: 1000,
 };
 
 export const senioritiesSlice = createSlice({

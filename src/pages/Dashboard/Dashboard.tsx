@@ -48,6 +48,8 @@ export const Dashboard = () => {
 
     const generalSeniority = getSeniorityText(acumPts, acumPts);
     initSeniorities.global = generalSeniority;
+    initSeniorities.initialValue = acumPts;
+    initSeniorities.pts = acumPts;
 
     CreateSeniorities(initSeniorities);
   };

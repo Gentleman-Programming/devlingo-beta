@@ -11,8 +11,9 @@ import { MustachyWithDialog } from '../Dashboard';
 const Results = () => {
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
   const { seniorities } = useSeniority();
+  const { pts, initialValue, ...techs } = seniorities;
 
-  const categories = Object.keys(seniorities);
+  const categories = Object.keys(techs);
 
   const icon = {
     JavaScript: javascript,
@@ -24,7 +25,6 @@ const Results = () => {
   const Technology = styled.h2`
     color: #fff;
     display: inline-flex;
-    /* justify-content: center; */
     align-items: center;
     column-gap: 1ch;
     font-size: 1.2rem;
@@ -47,7 +47,6 @@ const Results = () => {
     flex-wrap: wrap;
     flex-direction: column;
     grid-column: 1 / 3;
-    /*  text-align: center; */
     text-transform: uppercase;
   `;
 
@@ -57,11 +56,13 @@ const Results = () => {
         <MustachyWithDialog>{`Eres ${seniorities.global}`}</MustachyWithDialog>
         <Container>
           {categories.map((category) => {
-            return category === 'global' ? null : (
-              <Technology key={category}>
-                <Icon icon={icon[category as keyof typeof seniorities]} />
-                <b>{category}</b> : {(seniorities[category as keyof typeof seniorities] as ICategory).txt}
-              </Technology>
+            return (
+              category !== 'global' && (
+                <Technology key={category}>
+                  <Icon icon={icon[category as keyof typeof seniorities]} />
+                  <b>{category}</b> : {(seniorities[category as keyof typeof seniorities] as ICategory).txt}
+                </Technology>
+              )
             );
           })}
         </Container>
