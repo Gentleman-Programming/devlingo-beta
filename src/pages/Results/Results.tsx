@@ -24,9 +24,10 @@ const Results = () => {
   return (
     <Layout>
       <Main $quest={viewportWidth > 700}>
-        <h1 style={{ color: '#fff', fontSize: '3em', textAlign: 'center' }}>Eres {seniorities.global}</h1>
         {categories.map((category) => {
-          if (category === 'global') return null;
+          if (category === 'global') {
+            return <h1 style={{ color: '#fff', fontSize: '3em', textAlign: 'center' }}>Eres {seniorities.global}</h1>;
+          }
 
           return (
             <h2>
