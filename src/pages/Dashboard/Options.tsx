@@ -10,10 +10,15 @@ interface StyledButtonProps {
 }
 
 const StyledButton = styled(Button)<StyledButtonProps>`
-  --result: ${({ correct }) => (correct ? '#68ff2c' : '#f22')};
+  --bgResult: ${({ correct }) => (correct ? '#18ea6f' : '#ea183f')};
+  --colorResult: ${({ correct }) => (correct ? '#333' : '#f2f2f2')};
+  --boxShadowResult: ${({ correct }) => (correct ? '#13a16d' : '#a1132f')};
 
   &.active {
-    background-color: var(--result);
+    background-color: var(--bgResult);
+    color: var(--colorResult);
+    border: 0.3vw solid var(--bgResult);
+    box-shadow: 0 1ch var(--boxShadowResult);
   }
 `;
 
