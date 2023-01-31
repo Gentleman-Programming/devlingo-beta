@@ -52,7 +52,7 @@ interface Props {
   state: Status;
 }
 
-export function Options({ options, handleSelect, state, id }: Props) {
+export function Options({ options, handleSelect, state, id, points, index }: Props) {
   const { seniorities } = useSeniority();
 
   const onSelect = (e: MouseEvent<HTMLButtonElement>, option: IResponse, index: number) => {

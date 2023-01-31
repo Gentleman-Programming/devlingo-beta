@@ -1,4 +1,4 @@
-import { IQuestion, seniority } from '@/models';
+import { IQuestion, Seniority } from '@/models';
 import { db } from './firebase.config';
 import { collection, addDoc, getDocs, doc, query, updateDoc, deleteDoc } from 'firebase/firestore';
 
@@ -10,7 +10,7 @@ import { collection, addDoc, getDocs, doc, query, updateDoc, deleteDoc } from 'f
  * @param data The data to be contained in each registered seniority document.
  * @returns void
  */
-export const addCollection = async (techName: string, seniority: seniority, data: IQuestion) => {
+export const addCollection = async (techName: string, seniority: Seniority, data: IQuestion) => {
   await addDoc(collection(db, 'questions'), {
     techName,
     seniority,

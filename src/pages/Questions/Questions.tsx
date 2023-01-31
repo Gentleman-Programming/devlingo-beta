@@ -71,7 +71,7 @@ const Questions = () => {
           pts: currentPts,
           txt: getSeniorityText(currentPts, tech?.initialValue as number),
         },
-        global: getSeniorityText(seniority, initialState),
+        global: getSeniorityText(currentPts, tech?.initialValue as number),
       });
     }
   };
