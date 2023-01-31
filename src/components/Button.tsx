@@ -17,6 +17,12 @@ export const Button = styled.button<{ primary?: string }>`
     transform: translateY(5px);
   }
 
+  &:hover {
+    cursor: pointer;
+    background-color: #ff1f97;
+    border: 0.3ch solid #ff1f97;
+  }
+
   &:disabled {
     opacity: 0.5;
     box-shadow: unset;
