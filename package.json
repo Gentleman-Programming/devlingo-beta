@@ -73,7 +73,7 @@
     "jest": "^28.1.0",
     "prettier": "^2.5.1",
     "react-test-renderer": "^18.1.0",
-    "rollup": "^2.69.1",
+    "rollup": "^3.14.0",
     "rxjs": "^7.5.4",
     "source-map-explorer": "^2.5.2",
     "ts-jest": "^28.0.2",
